@@ -1,318 +1,376 @@
-import React, { useState, useEffect, useRef } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FaPlus, FaMinus, FaMoon, FaSun, FaInfoCircle } from "react-icons/fa";
 import { Chart } from "chart.js/auto";
 
-const Tracker = () => {
+/**
+ * Modern Waste Tracker (no upload, no backend)
+ * - English UI, slate dark theme
+ * - Keeps the previous richer feel (chart + info) but cleaner and more modern
+ * - Inputs allow empty "" (no sticky zero). Placeholder shows 0.
+ * - Responsive 1/2/4 card grid; elegant panel after "Track Waste"
+ * - No footer
+ */
+
+const ITEMS = [
+  { key: "value1", label: "Plastic Bottles", color: "#6366F1", multiplier: 480 }, // indigo-500
+  { key: "value2", label: "Plastic Bags",    color: "#F59E0B", multiplier: 220 }, // amber-500
+  { key: "value3", label: "Straws",          color: "#10B981", multiplier: 93  }, // emerald-500
+  { key: "value4", label: "Food Packaging",  color: "#F43F5E", multiplier: 150 }, // rose-500
+];
+
+// concise knowledge cards (modern & scannable)
+const KNOWLEDGE = {
+  "Plastic Bottles": {
+    summary: "Widely recyclable when clean and dry (PET #1).",
+    tips: ["Rinse, dry, and squash.", "Keep caps on if local rules allow."],
+    impact: "If littered, fragments into microplastics in waterways.",
+  },
+  "Plastic Bags": {
+    summary: "Thin film is often low-value and easily contaminated.",
+    tips: ["Carry a reusable tote.", "Reuse bags for dry waste only."],
+    impact: "Can clog drains and harm wildlife if escaped.",
+  },
+  "Straws": {
+    summary: "Small & lightweight; often missed in collection.",
+    tips: ["Skip unless needed.", "Use a reusable straw."],
+    impact: "Risk of ingestion by marine animals.",
+  },
+  "Food Packaging": {
+    summary: "Grease/food residue reduces recyclability.",
+    tips: ["Use reusables when possible.", "If oily → dispose as residual."],
+    impact: "Cross-contamination causes more waste landfilled.",
+  },
+};
+
+export default function Tracker() {
+  // store as strings so inputs can be empty ""
   const [values, setValues] = useState({
-    value1: '',
-    value2: '',
-    value3: '',
-    value4: '',
+    value1: "",
+    value2: "",
+    value3: "",
+    value4: "",
   });
+  const [dark, setDark] = useState(false);
+  const [error, setError] = useState("");
+  const [showPanel, setShowPanel] = useState(false);
 
-  const [showError, setShowError] = useState(false);
-  const [displayChart, setDisplayChart] = useState(false);
-  const [chartType, setChartType] = useState("pie");
   const chartRef = useRef(null);
-  const [chartInstance, setChartInstance] = useState(null);
-  const [rincian, setRincian] = useState({
-    cards: [],
-  });
+  const chartInstance = useRef(null);
 
-  const incrementValue = (key) => {
-    setValues((prev) => ({
-      ...prev,
-      [key]: (parseInt(prev[key], 10) || 0) + 1,
-    }));
+  // slate dark
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) root.classList.add("dark");
+    else root.classList.remove("dark");
+  }, [dark]);
+
+  // helpers
+  const toNum = (s) => {
+    const n = parseInt(s, 10);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
   };
 
-  const decrementValue = (key) => {
-    setValues((prev) => ({
-      ...prev,
-      [key]: (parseInt(prev[key], 10) || 0) > 0 ? (parseInt(prev[key], 10) || 0) - 1 : 0,
-    }));
+  const totalCount = useMemo(
+    () => ITEMS.reduce((acc, it) => acc + toNum(values[it.key]), 0),
+    [values]
+  );
+
+  const weighted = useMemo(() => {
+    return ITEMS.map((it) => {
+      const qty = toNum(values[it.key]);
+      return { label: it.label, color: it.color, pcs: qty, score: qty * it.multiplier };
+    });
+  }, [values]);
+
+  const percentData = useMemo(() => {
+    const sum = weighted.reduce((a, b) => a + b.score, 0);
+    return weighted.map((w) => (sum > 0 ? (w.score / sum) * 100 : 0));
+  }, [weighted]);
+
+  const sorted = useMemo(
+    () =>
+      weighted
+        .map((w, i) => ({ ...w, percent: +percentData[i].toFixed(2) }))
+        .sort((a, b) => b.percent - a.percent),
+    [weighted, percentData]
+  );
+
+  // input handlers
+  const handleChange = (key, raw) => {
+    const v = raw.replace(/[^\d]/g, ""); // digits only
+    setValues((p) => ({ ...p, [key]: v })); // allow ""
   };
+  const inc = (key) => setValues((p) => ({ ...p, [key]: String(toNum(p[key]) + 1) }));
+  const dec = (key) => setValues((p) => ({ ...p, [key]: String(Math.max(toNum(p[key]) - 1, 0)) }));
 
-  const handleInputChange = (key, value) => {
-    if (value === "") {
-      setValues((prev) => ({
-        ...prev,
-        [key]: 0, // Set ke 0 jika input kosong
-      }));
-    } else {
-      const intValue = parseInt(value, 10);
-      setValues((prev) => ({
-        ...prev,
-        [key]: isNaN(intValue) ? 0 : intValue,
-      }));
-    }
-  };
+  const buildChart = () => {
+    const ctx = chartRef.current?.getContext("2d");
+    if (!ctx) return;
+    if (chartInstance.current) chartInstance.current.destroy();
 
-  const calculateTotal = () => {
-    return Object.values(values).reduce((a, b) => a + (parseInt(b, 10) || 0), 0);
-  };
-
-  const handleTrack = () => {
-    const totalValues = calculateTotal();
-
-    if (totalValues === 0) {
-      setShowError(true);
-      setDisplayChart(false);
-    } else {
-      setShowError(false);
-      setDisplayChart(true);
-      generateChart();
-    }
-  };
-
-  const getData = () => {
-    let trash = [];
-    let objects = [
-      "Bottle Plastic",
-      "Plastic Bags",
-      "Straws",
-      "Food Packaging",
-    ];
-    let percentConvert = [];
-    let sigma = 0;
-
-    const multipliers = {
-      value1: 480,
-      value2: 220,
-      value3: 93,
-      value4: 150,
-    };
-
-    trash = Object.keys(values).map(
-      (key) => (parseInt(values[key], 10) || 0) * multipliers[key]
-    );
-    sigma = trash.reduce((a, b) => a + b, 0);
-
-    percentConvert = trash.map((t) =>
-      sigma > 0 ? ((t / sigma) * 100).toFixed(2) : 0
-    );
-
-    const sortedTrash = percentConvert.map((value, index) => ({
-      value: parseFloat(value),
-      object: objects[index],
-      pcs: trash[index],
-    }));
-
-    sortedTrash.sort((a, b) => b.value - a.value);
-
-    const rincianCards = sortedTrash
-      .filter((item) => item.pcs > 0)
-      .map((item, index) => ({
-        id: index + 1,
-        title: item.object,
-        percent: item.value,
-        pcs: item.pcs,
-        compos: trashCompos(item.pcs),
-        save: (item.pcs / 12).toFixed(0),
-      }));
-
-    setRincian({ cards: rincianCards });
-
-    return {
-      sortedValues: sortedTrash.map((item) => item.value),
-      sortedObjects: sortedTrash.map((item) => item.object),
-    };
-  };
-
-  const trashCompos = (a) => {
-    const perSampah = a / 12;
-    const perbulan = perSampah * 450;
-    return perbulan.toFixed(0);
-  };
-
-  const generatePieChart = (sortedValues, sortedObjects) => {
-    if (chartInstance) chartInstance.destroy();
-
-    const newChart = new Chart(chartRef.current, {
-      type: "pie",
+    const rows = sorted.filter((r) => r.pcs > 0);
+    chartInstance.current = new Chart(ctx, {
+      type: "doughnut",
       data: {
-        labels: sortedObjects,
+        labels: rows.map((r) => r.label),
         datasets: [
           {
-            data: sortedValues,
-            backgroundColor: [
-              "#FF6969",
-              "#FFBA69",
-              "#FFDE69",
-              "#F3FF69",
-              "#D3FF56",
-              "#82FF56",
-            ],
+            data: rows.map((r) => r.percent),
+            backgroundColor: rows.map((r) => r.color),
           },
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "58%",
         plugins: {
           legend: {
             position: "bottom",
+            labels: { color: dark ? "#E5E7EB" : "#0F172A" }, // slate-200 / slate-900
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.label}: ${ctx.raw.toFixed(1)}%`,
+            },
           },
         },
       },
     });
-
-    setChartInstance(newChart);
   };
 
-  const generateChart = () => {
-    const { sortedValues, sortedObjects } = getData();
-    if (chartType === "pie") {
-      generatePieChart(sortedValues, sortedObjects);
+  const onTrack = () => {
+    if (totalCount === 0) {
+      setError("Please add at least one item.");
+      setShowPanel(false);
+      return;
     }
+    setError("");
+    setShowPanel(true);
+    // render chart after layout appears
+    setTimeout(buildChart, 0);
   };
 
+  // re-tint chart when theme flips
   useEffect(() => {
-    if (displayChart) {
-      generateChart();
-    }
-  }, [displayChart, chartType]);
+    if (showPanel) setTimeout(buildChart, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dark]);
 
   return (
-    <div className="w-full pt-16 bg-cover bg-center flex flex-col justify-center items-center gap-10">
-      <div className="p-4 rounded-box max-w-full md:max-w-2xl">
-        {showError && (
-          <div className="alert alert-error mb-6 flex items-center p-3 bg-red-100 text-red-700 rounded-lg fixed">
-            <span>Error! Please Enter at least 1 item.</span>
+    <div className="min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+      {/* Top Bar */}
+      <header className="sticky top-0 z-10 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-7 w-7 rounded-xl bg-slate-900 dark:bg-slate-100" />
+            <h1 className="text-lg md:text-xl font-semibold">Waste Tracker</h1>
           </div>
-        )}
-        <ul className="flex flex-col items-center gap-12 lg:gap-16 mb-9 text-black">
-          {["Bottle Plastic", "Plastic Bags", "Straws", "Food Packaging"].map(
-            (item, index) => (
-              <li
-                key={index}
-                className="flex flex-col justify-between gap-6 md:gap-10 items-center"
-              >
-                <p className="text-xl font-semibold text-center text-black dark:text-white">
-                  How Much{" "}
-                  <span className="text-secondary dark:text-primary font-bold">{item}</span> do
-                  You Use?
-                </p>
-                <div className="flex items-center justify-center gap-2 bg-opacity-35 bg-base-300 p-2 rounded-box w-full max-w-xs md:max-w-md">
-                  <button
-                    onClick={() => decrementValue(`value${index + 1}`)}
-                    className="text-black dark:text-white text-lg"
-                  >
-                    <FaMinus />
-                  </button>
-                  <input
-                    type="number"
-                    placeholder="0"
-                    value={values[`value${index + 1}`]}
-                    onChange={(e) =>
-                      handleInputChange(`value${index + 1}`, e.target.value)
-                    }
-                    className="w-16 text-lg font-medium bg-transparent text-center appearance-none outline-none text-black dark:text-white"
-                  />
-                  <button
-                    onClick={() => incrementValue(`value${index + 1}`)}
-                    className="text-black dark:text-white text-lg"
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
-              </li>
-            )
-          )}
-        </ul>
-        <div className="mt-16">
           <button
-            onClick={handleTrack}
-            className="bg-third dark:bg-primary text-white p-4 w-full rounded-box"
+            onClick={() => setDark((d) => !d)}
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-900 transition"
+            aria-label="Toggle theme"
+          >
+            {dark ? <FaSun /> : <FaMoon />}
+            <span className="hidden sm:inline text-sm">{dark ? "Light" : "Dark"}</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Hero / Intro */}
+      <section className="mx-auto max-w-6xl px-4 pt-8 md:pt-12">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 md:p-6 bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-950">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
+                Track your plastic usage, get smart tips.
+              </h2>
+              <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mt-1">
+                Enter today’s counts. See your share breakdown and actionable recycling advice.
+              </p>
+            </div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">
+              Processed on-device. Nothing is uploaded.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Inputs Grid (Modern Cards) */}
+      <section className="mx-auto max-w-6xl px-4 py-8 md:py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {ITEMS.map((it) => {
+          const val = values[it.key];
+          const num = toNum(val);
+          const pct = totalCount > 0 ? Math.min(100, (num / totalCount) * 100) : 0;
+
+          return (
+            <article
+              key={it.key}
+              className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-white dark:bg-slate-950"
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-semibold tracking-tight">{it.label}</h3>
+                <span
+                  className="inline-block h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: it.color }}
+                />
+              </div>
+
+              <div className="mt-4 flex items-center justify-between">
+                <button
+                  onClick={() => dec(it.key)}
+                  className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900"
+                  aria-label={`Decrease ${it.label}`}
+                >
+                  <FaMinus />
+                </button>
+
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="0"
+                  value={val}
+                  onChange={(e) => handleChange(it.key, e.target.value)}
+                  onFocus={(e) => {
+                    if (e.target.value === "0") handleChange(it.key, "");
+                  }}
+                  className="w-24 text-center text-xl font-semibold bg-transparent outline-none border-b border-slate-200 dark:border-slate-700 py-1"
+                />
+
+                <button
+                  onClick={() => inc(it.key)}
+                  className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900"
+                  aria-label={`Increase ${it.label}`}
+                >
+                  <FaPlus />
+                </button>
+              </div>
+
+              {/* subtle progress */}
+              <div className="mt-4 h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                <div
+                  className="h-full"
+                  style={{
+                    width: `${pct.toFixed(0)}%`,
+                    backgroundColor: it.color,
+                    transition: "width .25s ease",
+                  }}
+                />
+              </div>
+
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                Count for today/this week. You choose.
+              </p>
+            </article>
+          );
+        })}
+      </section>
+
+      {/* Action Row */}
+      <section className="mx-auto max-w-6xl px-4 pb-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="flex-1 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 bg-white dark:bg-slate-950">
+            <p className="text-sm">
+              Total items: <span className="font-semibold">{totalCount}</span>
+            </p>
+            {error && <p className="text-sm text-rose-600 mt-1">{error}</p>}
+          </div>
+
+          <button
+            onClick={onTrack}
+            className="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:opacity-90 transition"
           >
             Track Waste
           </button>
         </div>
-      </div>
+      </section>
 
-      {/* Rincian Section */}
-      {rincian.cards.length > 0 && (
-        <section
-          className="min-h-screen py-12 md:py-24 px-7 md:px-16 w-full"
-          id="rincian"
-        >
-          <h1 className="text-3xl md:text-4xl font-bold text-center pb-12 text-black dark:text-white">
-            Details Tracking Waste
-          </h1>
-          <div className="mt-8 lg:mt-12 flex flex-col gap-16">
-            {rincian.cards.map((card) => (
-              <div
-                key={card.id}
-                className="bg-slate-300/30 w-full flex flex-col gap-6 md:gap-8 p-4 md:p-8 py-6 rounded-box"
+      {/* Results Panel */}
+      {showPanel && (
+        <section className="mx-auto max-w-6xl px-4 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Chart Card */}
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-white dark:bg-slate-950 lg:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <FaInfoCircle className="opacity-70" />
+              <h4 className="text-lg font-semibold tracking-tight">Your Breakdown</h4>
+            </div>
+            <div className="relative h-80">
+              <canvas ref={chartRef} />
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
+              Share of each item (estimated yearly impact weighting).
+            </p>
+          </div>
+
+          {/* Knowledge (Modern, concise) */}
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 bg-white dark:bg-slate-950">
+            <h4 className="text-base font-semibold">Quick Actions</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Short, high-impact steps tailored to your top items.
+            </p>
+
+            <div className="mt-4 space-y-3">
+              {sorted
+                .filter((s) => s.pcs > 0)
+                .slice(0, 3)
+                .map((s, i) => {
+                  const k = KNOWLEDGE[s.label];
+                  return (
+                    <article
+                      key={i}
+                      className="rounded-xl border border-slate-200 dark:border-slate-800 p-4"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="font-medium">{s.label}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">
+                          {s.percent}% share
+                        </div>
+                      </div>
+                      <p className="mt-1 text-sm">
+                        {k?.summary ?? "Keep it clean and separate properly."}
+                      </p>
+                      <ul className="mt-2 list-disc pl-4 text-sm space-y-1">
+                        {(k?.tips ?? ["Rinse & dry.", "Follow local rules."]).slice(0, 2).map((t, idx) => (
+                          <li key={idx}>{t}</li>
+                        ))}
+                      </ul>
+                      <details className="mt-2">
+                        <summary className="text-xs text-slate-500 dark:text-slate-400 cursor-pointer">
+                          Why it matters
+                        </summary>
+                        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                          {k?.impact ?? "Better sorting increases actual recycling rates."}
+                        </p>
+                      </details>
+                    </article>
+                  );
+                })}
+              {sorted.every((s) => s.pcs === 0) && (
+                <div className="text-slate-500 text-sm">No data yet.</div>
+              )}
+            </div>
+
+            <div className="mt-5 flex gap-2">
+              <button
+                onClick={() => {
+                  setValues({ value1: "", value2: "", value3: "", value4: "" });
+                  setShowPanel(false);
+                }}
+                className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900"
               >
-                {/* Head */}
-                <div className="bg-opacity-60 p-3 px-4 md:px-6 rounded-box flex justify-between items-center">
-                  <p className="text-[25px] md:text-3xl lg:text-4xl font-semibold text-black dark:text-white">
-                    {card.title}
-                  </p>
-                </div>
-                <div className="lg:flex justify-between items-center lg:gap-12">
-                  {/* Body */}
-                  <div className="flex flex-col bg-opacity-60 rounded-box py-5 md:py-8 lg:px-10 items-center gap-3 md:gap-8">
-                    {/* Number */}
-                    <div className="flex justify-center">
-                      <div className="flex justify-center items-center bg-third min-w-48 md:min-w-96 min-h-48 md:min-h-96 rounded-full text-center">
-                        <p className="text-2xl md:text-3xl font-medium text-white">
-                          {card.percent}%
-                        </p>
-                      </div>
-                      <div className="hidden justify-center items-center border-2 md:border-4 border-gray-500 bg-white min-w-48 md:min-w-96 min-h-48 md:min-h-96 rounded-full text-center">
-                        <p className="dark:text-white text-black text-lg md:text-xl flex flex-col">
-                          <span className="text-2xl md:text-3xl font-medium">
-                            {card.pcs}
-                          </span>
-                          Pcs / year
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Deskripsi */}
-                  <div className="flex flex-col gap-2 md:gap-5 lg:gap-5 mt-8 lg:mt-0">
-                    <div className="flex justify-between items-center">
-                    <p className="text-base md:text-3xl font-semibold lg:text-2xl text-black dark:text-white ">
-                        Generating Waste A Year : {" "}
-                      </p>
-                      <p className="text-xs md:text-lg">
-                        <span className="text-lg md:text-3xl font-medium text-black dark:text-white">
-                          {card.pcs}
-                        </span>{" "}
-                        Pcs
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-base md:text-3xl font-semibold lg:text-2xl text-black dark:text-white ">
-                        Drain Time : {" "}
-                      </p>
-                      <p className="text-xs md:text-lg">
-                        <span className="text-lg md:text-3xl font-medium text-black dark:text-white">
-                          {card.compos}
-                        </span>{" "}
-                        Year
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <p className="text-lg md:text-3xl font-semibold lg:text-2xl text-black dark:text-white ">
-                        You can save :
-                      </p>
-                      <p className="text-xs md:text-lg">
-                        <span className="text-lg md:text-3xl font-medium text-black dark:text-white">
-                          {card.save}
-                        </span>{" "}
-                        Pcs / Month
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                Reset
+              </button>
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="px-4 py-2 rounded-xl bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
+              >
+                Edit Inputs
+              </button>
+            </div>
           </div>
         </section>
       )}
     </div>
   );
-};
-
-export default Tracker;
+}
