@@ -42,34 +42,34 @@ const Header = () => {
               <li>
                 <a>Waste Types</a>
                 <ul className="p-2">
-                  <Link to="/Organic">
+                  <Link to="/organic">
                     <li>
                       <a>Organic</a>
                     </li>
                   </Link>
-                  <Link to="/Inorganic">
+                  <Link to="/inorganic">
                     <li>
                       <a>Inorganic</a>
                     </li>
                   </Link>
-                  <Link to="/B3">
+                  <Link to="/b3">
                     <li>
                       <a>B3</a>
                     </li>
                   </Link>
                 </ul>
               </li>
-              <Link to="/Tracker">
+              <Link to="/tracker">
                 <li>
                   <a>Tracker</a>
                 </li>
               </Link>
-              <Link to="/Quiz">
+              <Link to="/quiz">
                 <li>
                   <a>Quiz</a>
                 </li>
               </Link>
-              <Link to="/Article">
+              <Link to="/article">
                 <li>
                   <a>Articles</a>
                 </li>
@@ -104,17 +104,17 @@ const Header = () => {
               <details>
                 <summary>Waste Types</summary>
                 <ul className="p-2">
-                  <Link to="/Organic">
+                  <Link to="/organic">
                     <li>
                       <a>Organic</a>
                     </li>
                   </Link>
-                  <Link to="/Inorganic">
+                  <Link to="/inorganic">
                     <li>
                       <a>Inorganic</a>
                     </li>
                   </Link>
-                  <Link to="/B3">
+                  <Link to="/b3">
                     <li>
                       <a>B3</a>
                     </li>
@@ -122,7 +122,7 @@ const Header = () => {
                 </ul>
               </details>
             </li>
-            <Link to="/Tracker">
+            <Link to="/tracker">
             <li>
               <a>Tracker</a>
             </li>
@@ -132,7 +132,7 @@ const Header = () => {
               <a>Quiz</a>
             </li>
             </Link>
-            <Link to="/Article">
+            <Link to="/article">
               <li>
                 <a>Articles</a>
               </li>
