@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import imgOrganic1234567 from '../assets/Organic/img-organic7.png';
+import imgOrganic7 from '../assets/Organic/img-organic7.png';
 import li1 from '../assets/Organic/li-1.svg';
 import li2 from '../assets/Organic/li-2.svg';
 import li3 from '../assets/Organic/li-3.svg';
@@ -19,18 +19,18 @@ const Organic = () => {
   const [mapUrl, setMapUrl] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // 🧮 Tambahan state untuk Carbon Calculator
+
   const [waste, setWaste] = useState('');
   const [inputError, setInputError] = useState('');
-  // target numeric results (not directly shown) - displayed values animate to these
+
   const [displayedCo2, setDisplayedCo2] = useState(null);
   const [displayedTrees, setDisplayedTrees] = useState(null);
   const [inputAnimating, setInputAnimating] = useState(false);
   const [isCounting, setIsCounting] = useState(false);
   const co2Frame = useRef(null);
-  // slide index for the selected-method header slideshow (separate from the page-wide carousel)
+
   const [methodSlide, setMethodSlide] = useState(0);
-  // carousel for the "What Is Organic Waste" right column
+
   const whatImages = [
     'https://plus.unsplash.com/premium_photo-1664299231810-29d1caf6f753?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
     'https://plus.unsplash.com/premium_photo-1723300629422-1c985bedc940?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170',
@@ -41,7 +41,7 @@ const Organic = () => {
   const [whatIndex, setWhatIndex] = useState(0);
   const [whatHovered, setWhatHovered] = useState(false);
 
-  // advance carousel every 3s; pause while hovered. use timeout so timer resets after each advance.
+
   useEffect(() => {
     if (whatHovered) return undefined;
     const timer = setTimeout(() => {
@@ -58,31 +58,31 @@ const Organic = () => {
   const detailRefs = useRef({});
   const [activeHero, setActiveHero] = useState(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  // Fungsi untuk menghitung dampak karbon
+
   const handleCalculate = () => {
-    const w = parseFloat(waste);
+    const w = parseFloat(waste); //jadi calculate nya tu ngitung sampah per tahun brp kg gt
     if (isNaN(w) || w <= 0) {
       setDisplayedCo2(null);
       setDisplayedTrees(null);
       return;
     }
 
-    const co2 = w * 1.8; // tiap 1 kg sampah organik = 1.8 kg CO₂ dihemat
-    const trees = co2 / 21; // 1 pohon menyerap ±21 kg CO₂/tahun
+    const co2 = w * 1.8;
+    const trees = co2 / 21;
 
-    // set numeric targets (displayed values will animate)
 
-    // animate counting from 0 to target
-    const duration = 900; // ms
+
+
+    const duration = 900;
     const start = performance.now();
     setIsCounting(true);
 
-    // cancel any existing frame
+
     if (co2Frame.current) cancelAnimationFrame(co2Frame.current);
 
     const animate = (now) => {
       const t = Math.min(1, (now - start) / duration);
-      // easeOutQuad
+
       const ease = 1 - (1 - t) * (1 - t);
       const currentCo2 = co2 * ease;
       const currentTrees = trees * ease;
@@ -92,7 +92,7 @@ const Organic = () => {
       if (t < 1) {
         co2Frame.current = requestAnimationFrame(animate);
       } else {
-        // ensure final values exact
+
         setDisplayedCo2(co2);
         setDisplayedTrees(trees);
         setIsCounting(false);
@@ -102,7 +102,7 @@ const Organic = () => {
     co2Frame.current = requestAnimationFrame(animate);
   };
 
-  // Initialize AOS
+
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -113,7 +113,7 @@ const Organic = () => {
   }, []);
 
   useEffect(() => {
-    // Detect dark mode
+
     const checkDarkMode = () => {
       const isDark = document.documentElement.classList.contains('dark');
       setIsDarkMode(isDark);
@@ -121,7 +121,7 @@ const Organic = () => {
 
     checkDarkMode();
 
-    // Listen for dark mode changes
+
     const observer = new MutationObserver(checkDarkMode);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
@@ -149,12 +149,12 @@ const Organic = () => {
   }, [isDarkMode]);
   useEffect(() => {
     const interval = setInterval(() => {
-      // legacy carousel removed; keep placeholder interval tidy
+
     }, 3500);
     return () => clearInterval(interval);
   }, []);
 
-  // show/hide Back to Top button on scroll
+
   useEffect(() => {
     const onScroll = () => {
       setShowBackToTop(window.scrollY > 400);
@@ -162,7 +162,7 @@ const Organic = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  // cleanup animation frames on unmount
+
   useEffect(() => {
     const c = co2Frame.current;
     return () => {
@@ -174,7 +174,7 @@ const Organic = () => {
   const handleInputChange = (e) => {
     const v = e.target.value;
 
-    // Validasi: hanya terima angka dan desimal
+
     if (v !== '' && (isNaN(v) || v.includes('e') || v.includes('E'))) {
       setInputError('Please enter numbers only');
       return;
@@ -182,7 +182,7 @@ const Organic = () => {
 
     setInputError('');
     setWaste(v);
-    // small scale feedback when typing
+
     setInputAnimating(true);
     if (inputAnimTimeout.current) clearTimeout(inputAnimTimeout.current);
     inputAnimTimeout.current = setTimeout(() => setInputAnimating(false), 180);
@@ -351,7 +351,7 @@ const Organic = () => {
     }
   ];
 
-  // image sets for each method (5 images each)
+
   const methodImageSets = useMemo(() => ({
     'composting': [
       'https://images.unsplash.com/photo-1621496654772-c66c48290259?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
@@ -418,7 +418,7 @@ const Organic = () => {
       description: 'Adds structure and air to your compost mix.',
       detail: 'Garden waste includes dry leaves, grass clippings, and small branches. These materials provide carbon and improve airflow inside compost piles.',
       extraInfo: 'Properly balancing garden waste with food scraps keeps your compost healthy and well-aerated.',
-      img: 'https://images.unsplash.com/photo-1603112032050-5dc5e0250edf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171' // Example garden waste image
+      img: 'https://images.unsplash.com/photo-1603112032050-5dc5e0250edf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171'
     },
     {
       id: 'paper',
@@ -426,7 +426,7 @@ const Organic = () => {
       description: 'Great for absorbing moisture and adding carbon.',
       detail: 'Paper waste such as napkins, plain paper, and cardboard can be composted if free from ink or plastic coatings. It helps absorb excess water and adds carbon, balancing wet organic waste.',
       extraInfo: 'Recycling paper into compost reduces landfill waste and improves soil texture.',
-      img: 'https://plus.unsplash.com/premium_photo-1726743661254-84e6828d989d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1107' // Example paper waste image
+      img: 'https://plus.unsplash.com/premium_photo-1726743661254-84e6828d989d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1107'
     },
     {
       id: 'paper2',
@@ -434,7 +434,7 @@ const Organic = () => {
       description: 'Great for absorbing moisture and adding carbon.',
       detail: 'Paper waste such as napkins, plain paper, and cardboard can be composted if free from ink or plastic coatings. It helps absorb excess water and adds carbon, balancing wet organic waste.',
       extraInfo: 'Recycling paper into compost reduces landfill waste and improves soil texture.',
-      img: 'https://plus.unsplash.com/premium_photo-1664359132286-d3fa0dce553f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172' // Example paper waste image
+      img: 'https://plus.unsplash.com/premium_photo-1664359132286-d3fa0dce553f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172'
     }
   ];
 
@@ -531,7 +531,7 @@ const Organic = () => {
             data-aos-delay="300"
           >
             <img
-              src={imgOrganic1234567}
+              src={imgOrganic7}
               alt="Organic Waste Illustration"
               className="w-[90%] lg:w-[90%] h-auto object-contain"
             />
@@ -643,14 +643,14 @@ const Organic = () => {
                 const n = whatImages.length;
                 let raw = i - whatIndex;
 
-                // 🔁 looping biar index muter terus (infinite carousel)
+
                 if (raw > Math.floor(n / 2)) raw -= n;
                 if (raw < -Math.floor(n / 2)) raw += n;
 
-                // ⚙️ hanya render 3 card aktif (atas, tengah, bawah)
+
                 if (Math.abs(raw) > 1) return null;
 
-                // 🔹 Posisi & efek transisi
+
                 const translateY = raw * 140;
                 const distance = Math.abs(raw);
                 const scale = raw === 0 ? 1 : 0.88;
@@ -666,12 +666,12 @@ const Organic = () => {
                       width: raw === 0 ? '82%' : '72%',
                       height: raw === 0 ? '52%' : '45%',
                       top: `calc(50% + ${translateY}px)`,
-                      // use translate3d to trigger GPU compositing for smoother animation
+
                       transform: `translate3d(-50%, -50%, 0) scale(${scale})`,
                       opacity,
                       filter: blur,
                       zIndex,
-                      // hint browser to optimize these properties and provide explicit transition
+
                       willChange: 'transform, opacity, filter, top',
                       transition:
                         'top 1000ms cubic-bezier(0.22,1,0.36,1), transform 1000ms cubic-bezier(0.22,1,0.36,1), opacity 1000ms linear, filter 1000ms linear',
@@ -1078,33 +1078,7 @@ const Organic = () => {
             </div>
           )}
         </div>
-        {/* 
-          <p className="text-center text-gray-500 dark:text-gray-400 text-xs mt-4">
-            📍 Showing organic waste centers near your location
-          </p> */}
       </div>
-
-      {/* AI Advisor Section */}
-      {/* <div className="py-16 px-6 bg-gray-50 dark:bg-base-300">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-2">✨🌿 AI Compost Advisor</h2>
-            <p className="text-gray-600 dark:text-gray-200 text-sm">
-              Not sure what organic materials can be composted? Ask our AI Advisor!
-            </p>
-          </div>
-          <div className="bg-white dark:bg-base-100 rounded-3xl p-8 border-2 border-gray-200 dark:border-gray-600">
-            <input
-              type="text"
-              placeholder="Try typing in your type of waste — can it be composted?"
-              className="w-full px-6 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-full text-sm focus:outline-none focus:border-gray-300 dark:border-gray-600"
-            />
-            <button className="w-full mt-4 px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-all text-sm">
-              Get AI Suggestion
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       {/* Carbon Calculator Section */}
       <div ref={calculatorRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
@@ -1194,30 +1168,6 @@ const Organic = () => {
           </div>
         </div>
       </div>
-
-
-      {/* Bottom CTA */}
-      {/* <div className="py-12 px-6 bg-gray-900 text-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-lg mb-6">
-            "Start composting today and make a difference for our planet! 🌍"
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Eco-Enzyme →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Biogas Production →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Animal Feed →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Organic Fertilizer Liquid →
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');

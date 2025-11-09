@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import imgInorganic1234567 from '../assets/Inorganic/img-inorganic7.png';
+import imgInorganic7 from '../assets/Inorganic/img-inorganic7.png';
 import li1 from '../assets/Organic/li-1.svg';
 import li2 from '../assets/Organic/li-2.svg';
 import li3 from '../assets/Organic/li-3.svg';
@@ -17,18 +17,18 @@ const Inorganic = () => {
   const [mapUrl, setMapUrl] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // 🧮 Tambahan state untuk Carbon Calculator
+
   const [waste, setWaste] = useState('');
   const [inputError, setInputError] = useState('');
-  // target numeric results (not directly shown) - displayed values animate to these
+
   const [displayedCo2, setDisplayedCo2] = useState(null);
   const [displayedTrees, setDisplayedTrees] = useState(null);
   const [inputAnimating, setInputAnimating] = useState(false);
   const [isCounting, setIsCounting] = useState(false);
   const co2Frame = useRef(null);
-  // slide index for the selected-method header slideshow (separate from the page-wide carousel)
+
   const [methodSlide, setMethodSlide] = useState(0);
-  // carousel for the "What Is Organic Waste" right column
+
   const whatImages = [
     'https://images.unsplash.com/photo-1704393741708-792c3200f6c6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
     'https://images.unsplash.com/photo-1565886728041-a239b6a3ec42?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171',
@@ -39,7 +39,7 @@ const Inorganic = () => {
   const [whatIndex, setWhatIndex] = useState(0);
   const [whatHovered, setWhatHovered] = useState(false);
 
-  // advance carousel every 3s; pause while hovered. use timeout so timer resets after each advance.
+
   useEffect(() => {
     if (whatHovered) return undefined;
     const timer = setTimeout(() => {
@@ -56,7 +56,7 @@ const Inorganic = () => {
   const detailRefs = useRef({});
   const [activeHero, setActiveHero] = useState(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  // Fungsi untuk menghitung dampak karbon
+
   const handleCalculate = () => {
     const w = parseFloat(waste);
     if (isNaN(w) || w <= 0) {
@@ -65,22 +65,22 @@ const Inorganic = () => {
       return;
     }
 
-    const co2 = w * 1.8; // tiap 1 kg sampah organik = 1.8 kg CO₂ dihemat
-    const trees = co2 / 21; // 1 pohon menyerap ±21 kg CO₂/tahun
+    const co2 = w * 1.8;
+    const trees = co2 / 21;
 
-    // set numeric targets (displayed values will animate)
 
-    // animate counting from 0 to target
-    const duration = 900; // ms
+
+
+    const duration = 900;
     const start = performance.now();
     setIsCounting(true);
 
-    // cancel any existing frame
+
     if (co2Frame.current) cancelAnimationFrame(co2Frame.current);
 
     const animate = (now) => {
       const t = Math.min(1, (now - start) / duration);
-      // easeOutQuad
+
       const ease = 1 - (1 - t) * (1 - t);
       const currentCo2 = co2 * ease;
       const currentTrees = trees * ease;
@@ -90,7 +90,7 @@ const Inorganic = () => {
       if (t < 1) {
         co2Frame.current = requestAnimationFrame(animate);
       } else {
-        // ensure final values exact
+
         setDisplayedCo2(co2);
         setDisplayedTrees(trees);
         setIsCounting(false);
@@ -101,7 +101,7 @@ const Inorganic = () => {
   };
 
   useEffect(() => {
-    // Initialize AOS
+
     AOS.init({
       duration: 800,
       once: true,
@@ -111,7 +111,7 @@ const Inorganic = () => {
   }, []);
 
   useEffect(() => {
-    // Detect dark mode
+
     const checkDarkMode = () => {
       const isDark = document.documentElement.classList.contains('dark');
       setIsDarkMode(isDark);
@@ -119,7 +119,7 @@ const Inorganic = () => {
 
     checkDarkMode();
 
-    // Listen for dark mode changes
+
     const observer = new MutationObserver(checkDarkMode);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
@@ -147,12 +147,12 @@ const Inorganic = () => {
   }, [isDarkMode]);
   useEffect(() => {
     const interval = setInterval(() => {
-      // legacy carousel removed; keep placeholder interval tidy
+
     }, 3500);
     return () => clearInterval(interval);
   }, []);
 
-  // show/hide Back to Top button on scroll
+
   useEffect(() => {
     const onScroll = () => {
       setShowBackToTop(window.scrollY > 400);
@@ -160,7 +160,7 @@ const Inorganic = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  // cleanup animation frames on unmount
+
   useEffect(() => {
     const c = co2Frame.current;
     return () => {
@@ -172,7 +172,7 @@ const Inorganic = () => {
   const handleInputChange = (e) => {
     const v = e.target.value;
 
-    // Validasi: hanya terima angka dan desimal
+
     if (v !== '' && (isNaN(v) || v.includes('e') || v.includes('E'))) {
       setInputError('Please enter numbers only');
       return;
@@ -180,7 +180,7 @@ const Inorganic = () => {
 
     setInputError('');
     setWaste(v);
-    // small scale feedback when typing
+
     setInputAnimating(true);
     if (inputAnimTimeout.current) clearTimeout(inputAnimTimeout.current);
     inputAnimTimeout.current = setTimeout(() => setInputAnimating(false), 180);
@@ -384,7 +384,7 @@ const Inorganic = () => {
   ];
 
 
-  // image sets for each method (5 images each)
+
   const methodImageSets = useMemo(() => ({
     'recycling': [
       'https://images.unsplash.com/photo-1751646312130-d6be98d867bf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
@@ -423,7 +423,7 @@ const Inorganic = () => {
     ],
   }), []);
 
-  // auto-advance header slideshow for the selected method
+
   useEffect(() => {
     if (!selectedMethod) {
       setMethodSlide(0);
@@ -566,7 +566,7 @@ const Inorganic = () => {
             data-aos-delay="300"
           >
             <img
-              src={imgInorganic1234567}
+              src={imgInorganic7}
               alt="Inorganic Waste Illustration"
               className="w-[90%] lg:w-[85%] h-auto lg:mt-10 mt-16 object-contain"
             />
@@ -679,14 +679,14 @@ const Inorganic = () => {
                 const n = whatImages.length;
                 let raw = i - whatIndex;
 
-                // 🔁 looping biar index muter terus (infinite carousel)
+
                 if (raw > Math.floor(n / 2)) raw -= n;
                 if (raw < -Math.floor(n / 2)) raw += n;
 
-                // ⚙️ hanya render 3 card aktif (atas, tengah, bawah)
+
                 if (Math.abs(raw) > 1) return null;
 
-                // 🔹 Posisi & efek transisi
+
                 const translateY = raw * 140;
                 const distance = Math.abs(raw);
                 const scale = raw === 0 ? 1 : 0.88;
@@ -702,12 +702,12 @@ const Inorganic = () => {
                       width: raw === 0 ? '82%' : '72%',
                       height: raw === 0 ? '52%' : '45%',
                       top: `calc(50% + ${translateY}px)`,
-                      // use translate3d to trigger GPU compositing for smoother animation
+
                       transform: `translate3d(-50%, -50%, 0) scale(${scale})`,
                       opacity,
                       filter: blur,
                       zIndex,
-                      // hint browser to optimize these properties and provide explicit transition
+
                       willChange: 'transform, opacity, filter, top',
                       transition:
                         'top 1000ms cubic-bezier(0.22,1,0.36,1), transform 1000ms cubic-bezier(0.22,1,0.36,1), opacity 1000ms linear, filter 1000ms linear',
@@ -1202,30 +1202,6 @@ const Inorganic = () => {
         </div>
       </div>
 
-
-
-      {/* Bottom CTA */}
-      {/* <div className="py-12 px-6 bg-gray-900 text-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-lg mb-6">
-            "Start composting today and make a difference for our planet! 🌍"
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Eco-Enzyme →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Biogas Production →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Animal Feed →
-            </button>
-            <button className="px-5 py-2.5 border-2 border-white/30 hover:bg-white dark:bg-base-100/10 rounded-full text-sm font-medium transition-all">
-              Organic Fertilizer Liquid →
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
