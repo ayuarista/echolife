@@ -15,7 +15,6 @@ import DataReduce from "../data/DataReduce";
 import DataRecycle from "../data/DataRecycle";
 import pakaian from "../assets/3R/pakaian.png";
 import tanaman from "../assets/3R/tanaman.png";
-import { TbCurrentLocation } from "react-icons/tb";
 
 const Page3R = () => {
   return (

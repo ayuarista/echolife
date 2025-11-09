@@ -1,15 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { GoArrowRight } from "react-icons/go";
-import hero from "../assets/Home/home.jpg";
-import home from "../assets/Home/hero.png";
 import head from "../assets/Home/3.jpg";
 import { IoLeafOutline } from "react-icons/io5";
 import ScrollingText from "../components/molecules/ScrollingText";
 import { PiStarFour } from "react-icons/pi";
-import GetStarted from "../components/molecules/GetStarted";
-import BuildingTheFuture from "../components/organisms/BuildingTheFuture";
-import ImageSlider from "../components/molecules/ImageSlider";
 import leaves from "../assets/Home/bg-leaves.png";
 import mission from "../assets/Home/mission.jpg";
 import { FaRecycle } from "react-icons/fa6";
@@ -36,7 +31,7 @@ const Home = () => {
     setIsHovered(false);
   };
   return (
-    <div className="pt-16">
+    <div className="pt-0">
       <div
         className="w-full md:min-h-[82vh] min-h-[76.5vh] lg:min-h-[79vh] xl:min-h-[84vh] bg-cover bg-center flex justify-center items-center text-white bg-blend-multiply bg-black/45"
         style={{
