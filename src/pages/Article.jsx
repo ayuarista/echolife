@@ -1,7 +1,6 @@
 import React from "react";
 import DataArticle from "../data/DataArticles";
 import Articles from "../components/molecules/Articles";
-import head from "../assets/3R/head.jpg"
 
 const Article = () => {
   const article = DataArticle;

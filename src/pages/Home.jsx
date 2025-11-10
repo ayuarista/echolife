@@ -1,10 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { GoArrowRight } from "react-icons/go";
-import head from "../assets/Home/3.jpg";
 import { IoLeafOutline } from "react-icons/io5";
 import ScrollingText from "../components/molecules/ScrollingText";
-import { PiStarFour } from "react-icons/pi";
 import leaves from "../assets/Home/bg-leaves.png";
 import mission from "../assets/Home/mission.jpg";
 import { FaRecycle } from "react-icons/fa6";
@@ -16,90 +13,26 @@ import Articles from "../components/molecules/Articles";
 import DataArticle from "../data/DataArticle";
 import TextContent from "../components/molecules/TextContent";
 import { Link } from "react-router-dom";
+import Hero from "../components/organisms/Hero";
+
+
 const Home = () => {
   const currentData = DataImpact;
   const current = DataHero;
   const article = DataArticle;
 
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
   return (
-    <div className="pt-0">
-      <div
-        className="w-full md:min-h-[82vh] min-h-[76.5vh] lg:min-h-[79vh] xl:min-h-[84vh] bg-cover bg-center flex justify-center items-center text-white bg-blend-multiply bg-black/45"
-        style={{
-          backgroundImage: `url(${head})`,
-        }}
-      >
-        <div className="text-center font-syne">
-          <h1 className="text-6xl lg:text-6xl md:text-7xl xl:text-7xl">
-            <PiStarFour className="animate-spin -rotate-90 justify-start items-start flex mt-4 ml-3 text-white" />
-          </h1>
-          <h1 className="font-bold lg:text-6xl md:text-7xl text-[2.7rem] leading-tight">
-            Building{" "}
-            <p className="bg-primary dark:bg-third text-white rotate-2  p-1 lg:p-2 mt-1 mb-1">
-              Eco-Friendly{" "}
-            </p>
-            Digital Futures
-            <h1 className="justify-end items-end flex mt-1">
-              <PiStarFour className="animate-spin rotate-90 mt-3 text-hero dark:text-white text-6xl md:text-7xl" />
-            </h1>
-          </h1>
-          <a href="#hero">
-            <div className="mt-8 lg:mt-0 xl:mt-5">
-              <div
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className={`relative lg:w-96 w-[18rem] h-12 rounded-full flex items-center justify-between px-6 mx-auto cursor-pointer shadow-lg overflow-hidden transition-all duration-500 ${
-                  isHovered
-                    ? "bg-primary dark:bg-third"
-                    : "bg-white dark:bg-base-100"
-                }`}
-              >
-                <h1
-                  className={`text-lg font-semibold transition-all duration-500 ${
-                    isHovered ? "text-white" : "text-black dark:text-white"
-                  }`}
-                >
-                  Get Started
-                </h1>
-                <span
-                  className={`p-2 rounded-full transition-all duration-500 ${
-                    isHovered ? "bg-black" : "bg-primary dark:bg-third"
-                  }`}
-                >
-                  <GoArrowRight
-                    className={`transition-all duration-500 ${
-                      isHovered ? "text-white" : "text-white dark:text-white"
-                    }`}
-                  />
-                </span>
-                <div
-                  className={`absolute top-0 left-0 w-full h-full bg-primary dark:bg-third transition-all duration-1000 ease-in-out ${
-                    isHovered ? "translate-x-52" : "-translate-x-full"
-                  }`}
-                />
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
+    <div className="pt-12">
+      <Hero/>
       <div
         className="w-full md:min-h-[87vh] min-h-[15vh] lg:min-h-[79vh] xl:min-h-[89vh] bg-cover bg-center text-white"
         style={{
           backgroundImage: `url(${leaves})`,
         }}
       >
-        <div className="flex items-center justify-center">
+        {/* <div className="flex items-center justify-center">
           <ScrollingText />
-        </div>
+        </div> */}
         <section id="hero">
           <div className="mx-8 lg:mx-12 mt-8 sm:mt-16">
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-center">
