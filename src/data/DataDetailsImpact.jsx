@@ -22,7 +22,7 @@ const DataDetailsImpact = [
     answers2:
       "Deforestation leads to habitat destruction biodiversity loss and climate change Industrial and chemical pollution contaminates air water and soil Unsustainable farming practices deplete soil nutrients and cause erosion Over-exploitation of natural resources disrupts ecosystems and reduces availability of essential resources.",
       
-    path: "/1",
+    path: `/details-impact/environmental-degradation`, 
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const DataDetailsImpact = [
     answers1: "The most common modifiable health risks include tobacco use, excessive alcohol consumption, poor diet, lack of physical activity, and obesity. These factors contribute significantly to the global burden of non-communicable diseases such as cardiovascular disorders, diabetes, and certain cancers.",
     questions2: " How can individuals protect themselves from emerging health risks?",
     answers2: "To protect against emerging health risks, individuals can stay informed about current health threats through reliable sources such as public health agencies and reputable medical institutions. Practicing good hygiene, including regular handwashing and proper sanitation, is crucial. Maintaining a strong immune system through a balanced diet, regular exercise, and adequate sleep is also important.",
-    path: "/2",
+    path: `/details-impact/health-risks`, 
   },
   {
     id: 3,
@@ -58,7 +58,7 @@ const DataDetailsImpact = [
     answers1: "Resource scarcity significantly impacts food security by affecting agricultural productivity and food distribution. Limited water resources and degraded soil quality can reduce crop yields, while energy scarcity can increase the costs of food production and transportation. These factors can lead to food shortages and price spikes, making nutritious food less accessible, especially for low-income populations. Climate change-induced extreme weather events further compound this issue by disrupting agricultural cycles and destroying crops. ",
     questions2: "What are some potential solutions to address resource scarcity?",
     answers2: "Addressing resource scarcity requires a multi-faceted approach. One key solution is the promotion of circular economy principles, which emphasize recycling, reusing, and reducing waste to maximize resource efficiency. Investing in renewable energy sources can help alleviate pressure on fossil fuels and reduce environmental impacts. Technological innovations, such as precision agriculture and water-efficient technologies, can optimize resource use.",
-    path: "/3",
+    path: `/details-impact/resource-scarcity`,
   },
 ];
 export default DataDetailsImpact;
