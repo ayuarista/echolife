@@ -2,14 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FaPlus, FaMinus, FaMoon, FaSun, FaInfoCircle } from "react-icons/fa";
 import { Chart } from "chart.js/auto";
 
-/**
- * Modern Waste Tracker (no upload, no backend)
- * - English UI, slate dark theme
- * - Keeps the previous richer feel (chart + info) but cleaner and more modern
- * - Inputs allow empty "" (no sticky zero). Placeholder shows 0.
- * - Responsive 1/2/4 card grid; elegant panel after "Track Waste"
- * - No footer
- */
 
 const ITEMS = [
   { key: "value1", label: "Plastic Bottles", color: "#6366F1", multiplier: 480 }, // indigo-500
@@ -18,7 +10,6 @@ const ITEMS = [
   { key: "value4", label: "Food Packaging",  color: "#F43F5E", multiplier: 150 }, // rose-500
 ];
 
-// concise knowledge cards (modern & scannable)
 const KNOWLEDGE = {
   "Plastic Bottles": {
     summary: "Widely recyclable when clean and dry (PET #1).",
@@ -43,26 +34,18 @@ const KNOWLEDGE = {
 };
 
 export default function Tracker() {
-  // store as strings so inputs can be empty ""
   const [values, setValues] = useState({
     value1: "",
     value2: "",
     value3: "",
     value4: "",
   });
-  const [dark, setDark] = useState(false);
   const [error, setError] = useState("");
   const [showPanel, setShowPanel] = useState(false);
 
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
-  // slate dark
-  useEffect(() => {
-    const root = document.documentElement;
-    if (dark) root.classList.add("dark");
-    else root.classList.remove("dark");
-  }, [dark]);
 
   // helpers
   const toNum = (s) => {
@@ -127,7 +110,7 @@ export default function Tracker() {
         plugins: {
           legend: {
             position: "bottom",
-            labels: { color: dark ? "#E5E7EB" : "#0F172A" }, // slate-200 / slate-900
+            labels: ["dark:#E5E7EB", "#0F172A" ], // slate-200 / slate-900
           },
           tooltip: {
             callbacks: {
@@ -147,35 +130,12 @@ export default function Tracker() {
     }
     setError("");
     setShowPanel(true);
-    // render chart after layout appears
     setTimeout(buildChart, 0);
   };
 
-  // re-tint chart when theme flips
-  useEffect(() => {
-    if (showPanel) setTimeout(buildChart, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dark]);
 
   return (
     <div className="min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      {/* Top Bar */}
-      <header className="sticky top-0 z-10 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-7 w-7 rounded-xl bg-slate-900 dark:bg-slate-100" />
-            <h1 className="text-lg md:text-xl font-semibold">Waste Tracker</h1>
-          </div>
-          <button
-            onClick={() => setDark((d) => !d)}
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-900 transition"
-            aria-label="Toggle theme"
-          >
-            {dark ? <FaSun /> : <FaMoon />}
-            <span className="hidden sm:inline text-sm">{dark ? "Light" : "Dark"}</span>
-          </button>
-        </div>
-      </header>
 
       {/* Hero / Intro */}
       <section className="mx-auto max-w-6xl px-4 pt-8 md:pt-12">
@@ -196,7 +156,6 @@ export default function Tracker() {
         </div>
       </section>
 
-      {/* Inputs Grid (Modern Cards) */}
       <section className="mx-auto max-w-6xl px-4 py-8 md:py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {ITEMS.map((it) => {
           const val = values[it.key];
