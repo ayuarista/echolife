@@ -1,38 +1,32 @@
-// src/components/templates/Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { TiTree } from "react-icons/ti";
-import { FaTwitter, FaGithub, FaDiscord } from "react-icons/fa";
+import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   function handleSubmit(e) {
     e.preventDefault();
-    // TODO: plug your submit logic here
   }
 
   const linkBase =
     "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition";
 
   return (
-    <footer className="mt-16 bg-slate-50 dark:bg-slate-900/40 text-slate-800 dark:text-slate-100">
+    <footer className="mt-16 bg-slate-50 dark:bg-neutral-900 text-slate-800 dark:text-slate-100">
 
-      {/* Main footer grid */}
       <div className="mt-10 border-t border-slate-200 dark:border-slate-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            {/* Brand + about */}
             <div>
-              <Link to="/" className="inline-flex items-center">
+              <Link to="/" className="inline-flex gap-1 items-center">
                 <span className="text-2xl font-bold font-syne">EchoL</span>
-                <span className="-mx-1 text-3xl text-emerald-600 dark:text-emerald-400">
+                <span className="-mx-1 text-3xl text-primary dark:text-hero">
                   <TiTree />
                 </span>
                 <span className="text-2xl font-bold font-syne">fe</span>
               </Link>
               <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs">
-                Echolife is a collaborative community to learn, discuss, and
-                showcase sustainability projects—free, respectful, and
-                beginner-friendly.
+              Build Eco-Friendly Digital Habits
               </p>
 
               <div className="mt-4 flex items-center gap-3">
@@ -44,18 +38,18 @@ const Footer = () => {
                   <FaTwitter />
                 </a>
                 <a
-                  href="https://github.com"
-                  aria-label="GitHub"
+                  href="https://youtube.com"
+                  aria-label="youtube"
                   className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                 >
-                  <FaGithub />
+                  <FaYoutube />
                 </a>
                 <a
-                  href="https://discord.com"
-                  aria-label="Discord"
+                  href="https://instagram.com"
+                  aria-label="instagram"
                   className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                 >
-                  <FaDiscord />
+                  <FaInstagram />
                 </a>
               </div>
             </div>
@@ -65,23 +59,43 @@ const Footer = () => {
               <h3 className="text-lg font-semibold">What’s Echolife</h3>
               <ul className="mt-3 space-y-2">
                 <li>
+                  <Link to="/" className={linkBase}>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/3r" className={linkBase}>
+                    3R
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/organic" className={linkBase}>
+                    Organic
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/inorganic" className={linkBase}>
+                    Inorganic 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/hazardous" className={linkBase}>
+                    Hazardous 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/tracker" className={linkBase}>
+                    Track Waste 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/quiz" className={linkBase}>
+                    Quiz 
+                  </Link>
+                </li>
+                <li>
                   <Link to="/article" className={linkBase}>
-                    Forum & QnA
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/portfolio" className={linkBase}>
-                    Portfolio
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/free-courses" className={linkBase}>
-                    Free Courses
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/guidelines" className={linkBase}>
-                    Community Guidelines
+                    Article 
                   </Link>
                 </li>
               </ul>
@@ -92,17 +106,17 @@ const Footer = () => {
               <h3 className="text-lg font-semibold">Contact us</h3>
               <ul className="mt-3 space-y-2">
                 <li>
-                  <a href="mailto:hello@echolife.dev" className={linkBase}>
+                  <a href="/" className={linkBase}>
                     hello@echolife.dev
                   </a>
                 </li>
                 <li>
-                  <Link to="/help" className={linkBase}>
+                  <Link to="/" className={linkBase}>
                     Help &amp; FAQ
                   </Link>
                 </li>
                 <li>
-                  <Link to="/report" className={linkBase}>
+                  <Link to="/" className={linkBase}>
                     Report an issue
                   </Link>
                 </li>
@@ -120,11 +134,11 @@ const Footer = () => {
                   type="email"
                   required
                   placeholder="Enter your email"
-                  className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2 outline-none focus:ring-2 focus:ring-emerald-500/40"
+                  className="flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
                 />
                 <button
                   type="submit"
-                  className="rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2 font-semibold hover:opacity-90 transition"
+                  className="rounded-xl text-[15px] bg-primary dark:bg-hero text-white dark:text-slate-900 px-5 py-2 font-medium hover:opacity-90 transition"
                 >
                   Send
                 </button>
@@ -138,13 +152,13 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-600 dark:text-slate-300">
             <span>© {new Date().getFullYear()} Echolife. All rights reserved.</span>
             <div className="flex items-center gap-6">
-              <Link to="/imprint" className={linkBase}>
+              <Link to="/" className={linkBase}>
                 Imprint
               </Link>
-              <Link to="/privacy" className={linkBase}>
+              <Link to="/" className={linkBase}>
                 Privacy Policy
               </Link>
-              <Link to="/terms" className={linkBase}>
+              <Link to="/" className={linkBase}>
                 Terms &amp; Conditions
               </Link>
             </div>
