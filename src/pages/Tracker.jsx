@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { FaPlus, FaMinus, FaMoon, FaSun, FaInfoCircle } from "react-icons/fa";
+import React, { useMemo, useRef, useState } from "react";
+import { FaPlus, FaMinus, FaInfoCircle } from "react-icons/fa";
 import { Chart } from "chart.js/auto";
 
 
@@ -47,7 +47,6 @@ export default function Tracker() {
   const chartInstance = useRef(null);
 
 
-  // helpers
   const toNum = (s) => {
     const n = parseInt(s, 10);
     return Number.isFinite(n) && n >= 0 ? n : 0;
@@ -78,7 +77,6 @@ export default function Tracker() {
     [weighted, percentData]
   );
 
-  // input handlers
   const handleChange = (key, raw) => {
     const v = raw.replace(/[^\d]/g, ""); // digits only
     setValues((p) => ({ ...p, [key]: v })); // allow ""
@@ -135,9 +133,8 @@ export default function Tracker() {
 
 
   return (
-    <div className="min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="mt-12 min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
-      {/* Hero / Intro */}
       <section className="mx-auto max-w-6xl px-4 pt-8 md:pt-12">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 md:p-6 bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-950">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

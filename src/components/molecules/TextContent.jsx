@@ -12,10 +12,10 @@ const TextContent = () => {
       >
         <div className="text-center">
           <h1 className="text-7xl lg:text-[70px] md:text-8xl xl:text-8xl text-white font-bold mt-0 font-syne">
-            TEKNIK KOMPUTER DAN JARINGAN
+          From Zero to Hero.
           </h1>
           <p className="text-xs lg:text-sm xl:text-base md:text-sm text-white max-w-[20rem] lg:max-w-[30rem]  xl:max-w-[33rem] md:max-w-[25rem] mt-5 lg:mt-1 xl:mt-2 mx-auto">
-            
+          Every small step you take in reducing, reusing, and recycling waste makes a big difference. Let’s make waste management a part of our daily lives and inspire others to follow!
           </p>
         </div>
       </div>
