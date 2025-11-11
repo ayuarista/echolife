@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import DataDetailsImpact from "../data/DataDetailsImpact";
-import { ChevronLeft, Share2, BookOpenText, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, Share2, Image as ImageIcon } from "lucide-react";
 
 const slugify = (s = "") =>
   String(s)
