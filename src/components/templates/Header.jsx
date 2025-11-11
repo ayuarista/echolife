@@ -3,12 +3,10 @@ import { NavLink, Link } from "react-router-dom";
 import { TiTree } from "react-icons/ti";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import ThemeToggle from "../atoms/ThemeToggle.jsx";
-// (opsional) tampilkan SearchNav di desktop:
-// import SearchNav from "../molecules/SearchNav.jsx";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);           // mobile menu
-  const [dropOpen, setDropOpen] = useState(false);   // dropdown Waste Types
+  const [open, setOpen] = useState(false);           
+  const [dropOpen, setDropOpen] = useState(false);
   const dropRef = useRef(null);
 
   // close dropdown when clicking outside
@@ -28,7 +26,7 @@ const Header = () => {
     "text-slate-700 dark:text-slate-200";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-base/70 backdrop-blur">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white dark:bg-base">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-1 text-slate-900 dark:text-white">
@@ -62,95 +60,96 @@ const Header = () => {
               3R
             </NavLink>
 
-            {/* Dropdown */}
-            <div className="relative" ref={dropRef}>
-              <button
-                type="button"
-                onClick={() => setDropOpen((v) => !v)}
-                className={`${linkBase} ${linkInactive} gap-1`}
-                aria-haspopup="menu"
-                aria-expanded={dropOpen}
-              >
-                Waste Types <FiChevronDown aria-hidden />
-              </button>
+                  <div className="relative" ref={dropRef}>
+                    <button
+                    type="button"
+                    onClick={() => setDropOpen((v) => !v)}
+                    className={`${linkBase} ${linkInactive} gap-1`}
+                    aria-haspopup="menu"
+                    aria-expanded={dropOpen}
+                    >
+                    Waste Types{" "}
+                    <FiChevronDown
+                      aria-hidden
+                      className={`transition-transform duration-300 ${dropOpen ? "rotate-180" : ""}`}
+                    />
+                    </button>
 
-              {dropOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 mt-2 w-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-base shadow-lg p-1"
-                >
-                  <NavLink
-                    to="/organic"
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
+                    {dropOpen && (
+                    <div
+                      role="menu"
+                      className="absolute left-0 mt-2 w-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-base shadow-lg p-1"
+                    >
+                      <NavLink
+                      to="/organic"
+                      className={({ isActive }) =>
+                        `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
                         isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
-                      }`
-                    }
-                    role="menuitem"
-                    onClick={() => setDropOpen(false)}
-                  >
-                    Organic
-                  </NavLink>
-                  <NavLink
-                    to="/inorganic"
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
+                        }`
+                      }
+                      role="menuitem"
+                      onClick={() => setDropOpen(false)}
+                      >
+                      Organic
+                      </NavLink>
+                      <NavLink
+                      to="/inorganic"
+                      className={({ isActive }) =>
+                        `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
                         isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
-                      }`
-                    }
-                    role="menuitem"
-                    onClick={() => setDropOpen(false)}
-                  >
-                    Inorganic
-                  </NavLink>
-                  <NavLink
-                    to="/b3"
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
+                        }`
+                      }
+                      role="menuitem"
+                      onClick={() => setDropOpen(false)}
+                      >
+                      Inorganic
+                      </NavLink>
+                      <NavLink
+                      to="/b3"
+                      className={({ isActive }) =>
+                        `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${
                         isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
-                      }`
+                        }`
+                      }
+                      role="menuitem"
+                      onClick={() => setDropOpen(false)}
+                      >
+                      B3
+                      </NavLink>
+                    </div>
+                    )}
+                  </div>
+
+                  <NavLink
+                    to="/tracker"
+                    className={({ isActive }) =>
+                    `${linkBase} ${isActive ? linkActive : linkInactive}`
                     }
-                    role="menuitem"
-                    onClick={() => setDropOpen(false)}
                   >
-                    B3
+                    Track&nbsp;Waste
                   </NavLink>
-                </div>
-              )}
-            </div>
 
-            <NavLink
-              to="/tracker"
-              className={({ isActive }) =>
-                `${linkBase} ${isActive ? linkActive : linkInactive}`
-              }
-            >
-              Track&nbsp;Waste
-            </NavLink>
+                  <NavLink
+                    to="/quiz"
+                    className={({ isActive }) =>
+                    `${linkBase} ${isActive ? linkActive : linkInactive}`
+                    }
+                  >
+                    Quiz
+                  </NavLink>
 
-            <NavLink
-              to="/quiz"
-              className={({ isActive }) =>
-                `${linkBase} ${isActive ? linkActive : linkInactive}`
-              }
-            >
-              Quiz
-            </NavLink>
+                  <NavLink
+                    to="/article"
+                    className={({ isActive }) =>
+                    `${linkBase} ${isActive ? linkActive : linkInactive}`
+                    }
+                  >
+                    Articles
+                  </NavLink>
+                  </nav>
 
-            <NavLink
-              to="/article"
-              className={({ isActive }) =>
-                `${linkBase} ${isActive ? linkActive : linkInactive}`
-              }
-            >
-              Articles
-            </NavLink>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-
-            {/* Hamburger */}
+                  <div className="flex items-center gap-2">
+                  <ThemeToggle />
             <button
               className="inline-flex lg:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
               onClick={() => setOpen((v) => !v)}
