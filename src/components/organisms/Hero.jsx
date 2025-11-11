@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { TiTree } from "react-icons/ti";
 import { TbLeaf } from "react-icons/tb";
 import { GoArrowRight } from "react-icons/go";
-import heroImg from "../../assets/Home/3.jpg";
-import smallImg from "../../assets/Home/home.jpg";
 
 export default function Hero() {
   return (
@@ -17,12 +15,11 @@ export default function Hero() {
           auto-rows-[140px] md:auto-rows-[160px]
         "
       >
-        {/* A — HEADLINE (tetap) */}
         <div className="col-span-4 md:col-span-4 row-span-2 relative overflow-hidden bg-secondary text-white rounded-3xl">
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
           <div className="absolute -left-20 -top-16 h-56 w-56 rounded-full bg-hero/25 blur-2xl" />
           <div className="absolute -right-20 -bottom-20 h-56 w-56 rounded-full bg-hero/25 blur-2xl" />
-          <div className="relative h-full px-8 pb-6 flex flex-col justify-end">
+          <div className="relative h-full px-8 flex flex-col justify-center">
             <div className="w-fit inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs md:text-sm backdrop-blur">
               <TiTree className="text-hero" /> Echolife - Sustain together
             </div>
@@ -52,7 +49,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* B — HERO IMAGE (sekarang row-span-3: panjang sampai bawah) */}
         <div className="col-span-4 md:col-span-2 row-span-3 relative overflow-hidden">
           <div className="absolute inset-0" />
           <div className="relative h-full w-full">
@@ -66,7 +62,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* C — QUICK ACTIONS (ganti box angka) */}
         <div className="rounded-3xl col-span-2 row-span-1 bg-white/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 backdrop-blur p-4">
           <div>
             <p className="text-sm font-semibold text-third dark:text-white mb-3">
@@ -101,10 +96,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* D — ECO CHALLENGE (ganti box “Uniting…”) */}
         <div className="rounded-3xl col-span-2 row-span-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
           <div className="h-full w-full flex items-stretch">
-            {/* thumb kiri */}
             <div className="relative w-28 sm:w-32 md:w-36 shrink-0">
               <img
                 src="https://images.unsplash.com/photo-1669384537216-24740a56a2d5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1334"
@@ -116,7 +109,6 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* konten kanan */}
             <div className="flex-1 p-3 sm:p-4">
               <p className="text-sm font-semibold text-third dark:text-white">
                 Eco Challenge: 7-Day Plastic-Lite
@@ -149,7 +141,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        {/* end D */}
       </div>
     </section>
   );
