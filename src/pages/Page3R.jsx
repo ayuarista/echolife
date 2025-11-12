@@ -1,581 +1,315 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import imgOrganic1234567 from '../assets/Organic/img-organic7.png';
-import li1 from '../assets/Organic/li-1.svg';
-import li2 from '../assets/Organic/li-2.svg';
-import li3 from '../assets/Organic/li-3.svg';
-import li4 from '../assets/Organic/li-4.svg';
-import li5 from '../assets/Organic/li-5.svg';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { PiStarFour } from 'react-icons/pi';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React, { useState, useEffect, useRef } from "react";
+import hero from "../assets/3R/hero.jpg";
+import reuses from "../assets/3R/reuse.png";
+import reduce from "../assets/3R/reduce.png";
+import recycle from "../assets/3R/recycle.png";
+import shoes from "../assets/3R/shoes.png";
+import kelapa from "../assets/3R/kelapa.png";
+import bunga from "../assets/3R/bunga.png";
+import kardus from "../assets/3R/kardus.png";
+import pakaian from "../assets/3R/pakaian.png";
+import tanaman from "../assets/3R/tanaman.png";
+import { IoLeafOutline } from "react-icons/io5";
+import { PiStarFour } from "react-icons/pi";
+import ImageSlider from "../components/molecules/ImageSlider";
+import Card3R from "../components/molecules/Card3R";
+import DataReuse from "../data/DataReuse";
+import DataReduce from "../data/DataReduce";
+import DataRecycle from "../data/DataRecycle";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-const Organic = () => {
-  const [selectedMethod, setSelectedMethod] = useState(null);
-  const [selectedType, setSelectedType] = useState(null);
+const Page3R = () => {
   const [selectedInfo, setSelectedInfo] = useState(null);
-  const [selectedStep, setSelectedStep] = useState(null);
-  const [mapUrl, setMapUrl] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const [waste, setWaste] = useState('');
-  const [inputError, setInputError] = useState('');
-
-  const [displayedCo2, setDisplayedCo2] = useState(null);
-  const [displayedTrees, setDisplayedTrees] = useState(null);
-  const [inputAnimating, setInputAnimating] = useState(false);
-  const [isCounting, setIsCounting] = useState(false);
-  const co2Frame = useRef(null);
-
-  const [methodSlide, setMethodSlide] = useState(0);
-
-  const whatImages = [
-    'https://plus.unsplash.com/premium_photo-1664299231810-29d1caf6f753?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-    'https://plus.unsplash.com/premium_photo-1723300629422-1c985bedc940?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170',
-    'https://plus.unsplash.com/premium_photo-1664299231810-29d1caf6f753?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-    'https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1065',
-    'https://images.unsplash.com/photo-1575218823251-f9d243b6f720?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070',
-  ];
+  const [selectedReuse, setSelectedReuse] = useState(null);
+  const [selectedReduce, setSelectedReduce] = useState(null);
+  const [selectedRecycle, setSelectedRecycle] = useState(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [whatIndex, setWhatIndex] = useState(0);
   const [whatHovered, setWhatHovered] = useState(false);
-
-  useEffect(() => {
-    if (whatHovered) return undefined;
-    const timer = setTimeout(() => {
-      setWhatIndex((s) => (s + 1) % whatImages.length);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [whatHovered, whatImages.length, whatIndex]);
-  const whatIsRef = useRef(null);
-  const manageRef = useRef(null);
-  const typesRef = useRef(null);
-  const mapRef = useRef(null);
-  const howToRef = useRef(null);
-  const calculatorRef = useRef(null);
-  const detailRefs = useRef({});
   const [activeHero, setActiveHero] = useState(null);
-  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  const handleCalculate = () => {
-    const w = parseFloat(waste);
-    if (isNaN(w) || w <= 0) {
-      setDisplayedCo2(null);
-      setDisplayedTrees(null);
-      return;
-    }
+  const whatIsRef = useRef(null);
+  const typesRef = useRef(null);
+  const manageRef = useRef(null);
+  const reuseHeaderRef = useRef(null);
+  const reduceHeaderRef = useRef(null);
+  const recycleHeaderRef = useRef(null);
+  const recyclingRelevanceRef = useRef(null);
+  const whatIsReuseRef = useRef(null);
+  const whatIsReduceRef = useRef(null);
+  const whatIsRecycleRef = useRef(null);
+  const joinMovementRef = useRef(null);
 
-    const co2 = w * 1.8;
-    const trees = co2 / 21;
-
-    const duration = 900;
-    const start = performance.now();
-    setIsCounting(true);
-
-    if (co2Frame.current) cancelAnimationFrame(co2Frame.current);
-
-    const animate = (now) => {
-      const t = Math.min(1, (now - start) / duration);
-
-      const ease = 1 - (1 - t) * (1 - t);
-      const currentCo2 = co2 * ease;
-      const currentTrees = trees * ease;
-      setDisplayedCo2(currentCo2);
-      setDisplayedTrees(currentTrees);
-
-      if (t < 1) {
-        co2Frame.current = requestAnimationFrame(animate);
-      } else {
-
-        setDisplayedCo2(co2);
-        setDisplayedTrees(trees);
-        setIsCounting(false);
-      }
-    };
-
-    co2Frame.current = requestAnimationFrame(animate);
-  };
-
+  // Initialize AOS
   useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
       offset: 100,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
     });
   }, []);
 
+  const whatImages = [
+    "https://plus.unsplash.com/premium_photo-1664299231810-29d1caf6f753?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170",
+    "https://plus.unsplash.com/premium_photo-1723300629422-1c985bedc940?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1170",
+    "https://images.unsplash.com/photo-1573246123716-6b1782bfc499?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1065",
+    "https://images.unsplash.com/photo-1575218823251-f9d243b6f720?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=2070",
+  ];
+
+  // Carousel animation
   useEffect(() => {
+    if (whatHovered) return;
+    const timer = setTimeout(() => {
+      setWhatIndex((s) => (s + 1) % whatImages.length);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [whatHovered, whatIndex, whatImages.length]);
 
-    const checkDarkMode = () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      setIsDarkMode(isDark);
-    };
-
-    checkDarkMode();
-
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${latitude},${longitude}&zoom=13&maptype=${isDarkMode ? 'satellite' : 'roadmap'}`;
-          setMapUrl(url);
-        },
-        (error) => {
-          console.log('Location access denied, using default location');
-          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${isDarkMode ? 'satellite' : 'roadmap'}`;
-          setMapUrl(url);
-        }
-      );
-    } else {
-      const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${isDarkMode ? 'satellite' : 'roadmap'}`;
-      setMapUrl(url);
-    }
-  }, [isDarkMode]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
-
+  // Back to Top visibility
   useEffect(() => {
     const onScroll = () => {
       setShowBackToTop(window.scrollY > 400);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    const c = co2Frame.current;
-    return () => {
-      if (c) cancelAnimationFrame(c);
-    };
-  }, []);
-
-  const inputAnimTimeout = useRef(null);
-  const handleInputChange = (e) => {
-    const v = e.target.value;
-
-    if (v !== '' && (isNaN(v) || v.includes('e') || v.includes('E'))) {
-      setInputError('Please enter numbers only');
-      return;
-    }
-
-    setInputError('');
-    setWaste(v);
-
-    setInputAnimating(true);
-    if (inputAnimTimeout.current) clearTimeout(inputAnimTimeout.current);
-    inputAnimTimeout.current = setTimeout(() => setInputAnimating(false), 180);
-  };
-  const methods = [
-    {
-      id: 'composting',
-      title: 'Composting',
-      steps: [
-        {
-          title: 'Prepare the container',
-          detail: 'Use a clean plastic bottle or jar with a loose-fitting lid to let gas escape.'
-        },
-        {
-          title: 'Layer dry and wet materials',
-          detail: 'Alternate layers of brown materials (dry leaves, paper) and green materials (food scraps, grass clippings).'
-        },
-        {
-          title: 'Add bio-activator (EM4)',
-          detail: 'Sprinkle EM4 or other beneficial microorganisms to speed up decomposition.'
-        },
-        {
-          title: 'Mix every 3-4 days',
-          detail: 'Turn and mix the compost regularly to provide oxygen and maintain decomposition.'
-        },
-        {
-          title: 'Wait 3-4 weeks',
-          detail: 'Allow the compost to mature. It\'s ready when it looks dark and smells earthy.'
-        }
-      ],
-      benefits: [
-        'Reduces the amount of waste sent to landfills',
-        'Produces natural fertilizer for healthier plants',
-        'Lowers greenhouse gas emissions (like methane)',
-        'Saves money — no need for chemical fertilizers'
-      ],
-      description: 'Composting is a natural process that turns food and garden waste into nutrient-rich soil. It helps reduce landfill waste, cuts greenhouse gas emissions, and creates organic fertilizer for plants.'
-    },
-    {
-      id: 'eco-enzyme',
-      title: 'Eco-Enzyme',
-      steps: [
-        {
-          title: 'Prepare the container',
-          detail: 'Use a clean plastic bottle or jar with a loose-fitting lid to let gas escape.'
-        },
-        {
-          title: 'Add ingredients',
-          detail: 'Mix fruit/vegetable peels, brown sugar, and water in 3:1:10 ratio.'
-        },
-        {
-          title: 'Ferment',
-          detail: 'Store in a dark place for 3 months. Release gas weekly by opening the lid slightly.'
-        },
-        {
-          title: 'Filter the liquid',
-          detail: 'After 3 months, strain the liquid and discard solids.'
-        },
-        {
-          title: 'Use & Store',
-          detail: 'Use diluted eco-enzyme for cleaning, fertilizing, or pest control.'
-        }
-      ],
-      benefits: [
-        'Turns waste into useful household cleaner',
-        'Reduces chemical waste pollution',
-        'Can be used for cleaning, fertilizing, or pest control'
-      ],
-      description: 'Eco-Enzyme is made by fermenting fruit and vegetable peels with sugar and water. It\'s a natural cleaner that\'s safe for the environment and has multiple uses.'
-    },
-    {
-      id: 'biogas',
-      title: 'Biogas Production',
-      steps: [
-        {
-          title: 'Prepare the digester',
-          detail: 'Set up an anaerobic digester tank with inlet and outlet valves.'
-        },
-        {
-          title: 'Add organic waste',
-          detail: 'Fill the digester with food scraps, manure, or plant materials.'
-        },
-        {
-          title: 'Seal tightly',
-          detail: 'Ensure the tank is airtight to create an oxygen-free environment.'
-        },
-        {
-          title: 'Wait for decomposition',
-          detail: 'Allow bacteria to break down waste over 2-3 weeks, producing methane gas.'
-        },
-        {
-          title: 'Collect and use gas',
-          detail: 'Capture the biogas and use it for cooking or generating electricity.'
-        }
-      ],
-      benefits: [
-        'Produces clean renewable energy',
-        'Reduces methane emissions',
-        'Turns waste into a useful resource'
-      ],
-      description: 'Biogas is produced by decomposing organic waste in an oxygen-free environment. It creates renewable energy that can be used for cooking or electricity.'
-    },
-    {
-      id: 'animal-feed',
-      title: 'Animal Feed',
-      steps: [
-        {
-          title: 'Collect food waste',
-          detail: 'Gather leftover fruits, vegetables, and safe food scraps.'
-        },
-        {
-          title: 'Sort & clean',
-          detail: 'Remove any harmful items like onions, chocolate, or processed foods.'
-        },
-        {
-          title: 'Chop finely',
-          detail: 'Cut food into small pieces for easier consumption.'
-        },
-        {
-          title: 'Mix',
-          detail: 'Combine different types of waste for balanced nutrition.'
-        },
-        {
-          title: 'Feed livestock',
-          detail: 'Give appropriate portions to chickens, pigs, or other animals.'
-        }
-      ],
-      benefits: [
-        'Reduces food waste',
-        'Provides affordable livestock feed',
-        'Supports sustainable agriculture'
-      ],
-      description: 'Animal feed recycling uses leftover fruits and vegetables to feed livestock. It\'s an easy way to reduce food waste and support sustainable farming.'
-    },
-    {
-      id: 'liquid-fertilizer',
-      title: 'Organic Fertilizer Liquid',
-      steps: [
-        {
-          title: 'Prepare the ingredients',
-          detail: 'Collect organic waste like fruit peels, vegetable scraps, and plant materials.'
-        },
-        {
-          title: 'Add natural activator',
-          detail: 'Mix in EM4 or other beneficial microorganisms to speed up fermentation.'
-        },
-        {
-          title: 'Ferment',
-          detail: 'Store mixture in a sealed container for 2-4 weeks in a cool place.'
-        },
-        {
-          title: 'Filter the liquid',
-          detail: 'Strain out solids and collect the nutrient-rich liquid.'
-        },
-        {
-          title: 'Use for plants',
-          detail: 'Dilute with water (1:10 ratio) and apply to soil or spray on leaves.'
-        }
-      ],
-      benefits: [
-        'Boosts plant growth naturally',
-        'Reduces chemical fertilizer use',
-        'Easy to make from kitchen waste'
-      ],
-      description: 'Organic liquid fertilizer is made by blending and fermenting organic waste with water. It provides essential nutrients for plants naturally.'
-    }
-  ];
-
-  const methodImageSets = useMemo(() => ({
-    'composting': [
-      'https://images.unsplash.com/photo-1621496654772-c66c48290259?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1686579341853-2effa68407e1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1541858619423-42850b8687c1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1499125613777-b4fd250db5cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1501169527804-c216a681aab8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
-    ],
-    'eco-enzyme': [
-      'https://media.istockphoto.com/id/2186095567/id/foto/teh-kompos-atau-ekstrak-cair-sangat-cocok-sebagai-pupuk.jpg?s=1024x1024&w=is&k=20&c=y6ECxgFYpUb2sRmMg5wqdoNoGm1MncXySClT07EPxxQ=',
-      'https://images.unsplash.com/photo-1587202372775-bd2f1e9e9b4f?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1582719478189-946f28b3cc0c?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1532634896-26909d0d8b9f?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&q=80&w=1170',
-    ],
-    'biogas': [
-      'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1616628189782-43e1e88fef8c?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1501004318641-87f8b6cfb1d6?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1501004318641-d76694265947?auto=format&fit=crop&q=80&w=1170',
-    ],
-    'animal-feed': [
-      'https://images.unsplash.com/photo-1604079628043-9431b249e8a1?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1574226516831-e1dff420e12e?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1623206831038-403a7a3a4d41?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1549399548-7b2a4f6d8d2a?auto=format&fit=crop&q=80&w=1170',
-      'https://images.unsplash.com/photo-1518976024611-486b4d8a1d8f?auto=format&fit=crop&q=80&w=1170',
-    ],
-    'liquid-fertilizer': [
-      li1,
-      li2,
-      li3,
-      li4,
-      li5,
-    ],
-  }), []);
-
-  useEffect(() => {
-    if (!selectedMethod) {
-      setMethodSlide(0);
-      return;
-    }
-    setMethodSlide(0);
-    const imgs = methodImageSets[selectedMethod] || [];
-    const interval = setInterval(() => {
-      setMethodSlide((prev) => (prev + 1) % (imgs.length || 1));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [selectedMethod, methodImageSets]);
-
-  const wasteTypes = [
-    {
-      id: 'food',
-      title: 'Food Waste',
-      description: 'Decomposes quickly and enriches soil with nutrients.',
-      detail: 'Food waste includes fruit peels, vegetable scraps, coffee grounds, and eggshells. These are rich in nitrogen, which helps compost break down faster.',
-      extraInfo: 'Properly managing food waste reduces landfill use and helps return nutrients to the soil naturally.',
-      img: 'https://plus.unsplash.com/premium_photo-1725394921112-ab7b0265e5fc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171'
-    },
-    {
-      id: 'garden',
-      title: 'Garden Waste',
-      description: 'Adds structure and air to your compost mix.',
-      detail: 'Garden waste includes dry leaves, grass clippings, and small branches. These materials provide carbon and improve airflow inside compost piles.',
-      extraInfo: 'Properly balancing garden waste with food scraps keeps your compost healthy and well-aerated.',
-      img: 'https://images.unsplash.com/photo-1603112032050-5dc5e0250edf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171'
-    },
-    {
-      id: 'paper',
-      title: 'Paper Waste',
-      description: 'Great for absorbing moisture and adding carbon.',
-      detail: 'Paper waste such as napkins, plain paper, and cardboard can be composted if free from ink or plastic coatings. It helps absorb excess water and adds carbon, balancing wet organic waste.',
-      extraInfo: 'Recycling paper into compost reduces landfill waste and improves soil texture.',
-      img: 'https://plus.unsplash.com/premium_photo-1726743661254-84e6828d989d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1107'
-    },
-    {
-      id: 'paper2',
-      title: 'Agricultural Waste',
-      description: 'Great for absorbing moisture and adding carbon.',
-      detail: 'Paper waste such as napkins, plain paper, and cardboard can be composted if free from ink or plastic coatings. It helps absorb excess water and adds carbon, balancing wet organic waste.',
-      extraInfo: 'Recycling paper into compost reduces landfill waste and improves soil texture.',
-      img: 'https://plus.unsplash.com/premium_photo-1664359132286-d3fa0dce553f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172'
-    }
-  ];
 
   const infoSections = [
     {
-      id: 'benefits',
-      title: 'Benefits of Organic Waste?',
-      content: 'Organic waste can be turned into compost that enriches soil, supports plant growth, and reduces landfill waste.'
+      id: "benefits",
+      title: "Benefits of 3R?",
+      content:
+        "Implementing 3R helps reduce waste generation, save natural resources, and cut pollution. It encourages people to live sustainably while protecting the planet for future generations. 🌍",
     },
     {
-      id: 'purpose',
-      title: 'Purpose of Managing Waste?',
-      content: 'The goal is to turn natural waste into useful resources while keeping the environment clean and sustainable.'
+      id: "purpose",
+      title: "Purpose of Practicing 3R?",
+      content:
+        "The main goal of 3R is to minimize waste from its source. By reducing, reusing, and recycling, we lessen the burden on landfills and conserve Earth's limited resources. 🌿",
     },
     {
-      id: 'impact',
-      title: 'Environmental Impact?',
-      content: 'Composting reduces methane emissions from landfills and helps fight climate change.'
+      id: "impact",
+      title: "Environmental Impact of 3R?",
+      content:
+        "Applying 3R significantly reduces greenhouse gas emissions and plastic pollution. It keeps ecosystems healthy and lowers the negative impact of human activities on the environment. 🌏",
     },
     {
-      id: 'examples',
-      title: 'Examples of Organic Waste?',
-      content: 'Food scraps, fruit peels, leaves, and grass clippings — all can naturally decompose into compost.'
-    }
+      id: "examples",
+      title: "Examples of 3R in Daily Life?",
+      content:
+        "Reduce: Bring your own bottle, avoid single-use plastic.\nReuse: Turn jars or clothes into something new.\nRecycle: Sort waste before disposal to make it easier to process again. ♻️",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-base-100" style={{ fontFamily: 'Poppins, sans-serif' }}>
-      {}
-      <div className="pt-20 lg:pt-12 pb-0 overflow-hidden dark:bg-base-100">
-        <div className="grid lg:grid-cols-2 gap-0 items-center">
-          <div className="px-8 lg:pl-12 lg:pr-8">
+    <div className="font-[Poppins] bg-white dark:bg-base-100">
+      {/* Enhanced Hero Section */}
+      <div className="pt-20 lg:pt-32 pb-0 overflow-hidden dark:bg-base-100 relative">
+        <div className="flex justify-center items-center">
+          <div className="px-8 lg:px-12 text-center max-w-4xl">
             <h1
               className="text-3xl lg:text-5xl font-bold mb-6 leading-tight text-secondary dark:text-primary"
               data-aos="fade-up"
               data-aos-duration="1000"
             >
-              Where Nature Meets Innovation for a <span className="text-primary dark:text-hero">Greener Tomorrow</span>
+              Where Change Begins for a{" "}
+              <span className="text-primary dark:text-hero">Cleaner Planet</span>
             </h1>
             <p
               className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              Explore practical ways to transform organic waste into valuable resources. From understanding what organic waste is to discovering easy composting methods, discover how small actions can make a big impact on the environment. Together, let's turn waste into growth.
+              Explore how the 3R principle — Reduce, Reuse, and Recycle — helps
+              us create a sustainable lifestyle. Every small action counts! By
+              managing waste wisely, we can protect nature, save energy, and
+              build a cleaner tomorrow. 🌱
             </p>
-            <div className="flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="400">
+            <div
+              className="flex flex-wrap justify-center gap-3"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               <button
-                onClick={() => { setActiveHero('learn'); whatIsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                aria-pressed={activeHero === 'learn'}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === 'learn' ? 'bg-green-600 text-white shadow-md border-green-600' : 'border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white'}`}
+                onClick={() => {
+                  setActiveHero("learn");
+                  whatIsRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "learn"
+                  ? "bg-green-600 text-white shadow-md"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
+                  }`}
               >
-                Learn Organic Waste
-                <span>→</span>
+                Learn About 3R <span>→</span>
               </button>
               <button
-                onClick={() => { setActiveHero('types'); typesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                aria-pressed={activeHero === 'types'}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === 'types' ? 'bg-green-600 text-white shadow-md border-green-600' : 'border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white'}`}
+                onClick={() => {
+                  setActiveHero("types");
+                  joinMovementRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "types"
+                  ? "bg-green-600 text-white shadow-md"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
+                  }`}
               >
-                Organic Waste Types →
+                Start 3R Journey →
               </button>
-            </div>
-            <div className="flex flex-wrap gap-3 mt-3" data-aos="fade-up" data-aos-delay="500">
-              <button
-                onClick={() => { setActiveHero('manage'); manageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                aria-pressed={activeHero === 'manage'}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === 'manage' ? 'bg-green-600 shadow-md text-white border-secondary' : 'border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white'}`}
+              {/* <button
+                onClick={() => {
+                  setActiveHero("manage");
+                  manageRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "manage"
+                  ? "bg-green-600 text-white shadow-md"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
+                  }`}
               >
-                Manage Organic Waste
-                <span>→</span>
-              </button>
-              <button
-                onClick={() => { setActiveHero('ai'); mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                aria-pressed={activeHero === 'ai'}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === 'ai' ? 'bg-green-600 text-white shadow-md border-green-600' : 'border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white'}`}
-              >
-                Organic Maps →
-              </button>
-              <button
-                onClick={() => { setActiveHero('calculator'); calculatorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                aria-pressed={activeHero === 'calculator'}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === 'calculator' ? 'bg-green-600 shaadow-md text-white border-green-600' : 'border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white'}`}
-              >
-                Organic Calculator →
+                Everyday Tips <span>→</span>
+              </button> */}
+              <button className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white transition-all">
+                Green Innovation →
               </button>
             </div>
           </div>
 
-          {}
+          {/* Decorative stars */}
           <div
-            className="flex justify-end items-center lg:pr-0"
-            data-aos="fade-left"
-            data-aos-delay="300"
+            className="absolute right-4 sm:right-8 md:right-12 lg:right-32 top-32 lg:top-20 z-40 pointer-events-none"
+            data-aos="zoom-in"
+            data-aos-delay="400"
           >
-            <img
-              src={imgOrganic1234567}
-              alt="Organic Waste Illustration"
-              className="w-[90%] lg:w-[90%] h-auto object-contain"
-            />
+            <PiStarFour className="animate-spin rotate-90 text-hero dark:text-hero text-4xl sm:text-5xl md:text-6xl lg:text-7xl" />
           </div>
-          {}
-          <h1 className="justify-end items-end flex mt-1 absolute right-4 sm:right-8 md:right-12 lg:right-32 top-32 lg:top-20 z-40 pointer-events-none" data-aos="zoom-in" data-aos-delay="400">
-            <PiStarFour className="animate-spin rotate-90 mt-3 text-hero dark:text-hero text-4xl sm:text-5xl md:text-6xl lg:text-7xl" />
-          </h1>
+          <div
+            className="absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+          >
+            <PiStarFour className="animate-spin rotate-90 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-hero dark:text-white" />
+          </div>
+        </div>
 
-          {}
-          <h1 className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none" data-aos="zoom-in" data-aos-delay="500">
-            <PiStarFour className="animate-spin rotate-90 mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-hero dark:text-white" />
-          </h1>
-          <h1 className="justify-start items-center flex mt-1 absolute right-48 sm:right-64 md:right-80 lg:right-[30rem] top-28 sm:top-32 lg:top-40 z-30 pointer-events-none" data-aos="zoom-in" data-aos-delay="300">
-            <PiStarFour className="animate-spin mt-1 rotate-90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-hero dark:text-white" />
-          </h1>
+        {/* 3R Icons Display */}
+        <div
+          className="flex justify-center gap-4 sm:gap-8 lg:gap-16 mt-16 mb-32 px-4 sm:px-8 flex-wrap"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div className="flex flex-col items-center cursor-pointer group" onClick={() => {
+            whatIsReuseRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}>
+            <div className="w-32 h-32 bg-gray-100 dark:bg-base-300 rounded-3xl mb-3 overflow-hidden flex items-center justify-center p-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-green-50/40">
+              <div className="w-24 h-24 bg-gray-300 rounded-2xl overflow-hidden">
+                <img src={reuses} alt="Reuse" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+              Reuse
+            </h3>
+          </div>
+          <div className="flex flex-col items-center cursor-pointer group" onClick={() => {
+            whatIsReduceRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}>
+            <div className="w-32 h-32 bg-gray-100 dark:bg-base-300 rounded-3xl mb-3 overflow-hidden flex items-center justify-center p-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-green-50/40">
+              <div className="w-24 h-24 bg-gray-300 rounded-2xl overflow-hidden">
+                <img src={reduce} alt="Reduce" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+              Reduce
+            </h3>
+          </div>
+          <div className="flex flex-col items-center cursor-pointer group" onClick={() => {
+            whatIsRecycleRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}>
+            <div className="w-32 h-32 bg-gray-100 dark:bg-base-300 rounded-3xl mb-3 overflow-hidden flex items-center justify-center p-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-green-50/40">
+              <div className="w-24 h-24 bg-gray-300 rounded-2xl overflow-hidden">
+                <img src={recycle} alt="Recycle" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <h3 className="text-lg font-semibold text-secondary dark:text-primary">
+              Recycle
+            </h3>
+          </div>
         </div>
       </div>
 
-      {}
-      <div ref={whatIsRef} className="py-12 lg:py-16 bg-green-50/40 dark:bg-base-200">
-        <div className="flex flex-col lg:flex-row mx-8 lg:mx-12 gap-8 lg:gap-16 items-start">
-          <div className="flex-1">
+      {/* What Is 3R Section with Carousel */}
+      <div
+        ref={whatIsRef}
+        className="py-12 lg:py-16 lg:mt-12 bg-green-50/40 dark:bg-base-200"
+      >
+        <div className="flex flex-col-reverse lg:flex-row mx-4 sm:mx-8 lg:mx-12 gap-6 sm:gap-8 lg:gap-16 items-start">
 
+
+          {/* Right - Text Content */}
+          <div className="flex-1 w-full lg:w-auto">
             <h2
               className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
               data-aos="fade-right"
             >
-              What Is <span className="text-primary dark:text-hero">Organic Waste?</span>
+              What Is <span className="text-primary dark:text-hero">3R?</span>
             </h2>
             <p
               className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-4 lg:mb-6 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="100"
             >
-              Organic waste comes from living things and can decompose naturally, such as food scraps, leaves, and twigs. It's nature's way of recycling itself and we can learn from it. 🌿
+              The 3R principle — Reduce, Reuse, and Recycle — teaches us to cut waste by using less, reusing items, and recycling materials into new ones. This simple habit protects our planet and supports sustainability. 🌍
+
             </p>
             <p
               className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-6 lg:mb-8 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="200"
             >
-              By properly managing organic waste, we allow nature's cycle to continue in a sustainable way. When composted, this waste turns into nutrient rich soil that helps plants grow healthier, reduces pollution.
+              By properly practicing 3R, we reduce landfill waste, conserve
+              natural resources, and lower pollution levels. It's a simple yet
+              powerful way to make a positive impact on the environment.
             </p>
 
-            <div className="space-y-1 mb-8 lg:mb-0" data-aos="fade-right" data-aos-delay="300">
+            <div
+              className="space-y-1 mb-8 lg:mb-0"
+              data-aos="fade-right"
+              data-aos-delay="300"
+            >
               {infoSections.map((section) => {
                 const isOpen = selectedInfo === section.id;
                 return (
-                  <div key={section.id} className="border-b border-gray-200 dark:border-gray-600">
+                  <div
+                    key={section.id}
+                    className="border-b border-gray-200 dark:border-gray-600"
+                  >
                     <button
-                      onClick={() => setSelectedInfo(isOpen ? null : section.id)}
+                      onClick={() =>
+                        setSelectedInfo(isOpen ? null : section.id)
+                      }
                       className="w-full px-3 sm:px-4 py-4 sm:py-5 flex items-center rounded-md justify-between hover:bg-gray-50 dark:hover:bg-base-100 transition-all duration-300"
                     >
                       <span
-                        className={`text-left transition-all duration-300 ${isOpen ? 'text-green-700 dark:text-primary font-bold text-lg sm:text-xl lg:text-2xl' : 'text-primary dark:text-hero font-normal text-xs sm:text-sm lg:text-base'
+                        className={`text-left transition-all duration-300 ${isOpen
+                          ? "text-green-700 dark:text-primary font-bold text-lg sm:text-xl lg:text-2xl"
+                          : "text-primary dark:text-hero font-normal text-xs sm:text-sm lg:text-base"
                           }`}
                       >
                         {section.title}
@@ -583,45 +317,51 @@ const Organic = () => {
 
                       <div
                         className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${isOpen
-                          ? 'bg-green-700 dark:bg-primary border-primary'
-                          : 'bg-white dark:bg-base-100 border-primary hover:border-primary hover:bg-green-50/40'
+                          ? "bg-green-700 dark:bg-primary border-primary"
+                          : "bg-white dark:bg-base-100 border-primary hover:border-primary hover:bg-green-50/40"
                           }`}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform duration-300 ${isOpen ? '-rotate-90 text-white' : 'rotate-90 text-primary'
+                          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform duration-300 ${isOpen
+                            ? "-rotate-90 text-white"
+                            : "rotate-90 text-primary"
                             }`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                           strokeWidth={2}
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 5l7 7-7 7"
+                          />
                         </svg>
                       </div>
                     </button>
 
                     {isOpen && (
                       <div className="px-3 sm:px-4 pb-4 sm:pb-5 animate-slideDown">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
+                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
                           {section.content}
                         </p>
                       </div>
                     )}
                   </div>
-
                 );
               })}
             </div>
           </div>
+          {/* Left - Carousel */}
           <div
-            className="flex-1 w-full flex items-center justify-center pb-8 sm:pb-10 lg:pb-10"
+            className="flex-1 w-full flex items-center justify-center pb-6 sm:pb-8 lg:pb-10 h-64 sm:h-80 lg:h-auto"
             data-aos="fade-left"
             data-aos-delay="200"
           >
             <div
-              className="relative h-[600px] sm:h-[650px] md:h-[680px] lg:h-[700px] w-full flex items-center justify-center"
-              style={{ overflow: 'visible' }}
+              className="relative h-80 sm:h-96 lg:h-[700px] w-full flex items-center justify-center"
+              style={{ overflow: "visible" }}
               onMouseEnter={() => setWhatHovered(true)}
               onMouseLeave={() => setWhatHovered(false)}
               onTouchStart={() => setWhatHovered(true)}
@@ -640,26 +380,24 @@ const Organic = () => {
                 const distance = Math.abs(raw);
                 const scale = raw === 0 ? 1 : 0.88;
                 const opacity = raw === 0 ? 1 : 0.6;
-                const blur = distance === 0 ? 'blur(0px)' : 'blur(3px)';
+                const blur = distance === 0 ? "blur(0px)" : "blur(3px)";
                 const zIndex = 10 - distance;
 
                 return (
                   <div
                     key={i}
-                    className="absolute left-1/2 rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    className="absolute left-1/2 rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 shadow-2xl"
                     style={{
-                      width: raw === 0 ? '82%' : '72%',
-                      height: raw === 0 ? '52%' : '45%',
+                      width: raw === 0 ? "82%" : "72%",
+                      height: raw === 0 ? "52%" : "45%",
                       top: `calc(50% + ${translateY}px)`,
-
                       transform: `translate3d(-50%, -50%, 0) scale(${scale})`,
                       opacity,
                       filter: blur,
                       zIndex,
-
-                      willChange: 'transform, opacity, filter, top',
+                      willChange: "transform, opacity, filter, top",
                       transition:
-                        'top 1000ms cubic-bezier(0.22,1,0.36,1), transform 1000ms cubic-bezier(0.22,1,0.36,1), opacity 1000ms linear, filter 1000ms linear',
+                        "top 1000ms cubic-bezier(0.22,1,0.36,1), transform 1000ms cubic-bezier(0.22,1,0.36,1), opacity 1000ms linear, filter 1000ms linear",
                     }}
                   >
                     <img
@@ -673,499 +411,1060 @@ const Organic = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>      {/* How to Manage Section */}
 
-      {}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-        className={`fixed right-6 z-100 bottom-6 z-50 rounded-full p-3 shadow-lg focus:outline-none focus:ring-2 bg-green-600  focus:ring-green-300 transition-transform duration-200 ${showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 pointer-events-none'}`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 z-300 h-6 bg-green-600 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
 
-      {}
-      <div ref={typesRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
-        <h2
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-2 lg:mb-3 text-secondary dark:text-primary"
-          data-aos="fade-up"
-        >
-          Types of <span className="text-primary dark:text-hero">Organic Waste?</span>
-        </h2>
-        <p
-          className="text-sm lg:text-base text-gray-600 dark:text-gray-200 text-center mb-8 lg:mb-12"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          Discover what kinds of organic materials you can recycle and turn into compost.
-        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {wasteTypes.map((type, idx) => (
-            <div
-              key={type.id}
-              className="group bg-gray-50 dark:bg-base-200 text-secondary dark:text-white rounded-3xl p-4 hover:shadow-lg transition-all duration-300 border hover:bg-green-50/40 dark:hover:bg-base-100 border-gray-100 dark:border-gray-700"
-              data-aos="zoom-in"
-              data-aos-delay={idx * 100}
+      {/* Reuse Benefits */}
+      <div className="mt-20">
+        <div className="flex items-center gap-10 flex-wrap px-0">
+          <div className="w-[22rem] lg:w-[32rem] md:w-[25rem] md:h-[27vh] h-[43vh] lg:h-[60vh] xl:h-[50vh] bg-third rounded-e-badge p-6 lg:p-8" data-aos="fade-right"
+            data-aos-delay="300">
+            <h1 className="font-bold text-white text-2xl lg:text-4xl"
+              ref={joinMovementRef}
             >
-              <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-40 mb-6 flex items-center justify-center overflow-hidden">
-                {type.img ? (
-                  <img src={type.img} alt={type.title} className="object-cover h-full w-full rounded-2xl transform transition-transform duration-500 ease-out group-hover:scale-110" />
-                ) : (
-                  <span className="text-gray-400 dark:text-gray-400 text-sm">Image</span>
-                )}
+              Join the 3R <br /> Movement! 🌿
+
+            </h1>
+            <p className="text-white font-medium text-[13px] lg:text-[15px] xl:text-base max-w-[10.8rem] lg:max-w-[20.5rem] text-justify mt-5 lg:mt-7">
+              Reduce, Reuse, and Recycle help us cut waste,
+              save resources, and protect the balance of nature.
+              Because the Earth needs action, not just words.
+            </p>
+
+            <div className="relative lg:-mt-6 flex justify-end mx-18 lg:-mx-28 -mt-7">
+              <div className="w-[7rem] lg:w-[12rem] h-[9rem] lg:h-[13rem] absolute bottom-[-0.5rem] -rotate-[3deg] z-0 bg-gray-200/30 p-1 lg:p-2 rounded-lg">
+                <img
+                  src="https://images.pexels.com/photos/7190613/pexels-photo-7190613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  alt="Reuse example"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
-              <h3 className="text-base lg:text-lg font-bold mb-2">{type.title}</h3>
-              <p className="text-gray-600 dark:text-gray-200 mb-4 text-xs sm:text-sm">{type.description}</p>
-              <button
-                onClick={() => setSelectedType(type.id)}
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-xs sm:text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-600"
-              >
-                Detail
-              </button>
+              <div className="w-[7.5rem] lg:w-[10rem] h-[8rem] lg:h-[11rem] absolute rotate-[15deg] z-10 bg-gray-200/30 p-1 lg:p-2 rounded-lg">
+                <img
+                  src="https://images.unsplash.com/photo-1604631698209-c105c7874ea8?q=80&w=1916&auto=format&fit=crop&ixlib=rb-4.0.3"
+                  alt="Reuse example 2"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {}
-      {selectedType && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6 animate-fadeIn">
-          <div className="bg-white dark:bg-base-100 rounded-3xl max-w-xl w-full p-8 relative animate-slideUp">
-            {
-
-}
-
-            {wasteTypes
-              .filter((t) => t.id === selectedType)
-              .map((type) => (
-                <div key={type.id}>
-                  <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 mb-6 flex items-center justify-center overflow-hidden">
-                    {type.img ? (
-                      <img src={type.img} alt={type.title} className="object-cover h-full w-full rounded-2xl" />
-                    ) : (
-                      <span className="text-gray-400 dark:text-gray-400">Image</span>
-                    )}
-                  </div>
-                  <h3 className="text-3xl text-secondary dark:text-white font-bold mb-4">{type.title}</h3>
-                  <p className="text-gray-700 dark:text-white mb-4 leading-relaxed text-sm">
-                    {type.detail}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed text-sm">
-                    {type.extraInfo}
-                  </p>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => setSelectedType(null)}
-                      className="mt-6 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-secondary dark:text-white hover:bg-gray-300 dark:hover:bg-base-200 rounded-full font-medium transition-all duration-300 text-sm"
-                    >
-                      Close
-                    </button>
-                  </div>
-
-                </div>
-              ))}
+            {/* <p className="border-white border-b-2 flex mt-24 lg:mt-20 xl:mt-28 z-0"></p> */}
+          </div>
+          <div className="flex flex-col text-black text-4xl lg:text-[53px] justify-end text-center mx-auto mb-12 lg:mb-0 leading-relaxed" >
+            <h1 className="font-bold text-secondary dark:text-hero" data-aos="fade-left"
+              data-aos-delay="300">
+              LET'S DO 3R GUYS!
+            </h1>
+            <h1 className="font-bold text-transparent custom-outline text-secondary" data-aos="fade-left"
+              data-aos-delay="300">
+              LET'S DO 3R GUYS!
+            </h1>
+            <h1 className="font-bold text-secondary dark:text-hero" data-aos="fade-left"
+              data-aos-delay="300">
+              LET'S DO 3R GUYS!
+            </h1>
+            <h1 className="font-bold text-transparent custom-outline text-primary" data-aos="fade-left"
+              data-aos-delay="300">
+              LET'S DO 3R GUYS!
+            </h1>
           </div>
         </div>
-      )}
+      </div>
+      <div className="bg-gradient-to-r from-gradient dark:bg-gradient-to-tl dark:to-[#249E52] dark:from-[#0D381D] dark:rounded-r-full to-white h-[12rem] md:h-[10rem] lg:h-[13rem] w-full mt-20" >
+        <div className="flex items-center justify-between lg:mt-20">
+          <div className="p-4 lg:pl-14 lg:pb-16">
+            <h1 className="text-secondary dark:text-hero text-3xl lg:text-5xl font-bold"
+              ref={whatIsReuseRef}
+              data-aos="fade-right"
+              data-aos-delay="150">
+              What Is Reuse?
+            </h1>
+            <p className="text-gray-500 lg:max-w-[35rem] dark:text-white md:text-[15px] mt-3  mb-6 text-base lg:text-base text-justify leading-relaxed" data-aos="fade-right"
+              data-aos-delay="150">
+              Reuse means using items more than once instead of throwing them away. 🌿 It’s about finding new purposes for what we have — to reduce waste, save money, and protect the environment.
 
-      {}
-      <div ref={manageRef} className="py-12 lg:py-16 bg-green-50/40 dark:bg-base-200 relative">
-        {}
-        <div className="absolute right-[30rem] top-12 z-10 pointer-events-none" data-aos="zoom-in">
-          <PiStarFour className="animate-spin rotate-90 text-hero/70 dark:text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
+            </p>
+          </div>
+          <div className="pr-12" data-aos="fade-zoom-in"
+            data-aos-delay="300">
+            <img
+              src={kelapa}
+              alt="Reuse tips"
+              className="hidden lg:block md:block md:w-[25rem] lg:w-[23rem]" />
+          </div>
         </div>
-        <div className="absolute right-[26rem] top-20 z-10 pointer-events-none" data-aos="zoom-in" data-aos-delay="100">
+      </div>
+      <div className="p-10" data-aos="fade-up"
+        data-aos-delay="300">
+        <ImageSlider />
+      </div>
+
+      <div ref={manageRef} className="py-12 lg:pt-32 pb-2 dark:bg-base-200 relative mx-10">
+        {/* Decorative stars */}
+        <div
+          className="absolute right-[30rem] top-12 z-10 pointer-events-none"
+          data-aos="zoom-in"
+        >
+          <PiStarFour className="animate-spin rotate-90 text-hero/70 dark:text-white text-3xl lg:mt-12 sm:text-4xl md:text-5xl lg:text-6xl" />
+        </div>
+        <div
+          className="absolute right-[26rem] top-20 z-10 pointer-events-none"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        >
           <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
 
         <h2
-          className="text-2xl sm:text-3xl lg:text-4xl mx-8 lg:mx-12 font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
+          ref={reuseHeaderRef}
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
           data-aos="fade-up"
         >
-          How to Manage <span className="text-primary dark:text-hero">Organic Waste?</span>
+          Give Things a{" "}
+          <span className="text-primary dark:text-hero">Second Life 🌿</span>
         </h2>
-
         <p
-          className="text-sm lg:text-base mx-8 lg:mx-12 text-gray-600 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
+          className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Organic waste management isn't just about composting it's about reusing and recycling what nature gives us. By managing it wisely, we can reduce pollution, save resources, and create a greener environment. 🌱
+          Reusing is about finding new ways to use what we already have. With a little creativity, old materials can serve new purposes — reducing waste, saving money, and inspiring more sustainable daily habits.
         </p>
 
         <div
-          className="flex flex-wrap gap-3 mx-8 lg:mx-12 mb-8 lg:mb-12"
+          className="flex flex-wrap gap-3 mb-8 lg:mb-12"
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          {methods.map((method) => (
+          {["Save Nature, Save Us 🍃"].map((method) => (
             <button
-              key={method.id}
-              onClick={() => setSelectedMethod(method.id === selectedMethod ? null : method.id)}
-              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${selectedMethod === method.id
-                ? 'bg-green-600 text-white border-green-600 shadow-sm'
-                : 'bg-white dark:bg-base-100 border-gray-300 dark:border-gray-600 text-secondary dark:text-white hover:border-secondary hover:bg-green-50/40 dark:hover:bg-base-300'
+              onClick={() => {
+                setActiveHero('reuse');
+                reuseHeaderRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
+              key={method}
+              aria-pressed={activeHero === 'reuse'}
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${activeHero === 'reuse'
+                ? "bg-green-600 text-white border-green-600 shadow-md"
+                : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
                 }`}
             >
-              {method.title}
-              <span className={`ml-2 transform transition-transform ${selectedMethod === method.id ? '-rotate-90 text-white' : 'rotate-90 text-gray-500 dark:text-gray-400'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 sm:w-4 sm:h-4 transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              {method}
+              <span className="ml-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-3 h-3 sm:w-4 sm:h-4 transform rotate-90"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </span>
             </button>
           ))}
         </div>
 
-        {selectedMethod && (
-          <div className="animate-slideDown" data-aos="fade-up" data-aos-delay="300">
-            {methods
-              .filter((m) => m.id === selectedMethod)
-              .map((method) => (
-                <div key={method.id} className="bg-white dark:bg-base-100 p-8 rounded-3xl mx-8 lg:mx-12">
-                  <div className="grid md:grid-cols-2 gap-12 mb-8">
-                    <div
-                      className="rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 h-72 sm:h-96 relative"
-                      data-aos="fade-right"
-                    >
-                      {(() => {
-                        const imgs = methodImageSets[method.id] || methodImageSets['composting'];
-                        return (
-                          <div
-                            className="absolute inset-0 flex transition-transform duration-1000 ease-out"
-                            style={{
-                              transform: `translateX(-${methodSlide * 100}%)`,
-                            }}
+
+      </div>
+      {/* Reuse Section */}
+      <section id="reuse">
+        <div className="mt-10 mx-2 sm:mx-4 dark:bg-base-200 p-6 sm:p-8 lg:p-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 mt-8">
+            <img
+              src={shoes}
+              alt="Reuse shoes"
+              className="w-80 md:w-64 lg:w-[30rem] mb-0 lg:mb-10" data-aos="fade-right"
+              data-aos-delay="100"
+            />
+
+            <div className="flex flex-col items-start justify-center gap-4 max-w-lg text-left">
+
+              {/* Today’s Relevance */}
+              <div className="flex items-start gap-3 mb-12 lg:-ml-32 -ml-0">
+                <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1" data-aos="fade-up"
+                  data-aos-delay="100">
+                  <IoLeafOutline size={20} />
+                </span>
+                <div>
+                  <h2 className="text-lg mb-4 md:text-3xl font-bold text-secondary dark:text-white" data-aos="fade-up"
+                    data-aos-delay="100">
+                    Today’s Relevance
+                  </h2>
+                  <p className="text-[14px] lg:text-base text-gray-600 dark:text-gray-100 leading-relaxed text-justify mt-1" data-aos="fade-up"
+                    data-aos-delay="100">
+                    In a world full of fast production and overconsumption, “reduce” teaches us to live more mindfully — valuing what we already have and making sustainable choices daily. 🌍
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefits of Reuse */}
+              <div className="flex items-start gap-3 mb-12 -ml-0 lg:-ml-10" >
+                <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1" data-aos="fade-up"
+                  data-aos-delay="100">
+                  <IoLeafOutline size={20} />
+                </span>
+                <div>
+                  <h2 className="text-lg md:text-3xl font-bold mb-4 text-secondary dark:text-white" data-aos="fade-up"
+                    data-aos-delay="100">
+                    Benefits of Reuse
+                  </h2>
+                  <ul className="space-y-0.5" data-aos="fade-up"
+                    data-aos-delay="100">
+                    {[
+                      'Extends product lifespan and reduces landfill waste.',
+                      'Saves money by choosing quality over quantity.',
+                      'Lowers production demand and reduces pollution.',
+                      'Encourages creativity and sustainable habits. ♻️',
+                    ].map((benefit, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-base text-justify">
+                        <span className="text-hero mt-0.5 inline-flex flex-shrink-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 512 512"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="30"
+                            className="text-hero"
                           >
-                            {imgs.map((src, i) => (
-                              <img
-                                key={i}
-                                src={src}
-                                alt={`${method.title} ${i + 1}`}
-                                className="w-full h-full object-cover flex-shrink-0"
-                                loading="lazy"
-                              />
-                            ))}
-                          </div>
-                        );
-                      })()}
+                            <path d="M321.89 171.42C233 114 141 155.22 56 65.22c-19.8-21-8.3 235.5 98.1 332.7c77.79 71 197.9 63.08 238.4-5.92s18.28-163.17-70.61-220.58" />
+                            <path d="M173 253c86 81 175 129 292 147" />
+                          </svg>
+                        </span>
+                        <span className="text-gray-700 dark:text-gray-200">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-                      {}
-                      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
-                        {(methodImageSets[method.id] || methodImageSets['composting']).map((_, i) => (
-                          <span
-                            key={i}
-                            className={`w-2 h-2 rounded-full ${i === methodSlide ? 'bg-white dark:bg-base-100' : 'bg-white dark:bg-base-100/40'} transition-all duration-300`}
-                          />
-                        ))}
-                      </div>
+            </div>
+          </div>
+        </div>
+        {/* How to Reuse Section */}
+        <div className="py-12 lg:pt-20 lg:py-16 mx-4 sm:mx-8 lg:mx-12">
+          <div className="text-center mb-8">
+            <h2
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-secondary dark:text-primary flex items-center justify-center gap-2"
+              data-aos="fade-up"
+            >
+
+              <span>How to <span className="text-primary dark:text-hero">Reuse?</span></span>
+            </h2>
+            <p
+              className="text-sm lg:text-base text-gray-600 dark:text-gray-200 max-w-2xl mx-auto"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              Reuse means giving new purpose to items still usable. By repurposing or donating them, we can reduce waste and make life more sustainable.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+            {[
+              {
+                id: 'eco-bags',
+                title: 'Using Eco-Friendly Bags',
+                description: 'Switch to reusable bags made from cloth or bamboo to reduce plastic waste.',
+                detail: 'By bringing your own bag, you help protect nature and build a simple habit for a greener planet. 🌱',
+                image: 'https://images.unsplash.com/photo-1732963947955-858ad7d5e540?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=627'
+              },
+              {
+                id: 'crafts',
+                title: 'Turning Used Goods into Crafts',
+                description: 'Turn old items like bottles or jars into creative crafts or simple decorations.',
+                detail: 'Small creative acts can make your space more meaningful while helping the planet. ',
+                image: 'https://images.unsplash.com/photo-1653906719431-60ecb8e86e95?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170'
+              },
+              {
+                id: 'bottles',
+                title: 'Reuse Bottles and Containers',
+                description: 'Reuse bottles or jars for storage, watering plants, or DIY projects.',
+                detail: 'Simple reuse habits can make a lasting impact on the environment. ',
+                image: 'https://images.unsplash.com/photo-1533629046790-addefc28951e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170'
+              }
+            ].map((item, idx) => (
+              <div
+                key={item.id}
+                className="group bg-gray-50 dark:bg-base-200 text-secondary dark:text-white rounded-3xl p-6 hover:shadow-lg transition-all duration-300 border hover:bg-green-50/40 dark:hover:bg-base-100 border-gray-100 dark:border-gray-700"
+                data-aos="zoom-in"
+                data-aos-delay={idx * 100}
+              >
+                <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-48 mb-6 flex items-center justify-center overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <h3 className="text-lg lg:text-xl font-bold mb-3">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-200 mb-4 text-sm leading-relaxed">
+                  {item.description}
+                </p>
+                <button
+                  onClick={() => setSelectedReuse(item.id)}
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-sm font-medium transition-all duration-300"
+                >
+                  Read more
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Reuse Detail Modal */}
+        {selectedReuse && ['eco-bags', 'crafts', 'bottles'].includes(selectedReuse) && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6 animate-fadeIn">
+            <div className="bg-white dark:bg-base-100 rounded-3xl max-w-xl w-full p-8 relative animate-slideUp shadow-2xl">
+              {[
+                {
+                  id: 'eco-bags',
+                  title: 'Using Eco-Friendly Bags',
+                  description: 'Switch to reusable bags made from cloth or bamboo to reduce plastic waste.',
+                  detail: 'Switch to reusable bags made from cloth or bamboo to reduce plastic waste. It’s a small step that saves energy and keeps our environment cleaner. By bringing your own bag, you help protect nature and build a simple habit for a greener planet. 🌿'
+                },
+                {
+                  id: 'crafts',
+                  title: 'Turning Used Goods into Crafts',
+                  description: 'Turn old items like bottles or jars into creative crafts or simple decorations.',
+                  detail: 'Turn old items like bottles or jars into creative crafts or simple decorations. Reusing them reduces waste and inspires sustainable creativity. Small creative acts can make your space more meaningful while helping the planet. 🎨'
+                },
+                {
+                  id: 'bottles',
+                  title: 'Reusing Bottles and Containers',
+                  description: 'Reuse bottles or jars for storage, watering plants, or DIY projects.',
+                  detail: 'Reuse bottles or jars for storage, watering plants, or DIY projects. It saves resources and reduces single-use waste. Simple reuse habits can make a lasting impact on the environment. 🌎'
+                }
+              ]
+                .filter((item) => item.id === selectedReuse)
+                .map((item) => (
+                  <div key={item.id}>
+                    <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 mb-6 flex items-center justify-center overflow-hidden">
+                      <img src={'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1470&auto=format&fit=crop'} alt={item.title} className="w-full h-full object-cover" />
                     </div>
-
-                    <div data-aos="fade-left">
-                      <h2 className="text-2xl text-secondary dark:text-primary font-bold mb-4">{method.title}</h2>
-                      <p className="text-gray-600 dark:text-gray-200 mb-6 leading-relaxed text-sm">
-                        {method.description}
-                      </p>
-
-                      <h3 className="text-2xl font-bold text-secondary dark:text-primary mt-8 mb-3">
-                        Benefits of {method.title}
-                      </h3>
-                      <ul className="space-y-2 mb-6">
-                        {method.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-sm">
-                            <span className="text-hero mt-0.5 inline-flex">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 512 512"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="30"
-                                className="text-hero-600 "
-                              >
-                                <path d="M321.89 171.42C233 114 141 155.22 56 65.22c-19.8-21-8.3 235.5 98.1 332.7c77.79 71 197.9 63.08 238.4-5.92s18.28-163.17-70.61-220.58" />
-                                <path d="M173 253c86 81 175 129 292 147" />
-                              </svg>
-                            </span>
-
-                            <span className="text-gray-700 dark:text-white">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-
+                    <h3 className="text-3xl text-secondary dark:text-white font-bold mb-4">{item.title}</h3>
+                    {/* <p className="text-gray-700 dark:text-white mb-4 leading-relaxed text-sm">
+                      {item.description}
+                    </p> */}
+                    <p className="text-gray-600 dark:text-gray-200 leading-relaxed text-sm">
+                      {item.detail}
+                    </p>
+                    <div className="flex justify-end">
                       <button
-                        onClick={() => howToRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                        className="px-5 py-2.5 rounded-full border-2 text-sm font-medium bg-green-600 text-white border-green-600 hover:bg-green-700 transition-all"
+                        onClick={() => setSelectedReuse(null)}
+                        className="mt-6 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-secondary dark:text-white hover:bg-gray-300 dark:hover:bg-base-200 rounded-full font-medium transition-all duration-300 text-sm"
                       >
-                        Let's Make It →
+                        Close
                       </button>
                     </div>
-
                   </div>
+                ))}
+            </div>
+          </div>
+        )}
+      </section>
 
-                  <div className="grid md:grid-cols-2 md:mt-16 gap-12">
-                    <div data-aos="fade-up" data-aos-delay="300">
-                      <h3 ref={howToRef} className="text-2xl text-secondary dark:text-primary font-bold mb-3">
-                        How to Make {method.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-200 mb-4 text-sm">
-                        Follow these simple steps to turn {method.id === 'composting' ? 'your organic waste into nutrient-rich compost' : method.id === 'eco-enzyme' ? 'fruit peels into natural eco-cleaners' : method.id === 'biogas' ? 'organic waste into renewable energy' : method.id === 'animal-feed' ? 'leftovers as healthy animal feed' : 'food waste into liquid fertilizer'}:
-                      </p>
-                      <div className="space-y-3" data-aos="fade-up" data-aos-delay="300">
-                        {method.steps.map((step, idx) => {
-                          const stepKey = `${method.id}-${idx}`;
-                          const isOpen = selectedStep === stepKey;
-                          return (
-                            <div
-                              key={idx}
-                              className={`rounded-2xl overflow-hidden border ${isOpen ? 'bg-primary dark:bg-third border-hero dark:border-third' : 'bg-green-50/40 dark:bg-base-200 border-gray-200 dark:border-gray-600'}`}>
-                              <button
-                                onClick={() => setSelectedStep(isOpen ? null : stepKey)}
-                                className={`w-full px-6 py-4 pb-4 flex items-center justify-between transition-all duration-300 ${isOpen ? '' : 'hover:bg-gray-100 dark:hover:bg-base-100'}`}
-                              >
-                                <div className="flex items-center gap-3">
-                                  <div className={`w-7 h-7 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0 ${isOpen ? 'bg-white text-green-600  dark:text-third' : 'bg-primary text-white  dark:bg-third'}`}>
-                                    {idx + 1}
-                                  </div>
-                                  <span className={`${isOpen ? 'text-white font-bold' : 'text-sm font-medium text-left text-gray-800 dark:text-white'}`}>{step.title}</span>
-                                </div>
-                                <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${isOpen ? 'border-white' : 'border-gray-200 dark:border-gray-600'}`}>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className={`w-4 h-4 transform transition-transform duration-300 ${isOpen ? '-rotate-90 text-white' : 'rotate-90 text-primary  '}`}
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                  >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                  </svg>
-                                </div>
-                              </button>
-                              <div
-                                ref={(el) => (detailRefs.current[stepKey] = el)}
-                                style={{ maxHeight: isOpen ? `${detailRefs.current[stepKey]?.scrollHeight || 0}px` : '0px' }}
-                                className="px-6 pb-0 overflow-hidden transition-[max-height] duration-500 ease-in-out"
-                              >
-                                <div className={`pl-10 pr-8 pb-3 transform transition-all duration-300 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`}>
-                                  <p className={`${isOpen ? 'text-white' : 'text-gray-600 dark:text-gray-200'} text-sm leading-relaxed`}>{step.detail}</p>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
 
-                    <div className="relative h-96 rounded-3xl md:mt-24 overflow-hidden flex items-center justify-center" data-aos="fade-up" data-aos-delay="400">
-                      <DotLottieReact
-                        src="https://lottie.host/1bc690f4-3ecf-42d8-a4c9-4afcd507677b/n5KVQwAA7R.lottie"
-                        loop
-                        autoplay
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                      />
-                    </div>
+      {/* How to Reuse */}
+      <div className="bg-gradient-to-r from-gradient dark:bg-gradient-to-tl dark:to-[#249E52] dark:from-[#0D381D] dark:rounded-r-full to-white h-[12rem] md:h-[10rem] lg:h-[13rem] w-full mt-20">
+        <div className="flex items-center justify-between lg:mt-20">
+          <div className="p-4 lg:pl-14 lg:pb-16">
+            <h1 className="text-secondary dark:text-hero text-3xl lg:text-5xl font-bold"
+              ref={whatIsReduceRef}
+              data-aos="fade-right"
+              data-aos-delay="200">
+              What Is Reduce?
+            </h1>
+            <p className="text-gray-500 lg:max-w-[35rem] dark:text-white md:text-[15px] mt-3 text-base lg:text-base text-justify leading-relaxed" data-aos="fade-right"
+              data-aos-delay="200">
+              Reduce means using fewer materials and energy by avoiding unnecessary consumption. It inspires us to buy wisely, choose durable products, and protect our planet. 🌍
 
+            </p>
+          </div>
+          <div className="pr-12">
+            <img
+              src={kelapa}
+              alt="Reuse tips"
+              className="hidden lg:block md:block md:w-[25rem] lg:w-[23rem]" data-aos="fade-zoom-in"
+              data-aos-delay="300"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="p-10" data-aos="fade-up"
+        data-aos-delay="300">
+        <ImageSlider />
+      </div>
+      {/* Reuse Cards */}
+      {/* <div className="mt-12 mx-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
+        {DataReuse.map((card) => (
+          <Card3R
+            key={card.id}
+            id={card.id}
+            image={card.image}
+            title={card.title}
+            desc={card.desc}
+          />
+        ))}
+      </div> */}
+      <div ref={manageRef} className="py-12 lg:pt-32 pb-2 dark:bg-base-200 relative mx-10">
+        {/* Decorative stars */}
+        <div
+          className="absolute right-[30rem] top-12 z-10 pointer-events-none"
+          data-aos="zoom-in"
+        >
+          <PiStarFour className="animate-spin rotate-90 text-hero/70 dark:text-white text-3xl lg:mt-12 sm:text-4xl md:text-5xl lg:text-6xl" />
+        </div>
+        <div
+          className="absolute right-[26rem] top-20 z-10 pointer-events-none"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        >
+          <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
+        </div>
+
+        <h2
+          ref={reduceHeaderRef}
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
+          data-aos="fade-up"
+        >
+          Live Simply,{" "}
+          <span className="text-primary dark:text-hero">Waste Less 🌍</span>
+        </h2>
+        <p
+          className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Reducing means choosing only what we truly need and avoiding unnecessary consumption. By living mindfully and valuing quality over quantity, we save energy, cut pollution, and protect the planet for generations to come.
+        </p>
+
+        <div
+          className="flex flex-wrap gap-3 mb-8 lg:mb-12"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          {["Together for a Greener World 🌱"].map((method) => (
+            <button
+              onClick={() => {
+                setActiveHero('reduce');
+                reduceHeaderRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
+              key={method}
+              aria-pressed={activeHero === 'reduce'}
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${activeHero === 'reduce'
+                ? "bg-green-600 text-white border-green-600 shadow-md"
+                : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
+                }`}
+            >
+              {method}
+              <span className="ml-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-3 h-3 sm:w-4 sm:h-4 transform rotate-90"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Why Reduce Matters Section */}
+      <div className="py-12 lg:py-16 mx-4 sm:mx-8 lg:mx-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Image Column */}
+          <div
+            className="bg-gray-200 dark:bg-gray-700 rounded-3xl h-80 lg:h-96 flex items-center justify-center overflow-hidden"
+            data-aos="fade-right"
+          >
+            <img src="https://images.unsplash.com/photo-1538993134100-27305b66a47c?q=80&w=1470&auto=format&fit=crop" alt="Reduce" className="w-full h-full object-cover" />
+          </div>
+          {/* Content Column */}
+          <div data-aos="fade-left">
+            {/* Today’s Relevance */}
+            <div className="flex items-start gap-3 mb-16">
+              <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1 ">
+                <IoLeafOutline size={20} />
+              </span>
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold mb-4 text-secondary dark:text-primary">
+                  Today’s Relevance
+                </h2>
+                <p className="text-sm lg:text-base text-gray-600 dark:text-gray-200 leading-relaxed">
+                  In a fast-paced world, “reduce” reminds us to slow down, live simply, and value what we already have.
+                  It’s the first and most impactful step toward sustainability.
+                </p>
+              </div>
+            </div>
+
+            {/* Benefits of Reducing */}
+            <div className="flex items-start gap-3">
+              <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1">
+                <IoLeafOutline size={20} />
+              </span>
+              <div>
+                <h3 className="text-xl lg:text-3xl font-bold mb-4 text-secondary dark:text-primary">
+                  Benefits of Reducing
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    'Reduces demand for new materials and resources.',
+                    'Saves energy and lowers pollution from manufacturing.',
+                    'Prevents overconsumption and unnecessary waste.',
+                    'Encourages mindful and sustainable living habits. 🌱'
+                  ].map((benefit, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-base text-justify">
+                      <span className="text-hero mt-0.5 inline-flex flex-shrink-0">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 512 512"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="30"
+                          className="text-hero"
+                        >
+                          <path d="M321.89 171.42C233 114 141 155.22 56 65.22c-19.8-21-8.3 235.5 98.1 332.7c77.79 71 197.9 63.08 238.4-5.92s18.28-163.17-70.61-220.58" />
+                          <path d="M173 253c86 81 175 129 292 147" />
+                        </svg>
+                      </span>
+                      <span className="text-gray-700 dark:text-gray-200">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* How to Reduce Section */}
+      <div className="py-12 lg:py-16 mx-4 sm:mx-8 lg:mx-12 dark:bg-base-200 rounded-3xl mt-8">
+        <div className="text-center mb-8">
+          <h2
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-secondary dark:text-primary"
+            data-aos="fade-up"
+          >
+            How to <span className="text-primary dark:text-hero">Reduce?</span>
+          </h2>
+          <p
+            className="text-sm lg:text-base text-gray-600 dark:text-gray-200 max-w-2xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Reducing means using less and avoiding waste. By choosing what we truly need and eco-friendly products, we help create a greener future.
+
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          {[
+            {
+              id: 'buy-need',
+              title: 'Buy Only What You Need',
+              description: 'Avoid overbuying and focus on what truly matters.',
+              detail: 'Avoid overbuying and focus on what truly matters. Purchasing only what you need helps minimize waste, saves money, and supports a sustainable lifestyle. 💰',
+              image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1470&auto=format&fit=crop'
+            },
+            {
+              id: 'minimal-packaging',
+              title: 'Choose Minimal Packaging',
+              description: 'Pick products with simple, recyclable, or minimal packaging.',
+              detail: 'Pick products with simple, recyclable, or minimal packaging. Every small choice to avoid excess plastic or wrapping helps reduce waste at the source. 📦',
+              image: 'https://images.unsplash.com/photo-1571440069434-66bfb04c5e5d?q=80&w=1470&auto=format&fit=crop'
+            },
+            {
+              id: 'go-digital',
+              title: 'Go Digital When Possible',
+              description: 'Switch from paper to digital alternatives like e-bills or e-books.',
+              detail: 'Switch from paper to digital alternatives—like e-bills, e-books, or digital notes. Reducing paper use saves trees and cuts energy in production. 📱',
+              image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1470&auto=format&fit=crop'
+            }
+          ].map((item, idx) => (
+            <div
+              key={item.id}
+              className="group bg-white dark:bg-base-100 text-secondary dark:text-white rounded-3xl p-6 hover:shadow-lg transition-all duration-300 border hover:bg-green-50/40 dark:hover:bg-base-300 border-gray-200 dark:border-gray-600"
+              data-aos="zoom-in"
+              data-aos-delay={idx * 100}
+            >
+              <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-48 mb-6 flex items-center justify-center overflow-hidden">
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+              </div>
+              <h3 className="text-lg lg:text-xl font-bold mb-3">{item.title}</h3>
+              <p className="text-gray-600 dark:text-gray-200 mb-4 text-sm leading-relaxed">
+                {item.description}
+              </p>
+              <button
+                onClick={() => setSelectedReuse(item.id)}
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-sm font-medium transition-all duration-300"
+              >
+                Read more
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Reduce Detail Modal */}
+      {selectedReuse && ['buy-need', 'minimal-packaging', 'go-digital'].includes(selectedReuse) && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6 animate-fadeIn">
+          <div className="bg-white dark:bg-base-100 rounded-3xl max-w-xl w-full p-8 relative animate-slideUp shadow-2xl">
+            {[
+              {
+                id: 'buy-need',
+                title: 'Buy Only What You Need',
+                description: 'Avoid overbuying and focus on what truly matters.',
+                detail: 'Avoid overbuying and focus on what truly matters. Purchasing only what you need helps minimize waste, saves money, and supports a sustainable lifestyle. 💰 Small mindful choices lead to less clutter and a cleaner planet. 🌱'
+              },
+              {
+                id: 'minimal-packaging',
+                title: 'Choose Minimal Packaging',
+                description: 'Pick products with simple, recyclable, or minimal packaging.',
+                detail: 'Pick products with simple, recyclable, or minimal packaging. Every small choice to avoid excess plastic or wrapping helps reduce waste at the source. It is a simple act that lessens pollution and supports eco-friendly brands.'
+              },
+              {
+                id: 'go-digital',
+                title: 'Go Digital When Possible',
+                description: 'Switch from paper to digital alternatives.',
+                detail: 'Switch from paper to digital alternatives—like e-bills, e-books, or digital notes. Reducing paper use saves trees and cuts energy in production. 📱 Every digital switch contributes to a smarter and more sustainable future. ✨'
+              }
+            ]
+              .filter((item) => item.id === selectedReuse)
+              .map((item) => (
+                <div key={item.id}>
+                  <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 mb-6 flex items-center justify-center overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
-
-                  <div className="mt-20">
-
-                    <h3 className="text-2xl font-bold text-center mb-3 text-secondary dark:text-primary" data-aos="fade-up">
-                      Learn How to Make {method.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-200 text-center mb-4 text-base" data-aos="fade-up" data-aos-delay="100">
-                      {method.id === 'composting'
-                        ? 'Watch this quick tutorial on making compost from kitchen waste.'
-                        : method.id === 'eco-enzyme'
-                          ? 'Short video on making eco-enzyme at home.'
-                          : method.id === 'biogas'
-                            ? 'Video on how biogas is made naturally.'
-                            : method.id === 'animal-feed'
-                              ? 'Guide to creating animal feed from leftovers.'
-                              : 'Tutorial on making liquid fertilizer from food scraps.'}
-                    </p>
-                    <div className="aspect-video w-full sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto overflow-hidden rounded-2xl" data-aos="zoom-in" data-aos-delay="200">
-                      <iframe
-                        className="w-full h-full"
-                        src={
-                          method.id === 'composting'
-                            ? 'https://www.youtube.com/embed/egyNJ7xPyoQ'
-                            : method.id === 'eco-enzyme'
-                              ? 'https://www.youtube.com/embed/ReJUhI4tjIc'
-                              : method.id === 'biogas'
-                                ? 'https://www.youtube.com/embed/BaMKVqcRaLk'
-                                : method.id === 'animal-feed'
-                                  ? 'https://www.youtube.com/embed/hPsOSUsq3Fg'
-                                  : 'https://www.youtube.com/embed/wrZSYaDI_7Q'
-                        }
-                        title={`How to Make ${method.title}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+                  <h3 className="text-3xl text-secondary dark:text-white font-bold mb-4">{item.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed text-sm">
+                    {item.detail}
+                  </p>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => setSelectedReuse(null)}
+                      className="mt-6 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-secondary dark:text-white hover:bg-gray-300 dark:hover:bg-base-200 rounded-full font-medium transition-all duration-300 text-sm"
+                    >
+                      Close
+                    </button>
                   </div>
                 </div>
               ))}
           </div>
-        )}
+        </div>
+      )}
+
+
+      {/* Reduce Benefits */}
+      <div className="bg-gradient-to-r from-gradient dark:bg-gradient-to-tl dark:to-[#249E52] dark:from-[#0D381D] dark:rounded-r-full to-white h-[12rem] md:h-[10rem] lg:h-[13rem] w-full mt-20">
+        <div className="flex items-center justify-between lg:mt-20">
+          <div className="p-4 lg:pl-14 lg:pb-16">
+            <h1 className="text-secondary dark:text-hero text-3xl lg:text-5xl font-bold"
+              ref={whatIsRecycleRef}
+              data-aos="fade-right"
+              data-aos-delay="150">
+              What Is Recycle?
+            </h1>
+            <p className="text-gray-500 lg:max-w-[35rem] dark:text-white md:text-[15px] mt-3 text-base mb-6 lg:text-base leading-relaxed" data-aos="fade-right"
+              data-aos-delay="150">
+              Recycle means turning used materials into new, useful products. It helps reduce landfill waste, save resources, and lower pollution — giving old items new purpose while protecting the planet. ♻️
+
+
+            </p>
+          </div>
+          <div className="pr-12" >
+            <img
+              src={kelapa}
+              alt="Reuse tips"
+              className="hidden lg:block md:block md:w-[25rem] lg:w-[23rem]" data-aos="fade-zoom-in"
+              data-aos-delay="150"
+            />
+          </div>
+        </div>
       </div>
 
-      {}
-      <div ref={mapRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
-        <div className="text-center mb-6 lg:mb-8">
+      {/* <div className="mt-20 mx-0">
+        <div className="flex justify-end items-end bg-third rounded-s-full lg:rounded-l-full lg:ml-auto lg:mr-0 lg:max-w-[45rem] md:ml-auto md:mr-0 md:max-w-[31rem]">
+          <div className="w-[18rem] md:w-[23rem] lg:w-[28rem] h-[26vh] md:h-[26vh] lg:h-[45vh] xl:h-[37vh] pl-16 lg:pl-0">
+            <h1 className="text-base md:text-3xl lg:text-3xl font-bold text-white mt-3 lg:mt-6">
+              What Is Recycle?
+            </h1>
+
+            <p className="text-[12px] lg:text-sm md:text-[15px] text-white max-w-80 text-justify mt-1 lg:mt-4 pr-2">
+              Recycle means turning waste materials into new, useful products that can be used again. It helps reduce landfill waste, saves natural resources, and lowers pollution — giving old items a new purpose while protecting the environment. 🌍
+            </p> */}
+
+      {/* <div className="relative lg:-mt-6 flex justify-start mx-18 lg:mx-0 -mt-7">
+              <div className="w-[8rem] lg:w-[11.9rem] h-[8rem] lg:h-[12rem] absolute bottom-[2.5rem] mr-16 -mb-5 right-full z-0 bg-black/30 dark:bg-gray-200/30 p-2 lg:p-2 rounded-full">
+                <img src={bunga} alt="Bunga" className="w-full h-full object-cover" />
+              </div>
+              <div
+                className="w-[6.9rem] lg:w-[9.9rem] mr-48 h-[7rem] lg:h-[10rem] -mr-0 
+  absolute -top-6 lg:-top-10 mb-10 right-full z-0 
+  bg-black/30 dark:bg-gray-200/30 p-2 lg:p-2 rounded-full"
+              >
+                <img src={kardus} alt="Kardus" className="w-full h-full object-cover" />
+              </div>
+
+            </div> */}
+      {/* </div>
+        </div>
+      </div> */}
+
+      <div className="p-10" data-aos="fade-up"
+        data-aos-delay="100">
+        <ImageSlider />
+      </div>
+
+
+      <div ref={manageRef} className="py-12 lg:pt-32 pb-2 dark:bg-base-200 relative mx-10">
+        {/* Decorative stars */}
+        <div
+          className="absolute right-[30rem] top-12 z-10 pointer-events-none"
+          data-aos="zoom-in"
+        >
+          <PiStarFour className="animate-spin rotate-90 text-hero/70 dark:text-white text-3xl lg:mt-12 sm:text-4xl md:text-5xl lg:text-6xl" />
+        </div>
+        <div
+          className="absolute right-[26rem] top-20 z-10 pointer-events-none"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        >
+          <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
+        </div>
+
+        <h2
+          ref={recycleHeaderRef}
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
+          data-aos="fade-up"
+        >
+          Transform Waste{" "}
+          <span className="text-primary dark:text-hero">into Worth ♻️</span>
+        </h2>
+        <p
+          className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Recycling means transforming used materials into useful products again. It helps conserve resources, lower pollution, and support a circular economy where nothing goes to waste and everything finds new life.
+        </p>
+
+        <div
+          className="flex flex-wrap gap-3 mb-8 lg:mb-12"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          {["Love Earth, Live Green 🌿"].map((method) => (
+            <button
+              onClick={() => {
+                setActiveHero('recycle');
+                recycleHeaderRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
+              key={method}
+              aria-pressed={activeHero === 'recycle'}
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${activeHero === 'recycle'
+                ? "bg-green-600 text-white border-green-600 shadow-md"
+                : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
+                }`}
+            >
+              {method}
+              <span className="ml-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-3 h-3 sm:w-4 sm:h-4 transform rotate-90"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
+            </button>
+          ))}
+        </div>
+
+
+      </div>
+      <div ref={recyclingRelevanceRef} className="py-16 lg:py-16 bg-white dark:bg-base-200 relative px-4 sm:px-8 lg:px-16">
+        {/* Section 1 - Today's Relevance (Image | Text) */}
+        <div
+          className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-10"
+          data-aos="fade-up"
+        >
+          {/* Left Image */}
+          <div className="w-72 h-52 sm:w-80 sm:h-56 lg:w-[22rem] lg:h-[16rem] bg-gray-100 dark:bg-base-100 rounded-3xl shadow-inner overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1552224496-6e72a82b9f6e?q=80&w=1470&auto=format&fit=crop" alt="Today's Relevance" className="w-full h-full object-cover" />
+          </div>
+
+          {/* Right Text */}
+          <div className="max-w-xl lg:pr-6">
+            <div className="flex items-start gap-3 mb-4">
+              <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1" data-aos="fade-left"
+                data-aos-delay="150">
+                <IoLeafOutline size={22} />
+              </span>
+              <h2 className="text-3xl sm:text-3xl font-bold text-secondary dark:text-primary" data-aos="fade-left"
+                data-aos-delay="150">
+                Today’s Relevance
+              </h2>
+            </div>
+            <p className="text-gray-600 dark:text-gray-300 text-base sm:text-base text-justify" data-aos="fade-left"
+              data-aos-delay="150">
+              In a time when waste generation keeps rising, recycling reminds us that even small
+              actions can make a global difference. It’s a practical way to reduce landfill waste
+              and protect our planet’s limited resources.
+            </p>
+          </div>
+        </div>
+
+        {/* Section 2 - Benefits of Recycling (Text | Image) */}
+        <div
+          className="flex flex-col lg:flex-row items-center justify-between gap-10"
+
+        >
+          {/* Left Text */}
+          <div className="max-w-xl lg:pl-6">
+            <div className="flex items-start gap-3 mb-4">
+              <span className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1" data-aos="fade-right"
+                data-aos-delay="150">
+                <IoLeafOutline size={22} />
+              </span>
+              <h2 className="text-3xl sm:text-3xl font-bold text-secondary dark:text-primary" data-aos="fade-right"
+                data-aos-delay="150">
+                Benefits of Recycling
+              </h2>
+            </div>
+            <ul className="space-y-2 text-base" data-aos="fade-right"
+              data-aos-delay="150">
+              {[
+                'Reduces waste sent to landfills and incinerators.',
+                'Saves energy and conserves natural resources.',
+                'Decreases greenhouse gas emissions and pollution.',
+                'Creates jobs and supports eco-friendly industries.'
+              ].map((benefit, idx) => (
+                <li key={idx} className="flex items-start gap-2 text-base text-justify">
+                  <span className="text-hero mt-0.5 inline-flex flex-shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 512 512"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="30"
+                      className="text-hero"
+                    >
+                      <path d="M321.89 171.42C233 114 141 155.22 56 65.22c-19.8-21-8.3 235.5 98.1 332.7c77.79 71 197.9 63.08 238.4-5.92s18.28-163.17-70.61-220.58" />
+                      <path d="M173 253c86 81 175 129 292 147" />
+                    </svg>
+                  </span>
+                  <span className="text-gray-700 dark:text-gray-200">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right Image */}
+          <div className="w-72 h-52 sm:w-80 sm:h-56 lg:w-[22rem] lg:h-[16rem] bg-gray-100 dark:bg-base-100 rounded-3xl shadow-inner overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=1470&auto=format&fit=crop" alt="Benefits of Recycling" className="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+
+
+      {/* How to Recycle Section */}
+      <div className="py-12 lg:py-16 mx-4 sm:mx-8 lg:mx-12">
+        <div className="text-center mb-8">
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 lg:mb-3 text-secondary dark:text-primary"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-secondary dark:text-primary"
             data-aos="fade-up"
           >
-            Find Organic Waste <span className="text-primary dark:text-hero">Centers Near You</span>
+            How to <span className="text-primary dark:text-hero">Recycle?</span>
           </h2>
           <p
-            className="text-sm lg:text-base text-gray-600 dark:text-gray-200 mb-4 lg:mb-6"
+            className="text-sm lg:text-base text-gray-600 dark:text-gray-200 max-w-2xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Discover local compost facilities, waste banks, or recycling hubs near your area.
+            Recycling means turning used materials into new products. It saves resources, reduces waste, and protects our planet. ♻️
+
+
           </p>
         </div>
 
-        {}
-        <div
-          className="rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 shadow-lg border-2 border-gray-200 dark:border-gray-600 h-[300px] sm:h-[400px] lg:h-[500px]"
-          data-aos="zoom-in"
-          data-aos-delay="200"
-        >
-          {mapUrl ? (
-            <iframe
-              src={mapUrl}
-              className="w-full h-full"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Nearby Organic Waste Centers"
-            ></iframe>
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-100">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-                <p className="text-gray-600 dark:text-gray-200 text-sm">Loading map...</p>
-              </div>
-            </div>
-          )}
-        </div>
-        {
-
-}
-      </div>
-
-      {}
-      {
-
-}
-
-      {}
-      <div ref={calculatorRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
-        <div className="max-w-3xl mx-auto">
-          {}
-          <div className="text-center mb-6 lg:mb-8">
-            <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 lg:mb-3 text-secondary dark:text-primary"
-              data-aos="fade-up"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          {[
+            {
+              id: 'sort-waste',
+              title: 'Sort Your Waste Properly',
+              description: 'Separate recyclables like paper, plastic, glass, and metal from other trash.',
+              detail: 'Proper sorting ensures materials can be processed and reused efficiently. 🗑️ Small daily habits make recycling easier and more effective. 🌍',
+              image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=1470&auto=format&fit=crop'
+            },
+            {
+              id: 'support-recycled',
+              title: 'Support Recycled Products',
+              description: 'Choose items made from recycled materials—such as paper, packaging, or fabrics.',
+              detail: 'Supporting these products helps close the recycling loop and reduces demand for new resources. ♻️ Every purchase can make a sustainable difference. 🌱',
+              image: 'https://images.unsplash.com/photo-1603912294521-6ed1ab40ac67?q=80&w=1470&auto=format&fit=crop'
+            },
+            {
+              id: 'recycle-electronics',
+              title: 'Recycle Electronics Responsibly',
+              description: 'Dispose of old gadgets at certified e-waste centers.',
+              detail: 'Electronics contain valuable parts that can be reused and harmful materials that must be handled properly. 📱 Recycling e-waste protects both the environment and human health. 🌍',
+              image: 'https://images.unsplash.com/photo-1517457373614-b7152f800fd1?q=80&w=1470&auto=format&fit=crop'
+            }
+          ].map((item, idx) => (
+            <div
+              key={item.id}
+              className="group bg-gray-50 dark:bg-base-200 text-secondary dark:text-white rounded-3xl p-6 hover:shadow-lg transition-all duration-300 border hover:bg-green-50/40 dark:hover:bg-base-100 border-gray-100 dark:border-gray-700"
+              data-aos="zoom-in"
+              data-aos-delay={idx * 100}
             >
-              Carbon Impact <span className="text-primary dark:text-hero">Calculator</span>
-            </h2>
-            <p
-              className="text-sm lg:text-base text-gray-600 dark:text-gray-200"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              Calculate the positive impact of your organic waste management on the environment
-            </p>
-          </div>
-
-          {}
-          <div
-            className="bg-white dark:bg-base-200 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-600 shadow-sm"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <p className="font-medium mb-4 text-xs text-secondary dark:text-primary sm:text-sm">
-              How many kilograms of organic waste do you process per week?
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="w-full sm:flex-1">
-                <input
-                  type="text"
-                  placeholder="Enter the number..."
-                  value={waste}
-                  onChange={handleInputChange}
-                  className={`w-full px-5 py-3 border border-gray-200 dark:border-gray-600 dark:bg-base-100 rounded-full text-sm focus:outline-none focus:border-green-600 transition-transform duration-150 ${inputAnimating ? 'scale-90' : ''}`}
-                />
-                {inputError && (
-                  <p className="text-red-500 text-xs mt-2 ml-4 animate-slideDown flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024" className="flex-shrink-0">
-                      <path fill="currentColor" d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m0 832a384 384 0 0 0 0-768a384 384 0 0 0 0 768m48-176a48 48 0 1 1-96 0a48 48 0 0 1 96 0m-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32" />
-                    </svg>
-                    {inputError}
-                  </p>
-                )}
+              <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-48 mb-6 flex items-center justify-center overflow-hidden">
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
               </div>
+              <h3 className="text-lg lg:text-xl font-bold mb-3">{item.title}</h3>
+              <p className="text-gray-600 dark:text-gray-200 mb-4 text-sm leading-relaxed">
+                {item.description}
+              </p>
               <button
-                onClick={handleCalculate}
-                disabled={isCounting || inputError}
-                className={`px-6 sm:px-8 py-3 bg-green-600 text-white rounded-full font-medium hover:bg-green-700 transition-all text-sm ${isCounting || inputError ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => setSelectedRecycle(item.id)}
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-sm font-medium transition-all duration-300"
               >
-                {isCounting ? 'Calculating...' : 'Calculate'}
-
+                Read more
               </button>
             </div>
-
-            {}
-            {displayedCo2 !== null && displayedTrees !== null && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
-                <div
-                  className="bg-green-50/40 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
-                  data-aos="fade-up"
-                >
-                  <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">CO₂ Saved</p>
-                  <p className={`text-3xl sm:text-4xl font-bold text-secondary dark:text-primary transition-all ${isCounting ? 'transform scale-105' : ''}`}>
-                    {Number(displayedCo2).toFixed(1)} kg
-                  </p>
-                  <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">Amazing impact!</p>
-                </div>
-
-                <div
-                  className="bg-green-50/40 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">Trees Equivalent</p>
-                  <p className={`text-3xl sm:text-4xl font-bold text-primary dark:text-hero transition-all ${isCounting ? 'transform scale-105' : ''}`}>
-                    {Number(displayedTrees).toFixed(2)}
-                  </p>
-                  <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">Keep it growing!</p>
-                </div>
-              </div>
-            )}
-          </div>
+          ))}
         </div>
       </div>
 
-      {}
-      {
+      {/* Recycle Detail Modal */}
+      {selectedRecycle && ['sort-waste', 'support-recycled', 'recycle-electronics'].includes(selectedRecycle) && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6 animate-fadeIn">
+          <div className="bg-white dark:bg-base-100 rounded-3xl max-w-xl w-full p-8 relative animate-slideUp shadow-2xl">
+            {[
+              {
+                id: 'sort-waste',
+                title: 'Sort Your Waste Properly',
+                description: 'Separate recyclables like paper, plastic, glass, and metal from other trash. Proper sorting ensures materials can be processed and reused efficiently. 🗑️',
+                detail: 'Small daily habits make recycling easier and more effective. 🌍',
+                image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=1470&auto=format&fit=crop'
+              },
+              {
+                id: 'support-recycled',
+                title: 'Support Recycled Products',
+                description: 'Choose items made from recycled materials—such as paper, packaging, or fabrics. Supporting these products helps close the recycling loop and reduces demand for new resources. ♻️',
+                detail: 'Every purchase can make a sustainable difference. 🌱',
+                image: 'https://images.unsplash.com/photo-1603912294521-6ed1ab40ac67?q=80&w=1470&auto=format&fit=crop'
+              },
+              {
+                id: 'recycle-electronics',
+                title: 'Recycle Electronics Responsibly',
+                description: 'Dispose of old gadgets at certified e-waste centers. Electronics contain valuable parts that can be reused and harmful materials that must be handled properly. 📱',
+                detail: 'Recycling e-waste protects both the environment and human health. 🌍',
+                image: 'https://images.unsplash.com/photo-1517457373614-b7152f800fd1?q=80&w=1470&auto=format&fit=crop'
+              }
+            ]
+              .filter((item) => item.id === selectedRecycle)
+              .map((item) => (
+                <div key={item.id}>
+                  <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 mb-6 flex items-center justify-center overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  </div>
+                  <h3 className="text-3xl text-secondary dark:text-white font-bold mb-4">{item.title}</h3>
+                  <p className="text-gray-700 dark:text-white mb-4 leading-relaxed text-sm">
+                    {item.description}
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed text-sm">
+                    {item.detail}
+                  </p>
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => setSelectedRecycle(null)}
+                      className="mt-6 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-secondary dark:text-white hover:bg-gray-300 dark:hover:bg-base-200 rounded-full font-medium transition-all duration-300 text-sm"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
 
-}
+
+      {/* Back to Top Button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={`fixed right-6 bottom-6 z-50 rounded-full p-3 bg-green-600 text-white shadow-lg transition-transform duration-200 ${showBackToTop
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-6 pointer-events-none"
+          }`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 15l7-7 7 7"
+          />
+        </svg>
+      </button>
 
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        @keyframes slideDown {
+          from {
+            transform: translateY(-10px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
 
         @keyframes fadeIn {
           from {
@@ -1187,15 +1486,8 @@ const Organic = () => {
           }
         }
 
-        @keyframes slideDown {
-          from {
-            transform: translateY(-10px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
         }
 
         .animate-fadeIn {
@@ -1203,15 +1495,11 @@ const Organic = () => {
         }
 
         .animate-slideUp {
-          animation: slideUp 0.3s ease-out;
-        }
-
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
+          animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
       `}</style>
     </div>
   );
 };
 
-export default Organic;
+export default Page3R;

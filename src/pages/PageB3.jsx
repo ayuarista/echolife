@@ -563,7 +563,7 @@ const PageB3 = () => {
       </div>
 
       {/* What Is Organic Waste Section */}
-      <div ref={whatIsRef} className="py-12 lg:py-16 bg-green-50/40 dark:bg-base-200">
+      <div ref={whatIsRef} className="py-12 lg:py-16 lg:mt-12 bg-green-50/40 dark:bg-base-200">
         <div className="flex flex-col lg:flex-row mx-8 lg:mx-12 gap-8 lg:gap-16 items-start">
           <div className="flex-1">
 
