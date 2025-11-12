@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 const CardHero = (props) => {
   return (
     <div className="group relative mt-10">
-      <div className="relative bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+      <div className="relative bg-white/60 dark:bg-base-200 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
         
         <Link to="/3R" className="block relative overflow-hidden h-72 sm:h-80">
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
@@ -38,7 +38,7 @@ const CardHero = (props) => {
             </div>
           </div>
 
-          <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-[15px] xl:text-xl leading-relaxed font-Poppins line-clamp-3">
+          <p className="text-gray-700 dark:text-gray-300 text-sm lg:text-sm leading-relaxed font-Poppins line-clamp-3">
             {props.desc}
           </p>
 

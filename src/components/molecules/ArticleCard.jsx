@@ -12,7 +12,7 @@ export default function ArticleCard({
   excerpt,     
 }) {
   return (
-    <article className="group relative flex w-full max-w-md flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
+    <article className="group relative flex w-full max-w-md flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-neutral-800 dark:bg-base-200">
       <Link
         to={link}
         className="relative block h-48 sm:h-56 overflow-hidden"
