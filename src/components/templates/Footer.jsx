@@ -12,7 +12,7 @@ const Footer = () => {
     "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition";
 
   return (
-    <footer className="mt-16 bg-slate-50 dark:bg-neutral-900 text-slate-800 dark:text-slate-100">
+    <footer className="mt-16 bg-slate-50 dark:bg-base-200 text-slate-800 dark:text-slate-100">
 
       <div className="mt-10 border-t border-slate-200 dark:border-slate-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
@@ -134,7 +134,7 @@ const Footer = () => {
                   type="email"
                   required
                   placeholder="Enter your email"
-                  className="flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
+                  className="flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-base bg-white dark:bg-base-300 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
                 />
                 <button
                   type="submit"

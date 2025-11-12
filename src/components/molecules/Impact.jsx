@@ -20,7 +20,7 @@ const Impact = (props) => {
       className={[
         "group relative h-full overflow-hidden rounded-2xl",
         "border border-slate-200/70 dark:border-slate-800",
-        "bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm",
+        "bg-white/70 dark:bg-base-200 backdrop-blur-sm",
         "shadow-sm hover:shadow-xl transition-all duration-300",
         "focus-within:ring-2 focus-within:ring-green-400/60 dark:focus-within:ring-green-300/40",
         className,
@@ -37,7 +37,7 @@ const Impact = (props) => {
               loading="lazy"
             />
           ) : (
-            <div className="h-full w-full animate-pulse bg-slate-200 dark:bg-slate-800" />
+            <div className="h-full w-full animate-pulse bg-slate-200 dark:bg-base-300" />
           )}
         </div>
 
@@ -61,7 +61,7 @@ const Impact = (props) => {
 
           <Wrapper
             {...wrapperProps}
-            className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60 dark:focus-visible:ring-green-300/40"
+            className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-base-300 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60 dark:focus-visible:ring-green-300/40"
           >
             <span className="absolute inset-0 scale-0 rounded-full bg-green-100 dark:bg-green-900/40 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
             <MdOutlineArrowOutward className="relative z-10 text-[1.25rem] text-slate-800 dark:text-slate-100 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
