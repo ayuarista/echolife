@@ -5,9 +5,9 @@ import { Chart } from "chart.js/auto";
 
 const ITEMS = [
   { key: "value1", label: "Plastic Bottles", color: "#6366F1", multiplier: 480 }, // indigo-500
-  { key: "value2", label: "Plastic Bags",    color: "#F59E0B", multiplier: 220 }, // amber-500
-  { key: "value3", label: "Straws",          color: "#10B981", multiplier: 93  }, // emerald-500
-  { key: "value4", label: "Food Packaging",  color: "#F43F5E", multiplier: 150 }, // rose-500
+  { key: "value2", label: "Plastic Bags", color: "#F59E0B", multiplier: 220 }, // amber-500
+  { key: "value3", label: "Straws", color: "#10B981", multiplier: 93 }, // emerald-500
+  { key: "value4", label: "Food Packaging", color: "#F43F5E", multiplier: 150 }, // rose-500
 ];
 
 const KNOWLEDGE = {
@@ -108,7 +108,7 @@ export default function Tracker() {
         plugins: {
           legend: {
             position: "bottom",
-            labels: ["dark:#E5E7EB", "#0F172A" ], // slate-200 / slate-900
+            labels: ["dark:#E5E7EB", "#0F172A"], // slate-200 / slate-900
           },
           tooltip: {
             callbacks: {
