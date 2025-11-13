@@ -104,7 +104,7 @@ const Page3R = () => {
   ];
 
   return (
-    <div className="font-[Poppins] bg-white dark:bg-base-100">
+    <div className="font-[Poppins] bg-white dark:bg-base-100 overflow-x-hidden">
       {/* Enhanced Hero Section */}
       <div className="pt-20 lg:pt-32 pb-0 overflow-hidden dark:bg-base-100 relative">
         <div className="flex justify-center items-center">

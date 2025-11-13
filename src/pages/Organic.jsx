@@ -462,7 +462,7 @@ const Organic = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-base-100" style={{ fontFamily: 'Poppins, sans-serif' }}>
+    <div className="min-h-screen overflow-x-hidden bg-white dark:bg-base-100" style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Hero Section */}
       <div className="pt-20 lg:pt-12 pb-0 overflow-hidden dark:bg-base-100">
         <div className="grid lg:grid-cols-2 gap-0 items-center">
