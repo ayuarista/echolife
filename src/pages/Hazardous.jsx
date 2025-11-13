@@ -9,7 +9,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { PiStarFour } from 'react-icons/pi';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-const PageB3 = () => {
+const Hazardous = () => {
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [selectedInfo, setSelectedInfo] = useState(null);
@@ -1183,4 +1183,4 @@ const PageB3 = () => {
   );
 };
 
-export default PageB3;
+export default Hazardous;

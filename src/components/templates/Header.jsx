@@ -103,7 +103,7 @@ const Header = () => {
                     Inorganic
                   </NavLink>
                   <NavLink
-                    to="/b3"
+                    to="/hazardous"
                     className={({ isActive }) =>
                       `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
@@ -111,7 +111,7 @@ const Header = () => {
                     role="menuitem"
                     onClick={() => setDropOpen(false)}
                   >
-                    B3
+                    Hazardous
                   </NavLink>
                 </div>
               )}
@@ -208,13 +208,13 @@ const Header = () => {
                   Inorganic
                 </NavLink>
                 <NavLink
-                  to="/b3"
+                  to="/hazardous"
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
                   }
                 >
-                  B3
+                  Hazardous
                 </NavLink>
               </div>
             </div>

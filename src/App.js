@@ -8,7 +8,7 @@ import Article from "./pages/Article.jsx";
 import ScrollToTop from "./components/molecules/ScrollToTop.jsx";
 import Organic from "./pages/Organic.jsx";
 import Inorganic from "./pages/Inorganic.jsx";
-import PageB3 from "./pages/PageB3.jsx";
+import Hazardous from "./pages/Hazardous.jsx";
 import Tracker from "./pages/Tracker.jsx";
 import Quiz from "./pages/Quiz.jsx";
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/3r" element={<Page3R />} />
         <Route path="/organic" element={<Organic />} />
         <Route path="/inorganic" element={<Inorganic />} />
-        <Route path="/b3" element={<PageB3 />} />
+        <Route path="/hazardous" element={<Hazardous />} />
         <Route path="/tracker" element={<Tracker />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/article" element={<Article />} />
