@@ -1,149 +1,255 @@
-import React from "react";
-import ThemeToggle from "../atoms/ThemeToggle.jsx";
+import React, { useState, useRef, useEffect } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { TiTree } from "react-icons/ti";
-import SearchNav from "../molecules/SearchNav.jsx";
-import { Link } from "react-router-dom";
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import ThemeToggle from "../atoms/ThemeToggle.jsx";
+
 const Header = () => {
+  const [open, setOpen] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
+  const dropRef = useRef(null);
+
+  // close dropdown when clicking outside
+  useEffect(() => {
+    const onClick = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) setDropOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  const linkBase =
+    "inline-flex items-center px-3 py-1.5 text-sm font-semibold relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-hero after:transition-all after:duration-300 hover:after:w-full";
+  const linkActive =
+    "font-bold text-primary dark:text-hero";
+  const linkInactive =
+    "text-slate-700 dark:text-slate-200";
+
   return (
-    <div className="fixed w-full font-medium z-50 text-black dark:text-white">
-      <div className="navbar bg-base-100">
-        <div className="navbar-start lg:mx-12">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow "
-            >
-              <Link to="/">
-                <li>
-                  <a>Home</a>
-                </li>
-              </Link>
-              <Link to="/3R">
-                <li>
-                  <a>3R</a>
-                </li>
-              </Link>
-              <li>
-                <a>Waste Types</a>
-                <ul className="p-2">
-                  <Link to="/Organic">
-                    <li>
-                      <a>Organic</a>
-                    </li>
-                  </Link>
-                  <Link to="/Inorganic">
-                    <li>
-                      <a>Inorganic</a>
-                    </li>
-                  </Link>
-                  <Link to="/B3">
-                    <li>
-                      <a>Hazardous</a>
-                    </li>
-                  </Link>
-                </ul>
-              </li>
-              <Link to="/Tracker">
-                <li>
-                  <a>Tracker</a>
-                </li>
-              </Link>
-              <Link to="/Quiz">
-                <li>
-                  <a>Quiz</a>
-                </li>
-              </Link>
-              <Link to="/Article">
-                <li>
-                  <a>Articles</a>
-                </li>
-              </Link>
-            </ul>
-          </div>
-          <Link to="/">
-            <div className="flex items-center dark:text-white">
-              <a className="btn btn-ghost text-xl font-bold font-syne text-center mx-auto">
-                EchoL
-                <span className="-mx-[0.35rem] text-[23px] text-primary dark:text-hero">
-                  <TiTree />
-                </span>
-                fe
-              </a>
-            </div>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/70 bg-white dark:bg-base">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-1 text-slate-900 dark:text-white">
+            <span className="text-xl font-bold font-syne tracking-tight">
+              EchoL
+            </span>
+            <span className="text-2xl -mx-1 text-primary dark:text-hero">
+              <TiTree />
+            </span>
+            <span className="text-xl font-bold font-syne tracking-tight">fe</span>
           </Link>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <Link to="/">
-              <li>
-                <a>Home</a>
-              </li>
-            </Link>
-            <Link to="/3R">
-              <li>
-                <a>3R</a>
-              </li>
-            </Link>
-            <li>
-              <details>
-                <summary>Waste Types</summary>
-                <ul className="p-2">
-                  <Link to="/Organic">
-                    <li>
-                      <a>Organic</a>
-                    </li>
-                  </Link>
-                  <Link to="/Inorganic">
-                    <li>
-                      <a>Inorganic</a>
-                    </li>
-                  </Link>
-                  <Link to="/B3">
-                    <li>
-                      <a>Hazardous</a>
-                    </li>
-                  </Link>
-                </ul>
-              </details>
-            </li>
-            <Link to="/Tracker">
-              <li>
-                <a>Tracker</a>
-              </li>
-            </Link>
-            <Link to="/Quiz">
-              <li>
-                <a>Quiz</a>
-              </li>
-            </Link>
-            <Link to="/Article">
-              <li>
-                <a>Articles</a>
-              </li>
-            </Link>
-          </ul>
-        </div>
-        <div className="navbar-end lg:mx-8">
-          <ThemeToggle />
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : linkInactive}`
+              }
+              end
+            >
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/3r"
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : linkInactive}`
+              }
+            >
+              3R
+            </NavLink>
+
+            <div className="relative" ref={dropRef}>
+              <button
+                type="button"
+                onClick={() => setDropOpen((v) => !v)}
+                className={`${linkBase} ${linkInactive} gap-1`}
+                aria-haspopup="menu"
+                aria-expanded={dropOpen}
+              >
+                Waste Types{" "}
+                <FiChevronDown
+                  aria-hidden
+                  className={`transition-transform duration-300 ${dropOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {dropOpen && (
+                <div
+                  role="menu"
+                  className="absolute left-0 mt-2 w-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-base shadow-lg p-1"
+                >
+                  <NavLink
+                    to="/organic"
+                    className={({ isActive }) =>
+                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      }`
+                    }
+                    role="menuitem"
+                    onClick={() => setDropOpen(false)}
+                  >
+                    Organic
+                  </NavLink>
+                  <NavLink
+                    to="/inorganic"
+                    className={({ isActive }) =>
+                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      }`
+                    }
+                    role="menuitem"
+                    onClick={() => setDropOpen(false)}
+                  >
+                    Inorganic
+                  </NavLink>
+                  <NavLink
+                    to="/b3"
+                    className={({ isActive }) =>
+                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      }`
+                    }
+                    role="menuitem"
+                    onClick={() => setDropOpen(false)}
+                  >
+                    B3
+                  </NavLink>
+                </div>
+              )}
+            </div>
+
+            <NavLink
+              to="/tracker"
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : linkInactive}`
+              }
+            >
+              Track&nbsp;Waste
+            </NavLink>
+
+            <NavLink
+              to="/quiz"
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : linkInactive}`
+              }
+            >
+              Quiz
+            </NavLink>
+
+            <NavLink
+              to="/article"
+              className={({ isActive }) =>
+                `${linkBase} ${isActive ? linkActive : linkInactive}`
+              }
+            >
+              Articles
+            </NavLink>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="inline-flex lg:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+            >
+              {open ? <FiX size={20} /> : <FiMenu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+          <nav className="mx-auto max-w-7xl px-4 py-3 space-y-1">
+            <NavLink
+              to="/"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+              }
+              end
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/3r"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+              }
+            >
+              3R
+            </NavLink>
+
+            {/* Mobile dropdown: render sebagai grup link biasa */}
+            <div className="pt-2">
+              <div className="px-3 pb-1 text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                Waste Types
+              </div>
+              <div className="grid">
+                <NavLink
+                  to="/organic"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                  }
+                >
+                  Organic
+                </NavLink>
+                <NavLink
+                  to="/inorganic"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                  }
+                >
+                  Inorganic
+                </NavLink>
+                <NavLink
+                  to="/b3"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                  }
+                >
+                  B3
+                </NavLink>
+              </div>
+            </div>
+
+            <NavLink
+              to="/tracker"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+              }
+            >
+              Track Waste
+            </NavLink>
+            <NavLink
+              to="/quiz"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+              }
+            >
+              Quiz
+            </NavLink>
+            <NavLink
+              to="/article"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+              }
+            >
+              Articles
+            </NavLink>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 
