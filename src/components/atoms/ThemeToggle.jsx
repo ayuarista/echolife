@@ -23,7 +23,10 @@ const ThemeToggle = () => {
           checked={theme === "dark"}
         />
         <div className="flex items-center">
-          <div className="mx-2 text-black dark:text-white text-xl">
+          <div
+            className="mx-2 text-black dark:text-white text-xl transition-transform duration-300"
+            style={{ transform: theme === "dark" ? "rotate(0deg)" : "rotate(180deg)" }}
+          >
             {theme === "dark" ? <IoMoonOutline /> : <IoSunnyOutline />}
           </div>
         </div>

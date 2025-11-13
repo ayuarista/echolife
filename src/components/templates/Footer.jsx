@@ -1,117 +1,171 @@
 import React from "react";
-import { TiTree } from "react-icons/ti";
-import { BsInstagram } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { TiTree } from "react-icons/ti";
+import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
+
 const Footer = () => {
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
+  const linkBase =
+    "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition";
+
   return (
-    <div>
-      <footer class="bg-white dark:bg-base-200 mt-16">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-          <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0">
-            <Link to="/">
-              <div className="flex items-center dark:text-white">
-                <a className="btn btn-ghost text-2xl md:text-3xl font-bold font-syne text-center mx-0 md:mx-auto">
-                  EchoL
-                  <span className="-mx-[0.35rem] text-[23px] md:text-3xl text-primary dark:text-hero">
-                    <TiTree />
-                  </span>
-                  fe
+    <footer className="mt-16 bg-slate-50 dark:bg-base-200 text-slate-800 dark:text-slate-100">
+
+      <div className="mt-10 border-t border-slate-200 dark:border-slate-800">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div>
+              <Link to="/" className="inline-flex gap-1 items-center">
+                <span className="text-2xl font-bold font-syne">EchoL</span>
+                <span className="-mx-1 text-3xl text-primary dark:text-hero">
+                  <TiTree />
+                </span>
+                <span className="text-2xl font-bold font-syne">fe</span>
+              </Link>
+              <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs">
+              Build Eco-Friendly Digital Habits
+              </p>
+
+              <div className="mt-4 flex items-center gap-3">
+                <a
+                  href="https://twitter.com"
+                  aria-label="Twitter"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                >
+                  <FaTwitter />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  aria-label="youtube"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                >
+                  <FaYoutube />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  aria-label="instagram"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                >
+                  <FaInstagram />
                 </a>
               </div>
-              </Link>
             </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Pages
-                </h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                  <li class="mb-4">
-                    <Link to="/" class="hover:underline">
-                      Home
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/3R" class="hover:underline">
-                      3R
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Organic" class="hover:underline">
-                      Organic
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Inorganic" class="hover:underline">
-                      Inorganic
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Tracker" class="hover:underline">
-                      Tracker
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Quiz" class="hover:underline">
-                      Quiz
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Article" class="hover:underline">
-                      Article
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Features
-                </h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                <li class="mb-4">
-                    <Link to="/Calculator" class="hover:underline">
-                      Calculator
-                    </Link>
-                  </li>
-                  <li class="mb-4">
-                    <Link to="/Quiz" class="hover:underline">
-                      Quiz
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                  Our Team
-                </h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                  <li class="mb-4">
 
-                    <a href="https://www.instagram.com/aayuaristaa/" class="hover:underline">
-                      Ayu Arista
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.instagram.com/yudhisattria/" class="hover:underline">
-                      Yudhi Satria
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            {/* What's Echolife */}
+            <div>
+              <h3 className="text-lg font-semibold">What’s Echolife</h3>
+              <ul className="mt-3 space-y-2">
+                <li>
+                  <Link to="/" className={linkBase}>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/3r" className={linkBase}>
+                    3R
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/organic" className={linkBase}>
+                    Organic
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/inorganic" className={linkBase}>
+                    Inorganic 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/hazardous" className={linkBase}>
+                    Hazardous 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/tracker" className={linkBase}>
+                    Track Waste 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/quiz" className={linkBase}>
+                    Quiz 
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/article" className={linkBase}>
+                    Article 
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-lg font-semibold">Contact us</h3>
+              <ul className="mt-3 space-y-2">
+                <li>
+                  <a href="/" className={linkBase}>
+                    hello@echolife.dev
+                  </a>
+                </li>
+                <li>
+                  <Link to="/" className={linkBase}>
+                    Help &amp; FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className={linkBase}>
+                    Report an issue
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Stay in the loop */}
+            <div>
+              <h3 className="text-lg font-semibold">Stay in the loop</h3>
+              <p className="mt-3 text-slate-600 dark:text-slate-300">
+                Tips, write-ups, and challenge updates—no spam.
+              </p>
+              <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  className="flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-base bg-white dark:bg-base-300 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
+                />
+                <button
+                  type="submit"
+                  className="rounded-xl text-[15px] bg-primary dark:bg-hero text-white dark:text-slate-900 px-5 py-2 font-medium hover:opacity-90 transition"
+                >
+                  Send
+                </button>
+              </form>
             </div>
           </div>
-          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-          <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2024{" "}
-                Echolife™
-              . All Rights Reserved.
-            </span>
+
+          {/* bottom line */}
+          <hr className="mt-10 mb-6 border-slate-200 dark:border-slate-800" />
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-600 dark:text-slate-300">
+            <span>© {new Date().getFullYear()} Echolife. All rights reserved.</span>
+            <div className="flex items-center gap-6">
+              <Link to="/" className={linkBase}>
+                Imprint
+              </Link>
+              <Link to="/" className={linkBase}>
+                Privacy Policy
+              </Link>
+              <Link to="/" className={linkBase}>
+                Terms &amp; Conditions
+              </Link>
             </div>
+          </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 };
 

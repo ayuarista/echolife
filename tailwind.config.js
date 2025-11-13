@@ -26,11 +26,13 @@ module.exports = {
           gradient: "#E4FDEB",
           third: "#0D4019",
           amenities: "#AEE2FF",
+          base: "#1D232A"
         },
         fontFamily: {
           Poppins: "Poppins, sans-serif",
           Koulen: "Koulen, sans-serif",
-          syne: "Syne, sans-serif"
+          syne: "Syne, sans-serif",
+          vollkorn: "Vollkorn, serif",
         },
       },
     },

@@ -19,14 +19,14 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/detailsImpact/:id" element={<DetailsImpact />} />
-        <Route path="/3R" element={<Page3R />} />
-        <Route path="/Organic" element={<Organic />} />
-        <Route path="/Inorganic" element={<Inorganic />} />
-        <Route path="/B3" element={<PageB3 />} />
-        <Route path="/Tracker" element={<Tracker />} />
-        <Route path="/Quiz" element={<Quiz />} />
-        <Route path="/Article" element={<Article />} />
+        <Route path="/details-impact/:id" element={<DetailsImpact />} />
+        <Route path="/3r" element={<Page3R />} />
+        <Route path="/organic" element={<Organic />} />
+        <Route path="/inorganic" element={<Inorganic />} />
+        <Route path="/b3" element={<PageB3 />} />
+        <Route path="/tracker" element={<Tracker />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/article" element={<Article />} />
       </Routes>
       <Footer />
     </Router>
