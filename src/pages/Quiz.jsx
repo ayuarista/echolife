@@ -78,7 +78,7 @@ const Quiz = () => {
   };
 
   return (
-    <div className="min-h-screen mt-16 flex items-center justify-center p-4">
+    <div className="min-h-screen pt-24 flex items-center justify-center p-4">
       <div
         className="
           w-full max-w-4xl rounded-2xl border shadow-sm

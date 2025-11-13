@@ -133,7 +133,7 @@ export default function Tracker() {
 
 
   return (
-    <div className="mt-12 min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="pt-24 min-h-screen w-full bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
       <section className="mx-auto max-w-6xl px-4 pt-8 md:pt-12">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 md:p-6 bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-950">
