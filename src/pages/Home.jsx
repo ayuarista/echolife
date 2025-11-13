@@ -6,6 +6,7 @@ import OurMissions from "../components/organisms/OurMissions";
 import Section3R from "../components/organisms/Section3R";
 import SectionImpact from "../components/organisms/SectionImpact";
 import SectionArticle from "../components/organisms/SectionArticle";
+import BacktoTop from "../components/atoms/BacktoTop";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
         </div>
         <SectionArticle />
       </div>
+      <BacktoTop/>
     </div>
   );
 };

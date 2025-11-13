@@ -1,6 +1,7 @@
 import React from "react";
 import DataArticle from "../data/DataArticles";
 import Articles from "../components/molecules/ArticleCard";
+import BacktoTop from "../components/atoms/BacktoTop";
 
 const Article = () => {
   const article = DataArticle;
@@ -17,6 +18,7 @@ const Article = () => {
           />
         ))}
       </div>
+      <BacktoTop/> 
     </div>
   );
 };
