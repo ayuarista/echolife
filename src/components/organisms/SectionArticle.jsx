@@ -18,7 +18,7 @@ const SectionArticle = () => {
         </h1>
       </div>
       <Link to="/article">
-        <button className="px-6 py-3 lg:px-7 lg:py-3 border border-primary dark:border-hero transition-all duration-300 dark:text-white dark:hover:bg-hero hover:bg-primary hover:text-white text-black rounded-full font-medium text-[14px] ml-auto mt-4 mr-4 whitespace-nowrap">
+        <button className="px-6 py-3 lg:px-7 lg:py-3 border border-primary dark:border-hero dark:hover:text-black transition-all duration-300 dark:text-white dark:hover:bg-hero hover:bg-primary hover:text-white text-black rounded-full font-medium text-[14px] ml-auto mt-4 mr-4 whitespace-nowrap">
           Read More
         </button>
       </Link>

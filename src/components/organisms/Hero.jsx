@@ -62,7 +62,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="rounded-3xl col-span-2 row-span-1 bg-white/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 backdrop-blur p-4">
+        <div className="rounded-3xl col-span-2 row-span-1 bg-white/90 dark:bg-base-200 border border-slate-200 dark:border-slate-800 backdrop-blur p-4">
           <div>
             <p className="text-sm font-semibold text-third dark:text-white mb-3">
               Quick Actions
@@ -72,19 +72,19 @@ export default function Hero() {
             <div className="grid grid-cols-3 gap-2">
               <Link
                 to="/tracker"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-[color:var(--color-gradient)]/70 dark:bg-slate-800 px-3 py-2 text-center text-sm font-semibold text-third dark:text-hero hover:brightness-95 transition"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-[color:var(--color-gradient)]/70 dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-hero hover:brightness-95 transition"
               >
                 Log Waste
               </Link>
               <Link
                 to="/quiz"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
               >
                 Start Quiz
               </Link>
               <Link
                 to="/article"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
               >
                 Browse Tips
               </Link>
@@ -96,7 +96,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="rounded-3xl col-span-2 row-span-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div className="rounded-3xl col-span-2 row-span-1 bg-white dark:bg-base-200 border border-slate-200 dark:border-slate-800 overflow-hidden">
           <div className="h-full w-full flex items-stretch">
             <div className="relative w-28 sm:w-32 md:w-36 shrink-0">
               <img
