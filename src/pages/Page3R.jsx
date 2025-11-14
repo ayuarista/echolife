@@ -896,10 +896,10 @@ const Page3R = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Image Column */}
           <div
-            className="bg-gray-200 dark:bg-gray-700 rounded-3xl h-80 lg:h-96 flex items-center justify-center overflow-hidden"
+            className="rounded-3xl flex items-center justify-center"
             data-aos="fade-right"
           >
-            <img src="https://images.unsplash.com/photo-1538993134100-27305b66a47c?q=80&w=1470&auto=format&fit=crop" alt="Reduce" className="w-full h-full object-cover" />
+            <img src={require('../assets/3R/reduce-img1.png')} alt="Reduce" className="w-full h-auto max-h-96 object-contain rounded-3xl" />
           </div>
           {/* Content Column */}
           <div data-aos="fade-left">
