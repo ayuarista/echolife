@@ -89,7 +89,7 @@ export default function DetailsImpact() {
               <span className="mx-2">/</span>
               <span className="font-semibold text-primary dark:text-hero">Impact Detail</span>
             </nav>
-            <h1 className="text-3xl md:text-5xl text-white font-extrabold leading-tight drop-shadow-xl">
+            <h1 className="text-3xl md:text-4xl text-white font-bold leading-tight drop-shadow-xl">
               {impact.title}
             </h1>
             {impact.subtitle ? (
