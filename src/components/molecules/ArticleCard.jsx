@@ -33,7 +33,7 @@ export default function ArticleCard({
 
       <div className="p-4 sm:p-5">
         {penulis && (
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:border-slate-800 dark:bg-neutral-900 dark:text-slate-300">
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary bg-primary/5 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:border-slate-800 dark:bg-neutral-900 dark:text-slate-300">
             <span className="grid h-4 w-4 place-items-center rounded-full bg-[color:var(--color-gradient,#E4FDEB)] text-[10px] text-[color:var(--color-third,#0D4019)] dark:bg-neutral-800 dark:text-hero">
               {String(penulis).charAt(0).toUpperCase()}
             </span>

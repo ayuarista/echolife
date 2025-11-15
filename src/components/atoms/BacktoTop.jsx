@@ -13,7 +13,7 @@ const BacktoTop = () => {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`fixed right-6 bottom-6 z-50 rounded-full p-3 bg-green-600 text-white shadow-lg transition-transform duration-200 ${
+      className={`fixed right-6 bottom-6 z-50 rounded-full p-3 bg-primary dark:bg-hero text-white shadow-lg transition-transform duration-200 ${
         showBackToTop
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-6 pointer-events-none"
@@ -34,3 +34,4 @@ const BacktoTop = () => {
 };
 
 export default BacktoTop;
+

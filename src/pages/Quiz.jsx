@@ -1,5 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { quizData } from "../data/QuizData";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const pulseStyle = `
+  @keyframes radioPulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.2); opacity: 0; }
+  }
+  .radio-pulse {
+    animation: radioPulse 0.6s ease-out;
+  }
+`;
 
 const ErrorAlert = ({ children }) => (
   <div
@@ -25,9 +37,36 @@ const Quiz = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [displayedCount, setDisplayedCount] = useState(0);
+  const countFrame = useRef(null);
 
   const total = quizData.length;
   const progress = Math.round(((current) / total) * 100);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100,
+      easing: "ease-in-out",
+    });
+
+    // Add pulse animation styles
+    if (!document.querySelector('style[data-pulse]')) {
+      const style = document.createElement('style');
+      style.setAttribute('data-pulse', 'true');
+      style.textContent = `
+        @keyframes radioPulse {
+          0% { transform: scale(0.5); opacity: 1; }
+          100% { transform: scale(1.2); opacity: 0; }
+        }
+        .radio-pulse {
+          animation: radioPulse 0.6s ease-out;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
 
   const handleAnswerChange = (value) => {
     setSelected(value);
@@ -75,7 +114,39 @@ const Quiz = () => {
     setCorrectCount(0);
     setAnswers([]);
     setShowError(false);
+    setDisplayedCount(0);
   };
+
+  useEffect(() => {
+    if (!showResults) {
+      setDisplayedCount(0);
+      return;
+    }
+
+    const duration = 900;
+    const start = performance.now();
+
+    if (countFrame.current) cancelAnimationFrame(countFrame.current);
+
+    const animate = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const ease = 1 - (1 - t) * (1 - t);
+      const currentCount = Math.floor(correctCount * ease);
+      setDisplayedCount(currentCount);
+
+      if (t < 1) {
+        countFrame.current = requestAnimationFrame(animate);
+      } else {
+        setDisplayedCount(correctCount);
+      }
+    };
+
+    countFrame.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (countFrame.current) cancelAnimationFrame(countFrame.current);
+    };
+  }, [showResults, correctCount]);
 
   return (
     <div className="min-h-screen pt-24 flex items-center justify-center p-4">
@@ -83,19 +154,21 @@ const Quiz = () => {
         className="
           w-full max-w-4xl rounded-2xl border shadow-sm
           border-slate-200/70 bg-base-100
-          dark:border-slate-800 dark:bg-slate-900
+          dark:border-slate-800 dark:bg-base-300
         "
+        data-aos="fade-up"
+        data-aos-duration="800"
       >
         {/* Header / Progress */}
         {!showResults && (
-          <div className="p-5 md:p-6 border-b border-slate-200/70 dark:border-slate-800">
+          <div className="p-5 md:p-6 border-b border-slate-200/70 dark:border-slate-800" data-aos="fade-down">
             <div className="flex items-center justify-between">
               <div className="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Question {current + 1} / {total}
               </div>
               <div className="text-xs font-medium text-primary dark:text-hero">{progress}%</div>
             </div>
-            <div className="mt-2 h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <div className="mt-2 h-2 w-full rounded-full bg-hero/10 dark:bg-green-900/40 overflow-hidden">
               <div
                 className="h-full rounded-full bg-primary/70 dark:bg-hero/70 transition-[width] duration-300"
                 style={{ width: `${progress}%` }}
@@ -107,7 +180,7 @@ const Quiz = () => {
         <div className="p-5 md:p-6">
           {!showResults ? (
             <>
-              <h2 className="font-semibold text-xl md:text-2xl tracking-tight text-slate-900 dark:text-slate-100">
+              <h2 className="font-semibold text-xl md:text-2xl tracking-tight text-slate-900 dark:text-slate-100" data-aos="fade-up">
                 {quizData[current].question}
               </h2>
 
@@ -124,12 +197,14 @@ const Quiz = () => {
                       className={[
                         "group/opt relative cursor-pointer rounded-xl border p-4",
                         "border-slate-300/70 bg-white hover:bg-slate-50",
-                        "dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800",
+                        "dark:border-slate-800 dark:bg-base-300 dark:hover:bg-base-100",
                         checked
                           ? "ring-2 ring-primary/50 dark:ring-hero/50 border-transparent"
                           : "",
                         "transition-colors"
                       ].join(" ")}
+                      data-aos={!selected ? "fade-up" : ""}
+                      data-aos-delay={!selected ? idx * 50 : ""}
                     >
                       <input
                         id={id}
@@ -144,20 +219,22 @@ const Quiz = () => {
                         <span
                           className={[
                             "mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-                            "border border-slate-300 dark:border-slate-600",
-                            "peer-checked:border-transparent peer-checked:bg-primary peer-checked:dark:bg-hero",
-                            "transition-colors"
+                            checked
+                              ? "border-transparent bg-primary dark:bg-hero"
+                              : "border border-slate-300 dark:border-slate-800 group-hover/opt:border-primary dark:group-hover/opt:border-hero",
+                            "transition-colors relative overflow-hidden"
                           ].join(" ")}
                           aria-hidden="true"
                         >
-                          <span className="h-2.5 w-2.5 rounded-full bg-white dark:bg-slate-900" />
+                          {checked && <div key={`${id}-pulse`} className="absolute inset-0 rounded-full bg-white/30 dark:bg-base-300/30 radio-pulse" />}
+                          <span className={`h-2.5 w-2.5 rounded-full transition-all duration-300 relative z-10 ${checked ? "bg-white dark:bg-base-300" : "bg-white dark:bg-base-300"}`} />
                         </span>
                         <span
                           className={[
                             "text-sm md:text-[0.95rem] leading-relaxed",
                             checked
                               ? "font-medium text-primary dark:text-hero"
-                              : "text-slate-700 dark:text-slate-300"
+                              : "text-slate-700 dark:text-slate-300 group-hover/opt:text-primary dark:group-hover/opt:text-hero"
                           ].join(" ")}
                         >
                           {option}
@@ -175,9 +252,9 @@ const Quiz = () => {
                   disabled={current === 0}
                   className={[
                     "inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium",
-                    "border border-slate-300 dark:border-slate-700",
+                    "border border-slate-300 dark:border-slate-800",
                     "text-slate-700 dark:text-slate-200",
-                    "hover:bg-slate-50 dark:hover:bg-slate-800",
+                    "hover:bg-slate-50 dark:hover:bg-base-100",
                     "disabled:opacity-50 disabled:cursor-not-allowed"
                   ].join(" ")}
                 >
@@ -188,7 +265,7 @@ const Quiz = () => {
                   onClick={handleNext}
                   className="
                     inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold
-                    text-white bg-primary dark:bg-hero
+                    text-white dark:text-base-300 bg-primary dark:bg-hero
                     hover:opacity-90 transition
                   "
                 >
@@ -199,28 +276,30 @@ const Quiz = () => {
           ) : (
             <>
               {/* Results */}
-              <div className="text-center">
-                <h3 className="font-semibold text-2xl text-slate-900 dark:text-slate-100">
+              <div className="text-center" data-aos="fade-up">
+                <h3 className="font-semibold text-2xl text-slate-900 dark:text-slate-100" data-aos="fade-up">
                   Your Results
                 </h3>
-                <p className="mt-2 text-slate-700 dark:text-slate-300">
-                  You got <b>{correctCount}</b> out of <b>{total}</b> correct
+                <p className="mt-2 text-slate-700 dark:text-slate-300" data-aos="fade-up" data-aos-delay="100">
+                  You got{" "}
+                  <b className="text-green-600 dark:text-green-400">{displayedCount}</b> out of{" "}
+                  <b className="text-red-600 dark:text-red-400">{total}</b> correct
                   {" "}(
-                  {Math.round((correctCount / total) * 100)}
+                  {Math.round((displayedCount / total) * 100)}
                   %)
                 </p>
 
                 {/* simple progress ring replacement */}
-                <div className="mx-auto mt-5 h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <div className="mx-auto mt-5 h-2 w-full rounded-full bg-slate-200 dark:bg-base-300 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                   <div
-                    className="h-full rounded-full bg-primary/80 dark:bg-hero/80"
-                    style={{ width: `${Math.round((correctCount / total) * 100)}%` }}
+                    className="h-full rounded-full bg-primary/80 dark:bg-hero/80 transition-all duration-300"
+                    style={{ width: `${Math.round((displayedCount / total) * 100)}%` }}
                   />
                 </div>
               </div>
 
               {/* Review */}
-              <div className="mt-8 space-y-5">
+              <div className="mt-8 space-y-5" data-aos="fade-up" data-aos-delay="300">
                 <h4 className="font-semibold text-lg text-slate-900 dark:text-slate-100">Review Answers</h4>
                 <ul className="space-y-4">
                   {quizData.map((q, i) => {
@@ -231,8 +310,10 @@ const Quiz = () => {
                         className={[
                           "rounded-xl border p-4",
                           "border-slate-200 dark:border-slate-800",
-                          "bg-white dark:bg-slate-900"
+                          "bg-white dark:bg-base-300"
                         ].join(" ")}
+                        data-aos="fade-up"
+                        data-aos-delay={i * 50}
                       >
                         <p className="font-medium text-slate-900 dark:text-slate-100">{q.question}</p>
                         <p className="mt-1 text-sm">
@@ -253,12 +334,12 @@ const Quiz = () => {
               </div>
 
               {/* Actions */}
-              <div className="mt-8 flex items-center justify-between gap-3">
+              <div className="mt-8 flex items-center justify-between gap-3" data-aos="fade-up" data-aos-delay="400">
                 <button
                   onClick={handleRetry}
                   className="
                     inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold
-                    text-white bg-primary dark:bg-hero hover:opacity-90 transition
+                    text-white dark:text-base-300 bg-primary dark:bg-hero hover:opacity-90 transition
                   "
                 >
                   Try Again
@@ -274,9 +355,9 @@ const Quiz = () => {
                   }}
                   className="
                     inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium
-                    border border-slate-300 dark:border-slate-700
+                    border border-slate-300 dark:border-slate-800
                     text-slate-700 dark:text-slate-200
-                    hover:bg-slate-50 dark:hover:bg-slate-800
+                    hover:bg-slate-50 dark:hover:bg-base-100
                   "
                 >
                   Restart Quiz
@@ -291,3 +372,7 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+
+
+

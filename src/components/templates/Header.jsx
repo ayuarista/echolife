@@ -83,7 +83,7 @@ const Header = () => {
                   <NavLink
                     to="/organic"
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      `block px-3 py-2 rounded-md text-sm hover:bg-primary/5 dark:hover:bg-base-200 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
                     }
                     role="menuitem"
@@ -94,7 +94,7 @@ const Header = () => {
                   <NavLink
                     to="/inorganic"
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      `block px-3 py-2 rounded-md text-sm hover:bg-primary/5 dark:hover:bg-base-200 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
                     }
                     role="menuitem"
@@ -105,7 +105,7 @@ const Header = () => {
                   <NavLink
                     to="/hazardous"
                     className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
+                      `block px-3 py-2 rounded-md text-sm hover:bg-primary/5 dark:hover:bg-base-200 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
                     }
                     role="menuitem"

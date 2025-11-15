@@ -125,28 +125,25 @@ const Organic = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${latitude},${longitude}&zoom=13&maptype=${
-            isDarkMode ? "satellite" : "roadmap"
-          }`;
+          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${latitude},${longitude}&zoom=13&maptype=${isDarkMode ? "satellite" : "roadmap"
+            }`;
           setMapUrl(url);
         },
         (error) => {
           console.log("Location access denied, using default location");
-          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${
-            isDarkMode ? "satellite" : "roadmap"
-          }`;
+          const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${isDarkMode ? "satellite" : "roadmap"
+            }`;
           setMapUrl(url);
         }
       );
     } else {
-      const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${
-        isDarkMode ? "satellite" : "roadmap"
-      }`;
+      const url = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=bank+sampah+organik+kompos+recycling&center=${-8.6705},${115.2126}&zoom=13&maptype=${isDarkMode ? "satellite" : "roadmap"
+        }`;
       setMapUrl(url);
     }
   }, [isDarkMode]);
   useEffect(() => {
-    const interval = setInterval(() => {}, 3500);
+    const interval = setInterval(() => { }, 3500);
     return () => clearInterval(interval);
   }, []);
 
@@ -370,40 +367,47 @@ const Organic = () => {
     },
   ];
 
-  const methodImageSets = useMemo(
-    () => ({
-      composting: [
-        "https://images.unsplash.com/photo-1621496654772-c66c48290259?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1686579341853-2effa68407e1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1541858619423-42850b8687c1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1499125613777-b4fd250db5cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1501169527804-c216a681aab8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-      ],
-      "eco-enzyme": [
-        "https://media.istockphoto.com/id/2186095567/id/foto/teh-kompos-atau-ekstrak-cair-sangat-cocok-sebagai-pupuk.jpg?s=1024x1024&w=is&k=20&c=y6ECxgFYpUb2sRmMg5wqdoNoGm1MncXySClT07EPxxQ=",
-        "https://images.unsplash.com/photo-1587202372775-bd2f1e9e9b4f?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1582719478189-946f28b3cc0c?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1532634896-26909d0d8b9f?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&q=80&w=1170",
-      ],
-      biogas: [
-        "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1616628189782-43e1e88fef8c?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1501004318641-87f8b6cfb1d6?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1501004318641-d76694265947?auto=format&fit=crop&q=80&w=1170",
-      ],
-      "animal-feed": [
-        "https://images.unsplash.com/photo-1604079628043-9431b249e8a1?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1574226516831-e1dff420e12e?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1623206831038-403a7a3a4d41?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1549399548-7b2a4f6d8d2a?auto=format&fit=crop&q=80&w=1170",
-        "https://images.unsplash.com/photo-1518976024611-486b4d8a1d8f?auto=format&fit=crop&q=80&w=1170",
-      ],
-      "liquid-fertilizer": [li1, li2, li3, li4, li5],
-    }),
-    []
-  );
+
+  const methodImageSets = useMemo(() => ({
+    'composting': [
+      'https://images.unsplash.com/photo-1621496654772-c66c48290259?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1686579341853-2effa68407e1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1541858619423-42850b8687c1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1499125613777-b4fd250db5cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1501169527804-c216a681aab8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+    ],
+    'eco-enzyme': [
+      'https://images.unsplash.com/photo-1686242333796-b37e7a637c51?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1618150615391-6d1acab1e561?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1561559094-5838ef543170?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1559425779-898912359eb6?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1704717717645-7003eb2fad12?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+    'biogas': [
+      'https://images.unsplash.com/photo-1563644453661-8c37cd1ab576?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1705613464464-6852250afeda?q=80&w=1072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1713706980164-ba34e3d7c618?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1659032877823-67384adf799a?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1714233039800-3cfa2542e330?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
+    'animal-feed': [
+      'https://images.unsplash.com/photo-1761627067344-f834ac3ce272?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1569466593977-94ee7ed02ec9?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1613568612443-48d054da7221?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1712052960886-808ceabba7ae?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1654162357363-1ce605f17452?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
+    'liquid-fertilizer': [
+      'https://images.unsplash.com/photo-1599277100479-3252d492a19a?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1558906307-1a1c52b5ac8a?auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1588813888677-3e8cc72f8b0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1655130944329-b3a63166f6b5?auto=format&fit=crop&q=80&w=1170',
+      'https://images.unsplash.com/photo-1628691853360-646e10a13dd7?q=80&w=1388&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    ],
+
+  }), []);
 
   useEffect(() => {
     if (!selectedMethod) {
@@ -450,13 +454,13 @@ const Organic = () => {
       img: "https://plus.unsplash.com/premium_photo-1726743661254-84e6828d989d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1107",
     },
     {
-      id: "paper2",
+      id: "agriculture",
       title: "Agricultural Waste",
-      description: "Great for absorbing moisture and adding carbon.",
+      description: "Farm residues that naturally enrich soil.",
       detail:
-        "Paper waste such as napkins, plain paper, and cardboard can be composted if free from ink or plastic coatings. It helps absorb excess water and adds carbon, balancing wet organic waste.",
+        "Agricultural waste includes crop stalks, hay, straw, and plant stems from farming activities. These materials are excellent sources of carbon and organic matter, helping create balanced compost that improves soil structure and fertility.",
       extraInfo:
-        "Recycling paper into compost reduces landfill waste and improves soil texture.",
+        "Using agricultural waste in composting supports sustainable farming practices and reduces burning of crop residues that harms air quality.",
       img: "https://plus.unsplash.com/premium_photo-1664359132286-d3fa0dce553f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172",
     },
   ];
@@ -494,7 +498,7 @@ const Organic = () => {
       style={{ fontFamily: "Poppins, sans-serif" }}
     >
       {/* Hero Section */}
-      <div className="pt-20 lg:pt-12 pb-0 overflow-hidden dark:bg-base-100">
+      <div className="pt-20 lg:pt-12 pb-0 overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-white via-hero/5 to-white dark:from-base-100 dark:via-base-200 dark:to-base-100">
         <div className="grid lg:grid-cols-2 gap-0 items-center">
           <div className="px-8 lg:pl-12 lg:pr-8">
             <h1
@@ -503,8 +507,8 @@ const Organic = () => {
               data-aos-duration="1000"
             >
               Where Nature Meets Innovation for a {" "}
-              <span className="text-primary dark:text-hero">
-              Greener Tomorrow
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">
+                Greener Tomorrow
               </span>
             </h1>
             <p
@@ -531,11 +535,10 @@ const Organic = () => {
                   });
                 }}
                 aria-pressed={activeHero === "learn"}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${
-                  activeHero === "learn"
-                    ? "bg-green-600 text-white shadow-md border-green-600"
-                    : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
-                }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "learn"
+                  ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                  }`}
               >
                 Learn Organic Waste
                 <span>→</span>
@@ -549,11 +552,10 @@ const Organic = () => {
                   });
                 }}
                 aria-pressed={activeHero === "types"}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                  activeHero === "types"
-                    ? "bg-green-600 text-white shadow-md border-green-600"
-                    : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
-                }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "types"
+                  ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                  }`}
               >
                 Organic Waste Types →
               </button>
@@ -572,11 +574,10 @@ const Organic = () => {
                   });
                 }}
                 aria-pressed={activeHero === "manage"}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${
-                  activeHero === "manage"
-                    ? "bg-green-600 shadow-md text-white border-secondary"
-                    : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
-                }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "manage"
+                  ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                  }`}
               >
                 Manage Organic Waste
                 <span>→</span>
@@ -590,11 +591,10 @@ const Organic = () => {
                   });
                 }}
                 aria-pressed={activeHero === "ai"}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                  activeHero === "ai"
-                    ? "bg-green-600 text-white shadow-md border-green-600"
-                    : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
-                }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "ai"
+                  ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                  }`}
               >
                 Organic Maps →
               </button>
@@ -607,11 +607,10 @@ const Organic = () => {
                   });
                 }}
                 aria-pressed={activeHero === "calculator"}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                  activeHero === "calculator"
-                    ? "bg-green-600 shaadow-md text-white border-green-600"
-                    : "border border-gray-300 dark:border-gray-600 hover:border-green-600 hover:bg-green-50/40 dark:hover:bg-base-300 dark:text-white"
-                }`}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "calculator"
+                  ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                  }`}
               >
                 Organic Calculator →
               </button>
@@ -660,7 +659,7 @@ const Organic = () => {
       {/* What Is Organic Waste Section */}
       <div
         ref={whatIsRef}
-        className="py-12 lg:py-16 lg:mt-12 bg-green-50/40 dark:bg-base-200"
+        className="py-12 lg:py-16 lg:mt-12 bg-hero/5 dark:bg-base-200"
       >
         <div className="flex flex-col lg:flex-row mx-8 lg:mx-12 gap-8 lg:gap-16 items-start">
           <div className="flex-1">
@@ -669,7 +668,7 @@ const Organic = () => {
               data-aos="fade-right"
             >
               What Is{" "}
-              <span className="text-primary dark:text-hero">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">
                 Organic Waste?
               </span>
             </h2>
@@ -709,32 +708,30 @@ const Organic = () => {
                       onClick={() =>
                         setSelectedInfo(isOpen ? null : section.id)
                       }
-                      className="w-full px-3 sm:px-4 py-4 sm:py-5 flex items-center rounded-md justify-between hover:bg-gray-50 dark:hover:bg-base-100 transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-4 sm:py-5 flex items-center rounded-md justify-between hover:bg-primary/10 dark:hover:bg-base-100 transition-all duration-300"
                     >
                       <span
-                        className={`text-left transition-all duration-300 ${
-                          isOpen
-                            ? "text-green-700 dark:text-primary font-bold text-lg sm:text-xl lg:text-2xl"
-                            : "text-primary dark:text-hero font-normal text-xs sm:text-sm lg:text-base"
-                        }`}
+                        className={`text-left transition-all duration-300 ${isOpen
+                          ? "text-green-700 dark:text-primary font-semibold [font-size:20px] sm:[font-size:24px] lg:[font-size:22px]"
+                          : "text-primary dark:text-hero [font-size:10px] sm:[font-size:12px] lg:[font-size:16px]"
+                          }`}
                       >
                         {section.title}
                       </span>
 
+
                       <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${
-                          isOpen
-                            ? "bg-green-700 dark:bg-primary border-primary"
-                            : "bg-white dark:bg-base-100 border-primary hover:border-primary hover:bg-green-50/40"
-                        }`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${isOpen
+                          ? "bg-green-700 dark:bg-primary border-primary"
+                          : "bg-white dark:bg-base-100 border-primary hover:border-primary hover:bg-hero/5"
+                          }`}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform duration-300 ${
-                            isOpen
-                              ? "-rotate-90 text-white"
-                              : "rotate-90 text-primary"
-                          }`}
+                          className={`w-3 h-3 sm:w-4 sm:h-4 transform transition-transform duration-300 ${isOpen
+                            ? "-rotate-90 text-white"
+                            : "rotate-90 text-primary"
+                            }`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -793,7 +790,7 @@ const Organic = () => {
                 return (
                   <div
                     key={i}
-                    className="absolute left-1/2 rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    className="absolute left-1/2 rounded-3xl overflow-hidden bg-hero/5 dark:bg-base-100 shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
                     style={{
                       width: raw === 0 ? "82%" : "72%",
                       height: raw === 0 ? "52%" : "45%",
@@ -826,15 +823,14 @@ const Organic = () => {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
-        className={`fixed right-6 z-100 bottom-6 z-50 rounded-full p-3 shadow-lg focus:outline-none focus:ring-2 bg-green-600  focus:ring-green-300 transition-transform duration-200 ${
-          showBackToTop
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-6 pointer-events-none"
-        }`}
+        className={`fixed right-6 z-100 bottom-6 z-50 rounded-full p-3 shadow-lg focus:outline-none bg-primary dark:bg-hero transition-transform duration-200 active:scale-90 ${showBackToTop
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-6 pointer-events-none"
+          }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 z-300 h-6 bg-green-600 text-white"
+          className="w-6 z-300 h-6 bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -855,7 +851,7 @@ const Organic = () => {
           data-aos="fade-up"
         >
           Types of{" "}
-          <span className="text-primary dark:text-hero">Organic Waste?</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Organic Waste?</span>
         </h2>
         <p
           className="text-sm lg:text-[15px] text-gray-500 dark:text-gray-400 text-center mb-8 lg:mb-12"
@@ -878,7 +874,7 @@ const Organic = () => {
               {/* Card */}
               <div
                 className="
-        relative overflow-hidden rounded-xl 
+        relative overflow-hidden rounded-2xl 
         bg-white dark:bg-base-200 
         border border-gray-200/60 dark:border-gray-700/50
         hover:border-gray-300 dark:hover:border-gray-600
@@ -997,7 +993,7 @@ const Organic = () => {
                       {/* Icon Badge (pakai emoji dari dataset kamu) */}
                       {item.icon && (
                         <div className="absolute bottom-4 left-6">
-                          <div className="w-14 h-14 rounded-xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
+                          <div className="w-14 h-14 rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
                             {item.icon}
                           </div>
                         </div>
@@ -1024,7 +1020,7 @@ const Organic = () => {
       {/* How to Manage Section */}
       <div
         ref={manageRef}
-        className="py-12 lg:py-16  bg-green-50/40 dark:bg-base-200 relative"
+        className="py-12 lg:py-16  bg-hero/5 dark:bg-base-200 relative"
       >
         {/* Decorative stars */}
         <div
@@ -1038,7 +1034,7 @@ const Organic = () => {
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
+          <PiStarFour className="animate-spin rotate-90 text-hero/5 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
 
         <h2
@@ -1046,7 +1042,7 @@ const Organic = () => {
           data-aos="fade-up"
         >
           How to Manage{" "}
-          <span className="text-primary dark:text-hero">Organic Waste?</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Organic Waste?</span>
         </h2>
 
         <p
@@ -1073,19 +1069,17 @@ const Organic = () => {
                   method.id === selectedMethod ? null : method.id
                 )
               }
-              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${
-                selectedMethod === method.id
-                  ? "bg-green-600 text-white border-green-600 shadow-sm"
-                  : "bg-white dark:bg-base-100 border-gray-300 dark:border-gray-600 text-secondary dark:text-white hover:border-secondary hover:bg-green-50/40 dark:hover:bg-base-300"
-              }`}
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border transition-all duration-300 flex items-center gap-2 text-xs sm:text-sm font-medium ${selectedMethod === method.id
+                ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
+                : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-200 dark:text-white"
+                }`}
             >
               {method.title}
               <span
-                className={`ml-2 transform transition-transform ${
-                  selectedMethod === method.id
-                    ? "-rotate-90 text-white"
-                    : "rotate-90 text-gray-500 dark:text-gray-400"
-                }`}
+                className={`ml-2 transform transition-transform ${selectedMethod === method.id
+                  ? "-rotate-90 text-white dark:text-base-300"
+                  : "rotate-90 text-gray-500 dark:text-gray-400"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1121,7 +1115,7 @@ const Organic = () => {
                 >
                   <div className="grid md:grid-cols-2 gap-12 mb-8">
                     <div
-                      className="rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 h-72 sm:h-96 relative"
+                      className="rounded-3xl overflow-hidden bg-hero/5 dark:bg-base-100 h-72 sm:h-96 relative"
                       data-aos="fade-right"
                     >
                       {(() => {
@@ -1156,25 +1150,24 @@ const Organic = () => {
                         ).map((_, i) => (
                           <span
                             key={i}
-                            className={`w-2 h-2 rounded-full ${
-                              i === methodSlide
-                                ? "bg-white dark:bg-base-100"
-                                : "bg-white dark:bg-base-100/40"
-                            } transition-all duration-300`}
+                            className={`w-2 h-2 rounded-full ${i === methodSlide
+                              ? "bg-white dark:bg-base-100"
+                              : "bg-white dark:bg-base-100/40"
+                              } transition-all duration-300`}
                           />
                         ))}
                       </div>
                     </div>
 
                     <div data-aos="fade-left">
-                      <h2 className="text-2xl text-secondary dark:text-primary font-bold mb-4">
+                      <h2 className="text-2xl text-secondary dark:text-primary font-semibold mb-4">
                         {method.title}
                       </h2>
                       <p className="text-gray-600 dark:text-gray-200 mb-6 leading-relaxed text-sm">
                         {method.description}
                       </p>
 
-                      <h3 className="text-2xl font-bold text-secondary dark:text-primary mt-8 mb-3">
+                      <h3 className="text-2xl font-semibold text-secondary dark:text-primary mt-8 mb-3">
                         Benefits of {method.title}
                       </h3>
                       <ul className="space-y-2 mb-6">
@@ -1215,7 +1208,7 @@ const Organic = () => {
                             block: "start",
                           })
                         }
-                        className="px-5 py-2.5 rounded-full border-2 text-sm font-medium bg-green-600 text-white border-green-600 hover:bg-green-700 transition-all"
+                        className="px-5 py-2.5 rounded-full border-2 text-sm font-medium bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-all"
                       >
                         Let's Make It →
                       </button>
@@ -1226,7 +1219,7 @@ const Organic = () => {
                     <div data-aos="fade-up" data-aos-delay="300">
                       <h3
                         ref={howToRef}
-                        className="text-2xl text-secondary dark:text-primary font-bold mb-3"
+                        className="text-2xl text-secondary dark:text-primary font-semibold mb-3"
                       >
                         How to Make {method.title}
                       </h3>
@@ -1235,12 +1228,12 @@ const Organic = () => {
                         {method.id === "composting"
                           ? "your organic waste into nutrient-rich compost"
                           : method.id === "eco-enzyme"
-                          ? "fruit peels into natural eco-cleaners"
-                          : method.id === "biogas"
-                          ? "organic waste into renewable energy"
-                          : method.id === "animal-feed"
-                          ? "leftovers as healthy animal feed"
-                          : "food waste into liquid fertilizer"}
+                            ? "fruit peels into natural eco-cleaners"
+                            : method.id === "biogas"
+                              ? "organic waste into renewable energy"
+                              : method.id === "animal-feed"
+                                ? "leftovers as healthy animal feed"
+                                : "food waste into liquid fertilizer"}
                         :
                       </p>
                       <div
@@ -1254,56 +1247,50 @@ const Organic = () => {
                           return (
                             <div
                               key={idx}
-                              className={`rounded-2xl overflow-hidden border ${
-                                isOpen
-                                  ? "bg-primary dark:bg-third border-hero dark:border-third"
-                                  : "bg-green-50/40 dark:bg-base-200 border-gray-200 dark:border-gray-600"
-                              }`}
+                              className={`rounded-2xl overflow-hidden border ${isOpen
+                                ? "bg-primary dark:bg-third border-hero dark:border-third"
+                                : "bg-hero/5 dark:bg-base-200 border-gray-200 dark:border-gray-600"
+                                }`}
                             >
                               <button
                                 onClick={() =>
                                   setSelectedStep(isOpen ? null : stepKey)
                                 }
-                                className={`w-full px-6 py-4 pb-4 flex items-center justify-between transition-all duration-300 ${
-                                  isOpen
-                                    ? ""
-                                    : "hover:bg-gray-100 dark:hover:bg-base-100"
-                                }`}
+                                className={`w-full px-6 py-4 pb-4 flex items-center justify-between transition-all duration-300 ${isOpen
+                                  ? ""
+                                  : "hover:bg-primary/10 dark:hover:bg-base-100"
+                                  }`}
                               >
                                 <div className="flex items-center gap-3">
                                   <div
-                                    className={`w-7 h-7 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0 ${
-                                      isOpen
-                                        ? "bg-white text-green-600  dark:text-third"
-                                        : "bg-primary text-white  dark:bg-third"
-                                    }`}
+                                    className={`w-7 h-7 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0 ${isOpen
+                                      ? "bg-white text-primary dark:text-hero"
+                                      : "bg-primary text-white  dark:bg-third"
+                                      }`}
                                   >
                                     {idx + 1}
                                   </div>
                                   <span
-                                    className={`${
-                                      isOpen
-                                        ? "text-white font-bold"
-                                        : "text-sm font-medium text-left text-gray-800 dark:text-white"
-                                    }`}
+                                    className={`${isOpen
+                                      ? "text-white font-bold"
+                                      : "text-sm font-medium text-left text-gray-800 dark:text-white"
+                                      }`}
                                   >
                                     {step.title}
                                   </span>
                                 </div>
                                 <div
-                                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${
-                                    isOpen
-                                      ? "border-white"
-                                      : "border-gray-200 dark:border-gray-600"
-                                  }`}
+                                  className={`w-8 h-8 rounded-full border flex items-center justify-center transition-transform duration-300 ${isOpen
+                                    ? "border-white"
+                                    : "border-gray-200 dark:border-gray-600"
+                                    }`}
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className={`w-4 h-4 transform transition-transform duration-300 ${
-                                      isOpen
-                                        ? "-rotate-90 text-white"
-                                        : "rotate-90 text-primary  "
-                                    }`}
+                                    className={`w-4 h-4 transform transition-transform duration-300 ${isOpen
+                                      ? "-rotate-90 text-white"
+                                      : "rotate-90 text-primary  "
+                                      }`}
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -1321,27 +1308,24 @@ const Organic = () => {
                                 ref={(el) => (detailRefs.current[stepKey] = el)}
                                 style={{
                                   maxHeight: isOpen
-                                    ? `${
-                                        detailRefs.current[stepKey]
-                                          ?.scrollHeight || 0
-                                      }px`
+                                    ? `${detailRefs.current[stepKey]
+                                      ?.scrollHeight || 0
+                                    }px`
                                     : "0px",
                                 }}
                                 className="px-6 pb-0 overflow-hidden transition-[max-height] duration-500 ease-in-out"
                               >
                                 <div
-                                  className={`pl-10 pr-8 pb-3 transform transition-all duration-300 ${
-                                    isOpen
-                                      ? "translate-y-0 opacity-100"
-                                      : "translate-y-2 opacity-0"
-                                  }`}
+                                  className={`pl-10 pr-8 pb-3 transform transition-all duration-300 ${isOpen
+                                    ? "translate-y-0 opacity-100"
+                                    : "translate-y-2 opacity-0"
+                                    }`}
                                 >
                                   <p
-                                    className={`${
-                                      isOpen
-                                        ? "text-white"
-                                        : "text-gray-600 dark:text-gray-200"
-                                    } text-sm leading-relaxed`}
+                                    className={`${isOpen
+                                      ? "text-white"
+                                      : "text-gray-600 dark:text-gray-200"
+                                      } text-sm leading-relaxed`}
                                   >
                                     {step.detail}
                                   </p>
@@ -1373,7 +1357,7 @@ const Organic = () => {
 
                   <div className="mt-20">
                     <h3
-                      className="text-2xl font-bold text-center mb-3 text-secondary dark:text-primary"
+                      className="text-2xl font-semibold text-center mb-3 text-secondary dark:text-primary"
                       data-aos="fade-up"
                     >
                       Learn How to Make {method.title}
@@ -1386,12 +1370,12 @@ const Organic = () => {
                       {method.id === "composting"
                         ? "Watch this quick tutorial on making compost from kitchen waste."
                         : method.id === "eco-enzyme"
-                        ? "Short video on making eco-enzyme at home."
-                        : method.id === "biogas"
-                        ? "Video on how biogas is made naturally."
-                        : method.id === "animal-feed"
-                        ? "Guide to creating animal feed from leftovers."
-                        : "Tutorial on making liquid fertilizer from food scraps."}
+                          ? "Short video on making eco-enzyme at home."
+                          : method.id === "biogas"
+                            ? "Video on how biogas is made naturally."
+                            : method.id === "animal-feed"
+                              ? "Guide to creating animal feed from leftovers."
+                              : "Tutorial on making liquid fertilizer from food scraps."}
                     </p>
                     <div
                       className="aspect-video w-full sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto overflow-hidden rounded-2xl"
@@ -1404,12 +1388,12 @@ const Organic = () => {
                           method.id === "composting"
                             ? "https://www.youtube.com/embed/egyNJ7xPyoQ"
                             : method.id === "eco-enzyme"
-                            ? "https://www.youtube.com/embed/ReJUhI4tjIc"
-                            : method.id === "biogas"
-                            ? "https://www.youtube.com/embed/BaMKVqcRaLk"
-                            : method.id === "animal-feed"
-                            ? "https://www.youtube.com/embed/hPsOSUsq3Fg"
-                            : "https://www.youtube.com/embed/wrZSYaDI_7Q"
+                              ? "https://www.youtube.com/embed/ReJUhI4tjIc"
+                              : method.id === "biogas"
+                                ? "https://www.youtube.com/embed/BaMKVqcRaLk"
+                                : method.id === "animal-feed"
+                                  ? "https://www.youtube.com/embed/hPsOSUsq3Fg"
+                                  : "https://www.youtube.com/embed/wrZSYaDI_7Q"
                         }
                         title={`How to Make ${method.title}`}
                         frameBorder="0"
@@ -1432,7 +1416,7 @@ const Organic = () => {
             data-aos="fade-up"
           >
             Find Organic Waste{" "}
-            <span className="text-primary dark:text-hero">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">
               Centers Near You
             </span>
           </h2>
@@ -1448,7 +1432,7 @@ const Organic = () => {
 
         {/* Embedded Google Maps */}
         <div
-          className="rounded-3xl overflow-hidden bg-green-50/40 dark:bg-base-100 shadow-lg border-2 border-gray-200 dark:border-gray-600 h-[300px] sm:h-[400px] lg:h-[500px]"
+          className="rounded-3xl overflow-hidden bg-hero/5 dark:bg-base-100 shadow-lg border-2 border-gray-200 dark:border-gray-600 h-[300px] sm:h-[400px] lg:h-[500px]"
           data-aos="zoom-in"
           data-aos-delay="200"
         >
@@ -1476,126 +1460,123 @@ const Organic = () => {
       </div>
 
       {/* Carbon Calculator Section */}
-      <div ref={calculatorRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
-        <div className="max-w-3xl mx-auto">
-          {/* Header Section */}
-          <div className="text-center mb-6 lg:mb-8">
-            <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 lg:mb-3 text-secondary dark:text-primary"
-              data-aos="fade-up"
-            >
-              Carbon Impact{" "}
-              <span className="text-primary dark:text-hero">Calculator</span>
-            </h2>
-            <p
-              className="text-sm leading-relaxed lg:text-[15px] text-center text-gray-500 dark:text-gray-400"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              Calculate the positive impact of your organic waste management on
-              the environment
-            </p>
-          </div>
-
-          {/* Calculator Box */}
-          <div
-            className="bg-white dark:bg-base-200 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-600 shadow-sm"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <p className="font-medium mb-4 text-sm lg:text-[15px] text-neutral-800 dark:text-neutral-200 sm:text-sm">
-              How many kilograms of organic waste do you process per week?
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="w-full sm:flex-1">
-                <input
-                  type="text"
-                  placeholder="Enter the number..."
-                  value={waste}
-                  onChange={handleInputChange}
-                  className={`w-full px-5 py-3 border border-gray-200 dark:border-gray-600 dark:bg-base-100 rounded-full text-sm focus:outline-none focus:border-green-600 transition-transform duration-150 ${
-                    inputAnimating ? "scale-90" : ""
-                  }`}
-                />
-                {inputError && (
-                  <p className="text-red-500 text-xs mt-2 ml-4 animate-slideDown flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 1024 1024"
-                      className="flex-shrink-0"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m0 832a384 384 0 0 0 0-768a384 384 0 0 0 0 768m48-176a48 48 0 1 1-96 0a48 48 0 0 1 96 0m-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32"
-                      />
-                    </svg>
-                    {inputError}
-                  </p>
-                )}
-              </div>
-              <button
-                onClick={handleCalculate}
-                disabled={isCounting || inputError}
-                className={`px-6 sm:px-8 py-3 bg-green-600 text-white rounded-full font-medium hover:bg-green-700 transition-all text-sm ${
-                  isCounting || inputError
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
+      <div className="py-16 lg:py-24 bg-gradient-to-b from-white via-hero/5 to-white dark:from-base-100 dark:via-base-200 dark:to-base-100">
+        <div ref={calculatorRef} className="py-12 lg:py-16 mx-8 lg:mx-12">
+          <div className="max-w-3xl mx-auto">
+            {/* Header Section */}
+            <div className="text-center mb-6 lg:mb-8">
+              <h2
+                className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 lg:mb-3 text-secondary dark:text-primary"
+                data-aos="fade-up"
               >
-                {isCounting ? "Calculating..." : "Calculate"}
-              </button>
+                Carbon Impact{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Calculator</span>
+              </h2>
+              <p
+                className="text-sm leading-relaxed lg:text-[15px] text-center text-gray-500 dark:text-gray-400"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                Calculate the positive impact of your organic waste management on
+                the environment
+              </p>
             </div>
 
-            {/* Result Section */}
-            {displayedCo2 !== null && displayedTrees !== null && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
-                <div
-                  className="bg-green-50/40 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
-                  data-aos="fade-up"
-                >
-                  <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">
-                    CO₂ Saved
-                  </p>
-                  <p
-                    className={`text-3xl sm:text-4xl font-bold text-secondary dark:text-primary transition-all ${
-                      isCounting ? "transform scale-105" : ""
-                    }`}
-                  >
-                    {Number(displayedCo2).toFixed(1)} kg
-                  </p>
-                  <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
-                    Amazing impact!
-                  </p>
-                </div>
+            {/* Calculator Box */}
+            <div
+              className="bg-white dark:bg-base-200 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-gray-600 shadow-sm"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              <p className="font-medium mb-4 text-sm lg:text-[15px] text-neutral-800 dark:text-neutral-200 sm:text-sm">
+                How many kilograms of organic waste do you process per week?
+              </p>
 
-                <div
-                  className="bg-green-50/40 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">
-                    Trees Equivalent
-                  </p>
-                  <p
-                    className={`text-3xl sm:text-4xl font-bold text-primary dark:text-hero transition-all ${
-                      isCounting ? "transform scale-105" : ""
-                    }`}
-                  >
-                    {Number(displayedTrees).toFixed(2)}
-                  </p>
-                  <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
-                    Keep it growing!
-                  </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="w-full sm:flex-1">
+                  <input
+                    type="text"
+                    placeholder="Enter the number..."
+                    value={waste}
+                    onChange={handleInputChange}
+                    className={`w-full px-5 py-3 border border-gray-200 dark:border-gray-600 dark:bg-base-100 rounded-full text-sm focus:outline-none focus:border-primary dark:focus:border-hero transition-transform duration-150 ${inputAnimating ? "scale-90" : ""
+                      }`}
+                  />
+                  {inputError && (
+                    <p className="text-red-500 text-xs mt-2 ml-4 animate-slideDown flex items-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 1024 1024"
+                        className="flex-shrink-0"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m0 832a384 384 0 0 0 0-768a384 384 0 0 0 0 768m48-176a48 48 0 1 1-96 0a48 48 0 0 1 96 0m-48-464a32 32 0 0 1 32 32v288a32 32 0 0 1-64 0V288a32 32 0 0 1 32-32"
+                        />
+                      </svg>
+                      {inputError}
+                    </p>
+                  )}
                 </div>
+                <button
+                  onClick={handleCalculate}
+                  disabled={isCounting || inputError}
+                  className={`px-6 sm:px-8 py-3 bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold rounded-full font-medium hover:bg-opacity-90 dark:hover:bg-opacity-90 transition-all text-sm ${isCounting || inputError
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                    }`}
+                >
+                  {isCounting ? "Calculating..." : "Calculate"}
+                </button>
               </div>
-            )}
+
+              {/* Result Section */}
+              {displayedCo2 !== null && displayedTrees !== null && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
+                  <div
+                    className="bg-hero/5 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
+                    data-aos="fade-up"
+                  >
+                    <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">
+                      CO₂ Saved
+                    </p>
+                    <p
+                      className={`text-3xl sm:text-4xl font-bold text-secondary dark:text-primary transition-all ${isCounting ? "transform scale-105" : ""
+                        }`}
+                    >
+                      {Number(displayedCo2).toFixed(1)} kg
+                    </p>
+                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                      Amazing impact!
+                    </p>
+                  </div>
+
+                  <div
+                    className="bg-hero/5 dark:bg-green-900/30 border border-gray-200 dark:border-green-900/30 rounded-2xl p-5 sm:p-6 text-center"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                  >
+                    <p className="text-gray-600 dark:text-gray-200 text-xs mb-1 sm:mb-2">
+                      Trees Equivalent
+                    </p>
+                    <p
+                      className={`text-3xl sm:text-4xl font-bold text-primary dark:text-hero transition-all ${isCounting ? "transform scale-105" : ""
+                        }`}
+                    >
+                      {Number(displayedTrees).toFixed(2)}
+                    </p>
+                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                      Keep it growing!
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
       <style jsx>{`
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
@@ -1647,3 +1628,5 @@ const Organic = () => {
 };
 
 export default Organic;
+
+
