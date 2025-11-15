@@ -7,6 +7,7 @@ import Section3R from "../components/organisms/Section3R";
 import SectionImpact from "../components/organisms/SectionImpact";
 import SectionArticle from "../components/organisms/SectionArticle";
 import BacktoTop from "../components/atoms/BacktoTop";
+import SectionWasteTypes from "../components/organisms/SectionWasteTypes";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
         <div className="mt-14 lg:mx-12 mx-8">
           <OurMissions />
           <Section3R />
+          <SectionWasteTypes/>
           <SectionImpact />
         </div>
         <div className="mx-0">
