@@ -69,17 +69,17 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/organic" className={linkBase}>
+                  <Link to="/waste-types/organic" className={linkBase}>
                     Organic
                   </Link>
                 </li>
                 <li>
-                  <Link to="/inorganic" className={linkBase}>
+                  <Link to="/waste-types/inorganic" className={linkBase}>
                     Inorganic 
                   </Link>
                 </li>
                 <li>
-                  <Link to="/hazardous" className={linkBase}>
+                  <Link to="/waste-types/hazardous" className={linkBase}>
                     Hazardous 
                   </Link>
                 </li>

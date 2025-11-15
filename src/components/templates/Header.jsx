@@ -81,7 +81,7 @@ const Header = () => {
                   className="absolute left-0 mt-2 w-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-base shadow-lg p-1"
                 >
                   <NavLink
-                    to="/organic"
+                    to="/waste-types/organic"
                     className={({ isActive }) =>
                       `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
@@ -92,7 +92,7 @@ const Header = () => {
                     Organic
                   </NavLink>
                   <NavLink
-                    to="/inorganic"
+                    to="/waste-types/inorganic"
                     className={({ isActive }) =>
                       `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
@@ -103,7 +103,7 @@ const Header = () => {
                     Inorganic
                   </NavLink>
                   <NavLink
-                    to="/hazardous"
+                    to="/waste-types/hazardous"
                     className={({ isActive }) =>
                       `block px-3 py-2 rounded-md text-sm hover:bg-slate-100 dark:hover:bg-slate-800 ${isActive ? "font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200"
                       }`
@@ -148,7 +148,7 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="inline-flex lg:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="inline-flex lg:hidden p-2 rounded-md hover:bg-base-200 dark:hover:bg-base-200"
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -161,13 +161,13 @@ const Header = () => {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+        <div className="lg:hidden transition-all duration-300 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-base-200">
           <nav className="mx-auto max-w-7xl px-4 py-3 space-y-1">
             <NavLink
               to="/"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
               }
               end
             >
@@ -177,41 +177,41 @@ const Header = () => {
               to="/3r"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
               }
             >
               3R
             </NavLink>
 
-            {/* Mobile dropdown: render sebagai grup link biasa */}
+            {/* Mobile dropdown */}
             <div className="pt-2">
               <div className="px-3 pb-1 text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 Waste Types
               </div>
               <div className="grid">
                 <NavLink
-                  to="/organic"
+                  to="/waste-types/organic"
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
                   }
                 >
                   Organic
                 </NavLink>
                 <NavLink
-                  to="/inorganic"
+                  to="/waste-types/inorganic"
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
                   }
                 >
                   Inorganic
                 </NavLink>
                 <NavLink
-                  to="/hazardous"
+                  to="/waste-types/hazardous"
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                    `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
                   }
                 >
                   Hazardous
@@ -223,7 +223,7 @@ const Header = () => {
               to="/tracker"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
               }
             >
               Track Waste
@@ -232,7 +232,7 @@ const Header = () => {
               to="/quiz"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
               }
             >
               Quiz
@@ -241,7 +241,7 @@ const Header = () => {
               to="/article"
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded-md ${isActive ? "bg-slate-100 dark:bg-slate-800 text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"}`
+                `block px-3 py-2 rounded-md ${isActive ? "bg-base-200 dark:bg-base-100 font-semibold text-primary dark:text-hero" : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-base-300"}`
               }
             >
               Articles
