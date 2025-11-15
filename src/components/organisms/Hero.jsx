@@ -1,147 +1,152 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { TiTree } from "react-icons/ti";
-import { TbLeaf } from "react-icons/tb";
-import { GoArrowRight } from "react-icons/go";
+import { FaRecycle, FaLeaf, FaGlobeAmericas } from "react-icons/fa";
+import { HiArrowRight } from "react-icons/hi";
 
 export default function Hero() {
   return (
-    <section className="pt-8 px-4">
-      <div
-        className="
-          mx-auto max-w-8xl
-          grid gap-2
-          grid-cols-4 md:grid-cols-6
-          auto-rows-[140px] md:auto-rows-[160px]
-        "
-      >
-        <div className="col-span-4 md:col-span-4 row-span-2 relative overflow-hidden bg-secondary text-white rounded-3xl">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
-          <div className="absolute -left-20 -top-16 h-56 w-56 rounded-full bg-hero/25 blur-2xl" />
-          <div className="absolute -right-20 -bottom-20 h-56 w-56 rounded-full bg-hero/25 blur-2xl" />
-          <div className="relative h-full px-8 flex flex-col justify-center">
-            <div className="w-fit inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs md:text-sm backdrop-blur">
-              <TiTree className="text-hero" /> Echolife - Sustain together
-            </div>
-            <h1 className="mt-3 font-Poppins font-bold leading-tight text-[2rem] sm:text-[2.6rem] lg:text-[3.1rem]">
-              Build <span className="text-hero">Eco-Friendly</span> {" "}
-              Digital Habits
-            </h1>
-            <p className="mt-2 max-w-xl text-[15px] text-neutral-200">
-              Track your waste, learn recycling basics, and join community
-              actions to give materials a second life.
-            </p>
-            <div className="mt-4 flex gap-3">
-              <Link
-                to="/tracker"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-95"
-              >
-                Track Waste
-                <GoArrowRight className="transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                to="/organic"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold hover:bg-white/15"
-              >
-                Explore Waste Types
-              </Link>
-            </div>
-          </div>
-        </div>
+    <section className="relative min-h-screen w-full bg-gradient-to-b from-lime-50 via-green-50/30 to-white flex items-center justify-center overflow-hidden py-20">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-green-200/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-40 right-20 w-40 h-40 bg-lime-200/20 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute bottom-32 left-1/4 w-36 h-36 bg-emerald-200/20 rounded-full blur-3xl animate-float" />
+      </div>
 
-        <div className="col-span-4 md:col-span-2 row-span-3 relative overflow-hidden">
-          <div className="absolute inset-0" />
-          <div className="relative h-full w-full">
-            <div className="w-full h-full overflow-hidden rounded-3xl ring-1 ring-black/10 shadow-xl">
-              <img
-                src="https://images.unsplash.com/photo-1589122827461-0ab8d74458f5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170"
-                alt="Green landscape"
-                className="block w-full h-full object-cover"
-              />
-            </div>
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
+        <div className="flex flex-col items-center text-center mb-12">
+          {/* Badge */}
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700">
+            <TiTree className="text-green-600 text-lg" /> 
+            Echolife - Sustain together
           </div>
-        </div>
 
-        <div className="rounded-3xl col-span-2 row-span-1 bg-white/90 dark:bg-base-200 border border-slate-200 dark:border-slate-800 backdrop-blur p-4">
-          <div>
-            <p className="text-sm font-semibold text-third dark:text-white mb-3">
-              Quick Actions
-            </p>
-          </div>
-          <div className="flex flex-col justify-between">
-            <div className="grid grid-cols-3 gap-2">
-              <Link
-                to="/tracker"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-[color:var(--color-gradient)]/70 dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-hero hover:brightness-95 transition"
-              >
-                Log Waste
-              </Link>
-              <Link
-                to="/quiz"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
-              >
-                Start Quiz
-              </Link>
-              <Link
-                to="/article"
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-base-300 px-3 py-2 text-center text-sm font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition"
-              >
-                Browse Tips
-              </Link>
-            </div>
-            <div className="mt-3 flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
-              <TbLeaf className="text-hero" />
-              Track progress & build better habits every day.
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-3xl col-span-2 row-span-1 bg-white dark:bg-base-200 border border-slate-200 dark:border-slate-800 overflow-hidden">
-          <div className="h-full w-full flex items-stretch">
-            <div className="relative w-28 sm:w-32 md:w-36 shrink-0">
-              <img
-                src="https://images.unsplash.com/photo-1669384537216-24740a56a2d5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1334"
-                alt="Challenge"
-                className="h-full w-full object-cover"
-              />
-              <span className="absolute left-2 top-2 rounded-full bg-primary/90 text-white px-2 py-0.5 text-[10px] font-semibold">
-                Challenge
+          {/* Heading */}
+          <h1 className="font-dmsans mx-auto max-w-4xl text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl mb-6">
+            Green Solutions for Future{" "}
+            <span className="inline-flex items-center gap-2">
+              <span className="inline-flex w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-800 items-center justify-center">
+                <FaLeaf className="text-white text-xl sm:text-2xl" />
               </span>
+            </span>{" "}
+            Waste Management
+          </h1>
+
+          {/* Description */}
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-gray-500 mb-8">
+            Track your waste, learn recycling basics, and join community actions to give materials a second life. From households to businesses, we make sustainability simple.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
+            <button className="group px-8 py-3.5 bg-green-800 hover:bg-green-900 text-white font-medium rounded-full transition-all duration-300 flex items-center gap-2">
+              Get Started
+              <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button className="px-8 py-3.5 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-full border-2 border-gray-300 hover:border-gray-400 transition-all duration-300">
+              How it works
+            </button>
+          </div>
+        </div>
+
+        {/* Image Grid Section */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          {/* Left Card */}
+          <div className="lg:col-span-3 relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl h-80 lg:h-96">
+              <img 
+                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" 
+                alt="Community" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute top-6 left-6 flex items-center gap-2">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-gray-300 overflow-hidden">
+                    <img src="https://i.pravatar.cc/150?img=1" alt="User" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-gray-300 overflow-hidden">
+                    <img src="https://i.pravatar.cc/150?img=2" alt="User" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-gray-300 overflow-hidden">
+                    <img src="https://i.pravatar.cc/150?img=3" alt="User" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                <span className="text-white text-sm font-medium">150K+ Joined</span>
+              </div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="text-white text-lg font-semibold">Join us in transforming the future of waste management</p>
+              </div>
             </div>
+          </div>
 
-            <div className="flex-1 p-3 sm:p-4">
-              <p className="text-sm font-semibold text-third dark:text-white">
-                Eco Challenge: 7-Day Plastic-Lite
-              </p>
-              <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                Swap disposables with reusables & log your wins in Echolife.
-              </p>
+          {/* Center Large Card */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl h-96 lg:h-[500px]">
+              <img 
+                src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&q=80&w=1200" 
+                alt="Waste Management" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              
+              {/* Floating badges */}
+              <div className="absolute top-8 left-8 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-900">Innovative Agriculture</span>
+              </div>
+              
+              <div className="absolute top-1/3 left-8 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-900">Innovative Agriculture</span>
+              </div>
+              
+              <div className="absolute top-2/3 right-8 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-900">Innovative Agriculture</span>
+              </div>
+              
+              <div className="absolute bottom-8 left-8 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-900">Innovative Agriculture</span>
+              </div>
+            </div>
+          </div>
 
-              <div className="mt-2 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-[color:var(--color-gradient)]/80 px-2.5 py-0.5 text-[10px] text-third dark:bg-slate-800 dark:text-hero">
-                  #BringYourBottle
-                </span>
-                <span className="rounded-full bg-[color:var(--color-gradient)]/80 px-2.5 py-0.5 text-[10px] text-third dark:bg-slate-800 dark:text-hero">
-                  #RefusePlasticBag
-                </span>
-
-                <Link
-                  to="/article"
-                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-white hover:brightness-95"
-                >
-                  Learn <GoArrowRight className="h-3.5 w-3.5" />
-                </Link>
-                <Link
-                  to="/tracker"
-                  className="inline-flex items-center gap-1 rounded-full border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-[11px] font-semibold text-third dark:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70"
-                >
-                  Join
-                </Link>
+          {/* Right Card */}
+          <div className="lg:col-span-3 relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl h-80 lg:h-96">
+              <img 
+                src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800" 
+                alt="Green Nature" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              <div className="absolute bottom-8 left-8 flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-900">Innovative Agriculture</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-30px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float-delayed 8s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }
