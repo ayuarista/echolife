@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section className="
       relative min-h-screen w-full 
-      bg-gradient-to-b from-lime-50 via-white to-transparent dark:bg-base-300
+      bg-gradient-to-b from-lime-50 via-white to-transparent dark:bg-gradient-to-b dark:from-green-900 dark:via-base-300 dark:to-transparent
       flex items-center justify-center overflow-hidden
       "
     >
@@ -32,10 +32,10 @@ export default function Hero() {
             mb-6 inline-flex items-center gap-2 
             rounded-full px-5 py-2 
             backdrop-blur-md border-gray-300 border
-            text-gray-700 dark:text-gray-200
+            text-gray-700 dark:text-gray-300
             text-sm font-medium
           ">
-            <FaLeaf className="text-green-700 dark:text-green-400 text-lg" />
+            <FaLeaf className="text-green-700 dark:text-primary text-lg" />
             Echolife - Sustain together
           </div>
 
@@ -51,7 +51,7 @@ export default function Hero() {
             Digital <span className="inline-flex items-center">
               <span className="
                 inline-flex w-12 h-12 sm:w-14 sm:h-14 
-                rounded-xl bg-gradient-to-tr from-green-700 to-green-900 dark:bg-green-500 
+                rounded-xl bg-gradient-to-tr from-green-700 to-green-900 dark:bg-gradient-to-br dark:from-green-400 dark:to-green-700  
                 items-center justify-center ml-2
               ">
                 <TiTree className="text-white text-3xl" />
@@ -64,17 +64,15 @@ export default function Hero() {
             text-gray-500 dark:text-gray-300 
             max-w-2xl text-[15px] leading-relaxed mb-10
           ">
-            Agriculture the property you need with Homedewe. From dream homes and
-            modern apartments to commercial properties.
+            Join us in making a positive impact on the environment through simple digital habits. Together, we can create a sustainable future.
           </p>
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
             <button className="
-              group p-2 bg-gradient-to-l from-green-700 to-green-900 dark:bg-hero 
-              hover:bg-green-900 dark:hover:bg-green-400 
+              group p-2 bg-gradient-to-l from-green-700 to-green-900 dark:bg-gradient-to-br dark:from-green-400 dark:to-green-700 
               text-white rounded-full transition-all duration-300 
-              flex items-center gap-4 px-4
+              flex items-center gap-4 px-4 text-sm md:text-[15px]
             ">
               Get Started
               <div className="
