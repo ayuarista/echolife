@@ -11,7 +11,7 @@ import SectionWasteTypes from "../components/organisms/SectionWasteTypes";
 
 const Home = () => {
   return (
-    <div className="pt-12">
+    <div className="pt-12 overflow-x-hidden overflow-y-hidden">
       <Hero />
       <div
         className="w-full md:min-h-[87vh] min-h-[15vh] lg:min-h-[79vh] xl:min-h-[89vh] bg-cover bg-center text-white"
