@@ -33,7 +33,7 @@ export default function WasteTypesCards() {
   ];
 
   return (
-    <div className='py-10'>
+    <div className='py-10' data-aos="fade-up" data-aos-duration="1000">
       <div className="max-w-6xl mx-auto">
 
         {/* Cards Grid */}

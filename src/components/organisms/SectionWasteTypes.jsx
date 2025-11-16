@@ -4,7 +4,7 @@ import WasteTypesCards from "../molecules/WasteTypeCard";
 const SectionWasteTypes = () => {
   return (
     <div className="mt-20">
-      <div>
+      <div data-aos="fade-down" data-aos-duration="1000">
         <p className="text-hero tracking-widest text-[15px] dark:text-white">
           WASTE TYPES
         </p>

@@ -8,7 +8,7 @@ const SectionArticle = () => {
 
   return (
     <div className="mt-16 mx-8 lg:mx-12">
-    <div className="flex items-center justify-between gap-6">
+    <div className="flex items-center justify-between gap-6" data-aos="fade-down" data-aos-duration="1000">
       <div>
         <p className="text-hero tracking-widest text-sm dark:text-white">
           ARTICLES
@@ -29,7 +29,7 @@ const SectionArticle = () => {
       long-lasting. Landfills will overflow with waste, leading to
       increased pollution in our air, soil, and water.
     </p>
-    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 lg:gap-10 place-items-center">
+    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 lg:gap-10 place-items-center" data-aos="fade-up" data-aos-duration="1000">
       {article.map((DataArticle, index) => (
         <Articles
           key={index}
