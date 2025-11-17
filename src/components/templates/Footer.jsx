@@ -26,28 +26,27 @@ const Footer = () => {
                 <span className="text-2xl font-bold font-syne">fe</span>
               </Link>
               <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed max-w-xs">
-              Build Eco-Friendly Digital Habits
+                Build Eco-Friendly Digital Habits
               </p>
-
               <div className="mt-4 flex items-center gap-3">
                 <a
                   href="https://twitter.com"
                   aria-label="Twitter"
-                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-hero transition"
                 >
                   <FaTwitter />
                 </a>
                 <a
                   href="https://youtube.com"
                   aria-label="youtube"
-                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-hero transition"
                 >
                   <FaYoutube />
                 </a>
                 <a
                   href="https://instagram.com"
                   aria-label="instagram"
-                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                  className="h-10 w-10 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-hero transition"
                 >
                   <FaInstagram />
                 </a>
@@ -56,46 +55,46 @@ const Footer = () => {
 
             {/* What's Echolife */}
             <div>
-              <h3 className="text-lg font-semibold">What’s Echolife</h3>
+              <h3 className="text-lg font-semibold">What's Echolife</h3>
               <ul className="mt-3 space-y-2">
                 <li>
-                  <Link to="/" className={linkBase}>
+                  <Link to="/" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/3r" className={linkBase}>
+                  <Link to="/3r" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
                     3R
                   </Link>
                 </li>
                 <li>
-                  <Link to="/waste-types/organic" className={linkBase}>
+                  <Link to="/waste-types/organic" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
                     Organic
                   </Link>
                 </li>
                 <li>
-                  <Link to="/waste-types/inorganic" className={linkBase}>
-                    Inorganic 
+                  <Link to="/waste-types/inorganic" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
+                    Inorganic
                   </Link>
                 </li>
                 <li>
-                  <Link to="/waste-types/hazardous" className={linkBase}>
-                    Hazardous 
+                  <Link to="/waste-types/hazardous" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
+                    Hazardous
                   </Link>
                 </li>
                 <li>
-                  <Link to="/tracker" className={linkBase}>
-                    Track Waste 
+                  <Link to="/tracker" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
+                    Track Waste
                   </Link>
                 </li>
                 <li>
-                  <Link to="/quiz" className={linkBase}>
-                    Quiz 
+                  <Link to="/quiz" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
+                    Quiz
                   </Link>
                 </li>
                 <li>
-                  <Link to="/article" className={linkBase}>
-                    Article 
+                  <Link to="/article" className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-hero transition">
+                    Article
                   </Link>
                 </li>
               </ul>
@@ -122,23 +121,22 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-
             {/* Stay in the loop */}
             <div>
               <h3 className="text-lg font-semibold">Stay in the loop</h3>
               <p className="mt-3 text-slate-600 dark:text-slate-300">
                 Tips, write-ups, and challenge updates—no spam.
               </p>
-              <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+              <form onSubmit={handleSubmit} className="mt-3 flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   required
                   placeholder="Enter your email"
-                  className="flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-base bg-white dark:bg-base-300 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
+                  className="w-full sm:flex-1 text-[15px] rounded-xl border border-slate-300 dark:border-base bg-white dark:bg-base-300 px-4 py-2 outline-none focus:ring-2 focus:ring-hero/40"
                 />
                 <button
                   type="submit"
-                  className="rounded-xl text-[15px] bg-primary dark:bg-hero text-white dark:text-slate-900 px-5 py-2 font-medium hover:opacity-90 transition"
+                  className="w-full sm:w-auto rounded-xl text-[15px] bg-primary dark:bg-hero text-white dark:text-slate-900 px-5 py-2 font-medium hover:opacity-90 transition"
                 >
                   Send
                 </button>

@@ -522,7 +522,7 @@ const Inorganic = () => {
               </span>
             </h1>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -643,7 +643,7 @@ const Inorganic = () => {
 
           {/* main large spinning star (top-right) */}
           <h1
-            className="justify-end items-end flex mt-1 absolute right-4 sm:right-8 md:right-12 lg:right-20 top-20 lg:top-24 z-40 pointer-events-none"
+            className="justify-end items-end flex mt-1 absolute right-8 sm:right-10 md:right-12 lg:right-20 top-24 lg:top-24 z-40 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="400"
           >
@@ -652,14 +652,14 @@ const Inorganic = () => {
 
           {/* smaller pulsing star (bottom-right) */}
           <h1
-            className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-48 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none"
+            className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-48 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none hidden sm:flex"
             data-aos="zoom-in"
             data-aos-delay="500"
           >
             <PiStarFour className="animate-spin rotate-90 mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-hero dark:text-white" />
           </h1>
           <h1
-            className="justify-start items-center flex mt-1 absolute right-48 sm:right-64 md:right-80 lg:right-[30rem] top-28 sm:top-32 lg:top-40 z-30 pointer-events-none"
+            className="justify-start items-center flex mt-1 absolute right-16 sm:right-32 md:right-80 lg:right-[30rem] top-36 sm:top-32 lg:top-40 z-30 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="300"
           >

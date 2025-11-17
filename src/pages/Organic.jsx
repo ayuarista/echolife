@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import imgOrganic7 from "../assets/Organic/img-organic7.png";
-import li1 from "../assets/Organic/li-1.svg";
-import li2 from "../assets/Organic/li-2.svg";
-import li3 from "../assets/Organic/li-3.svg";
-import li4 from "../assets/Organic/li-4.svg";
-import li5 from "../assets/Organic/li-5.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { PiStarFour } from "react-icons/pi";
 import AOS from "aos";
@@ -502,7 +497,7 @@ const Organic = () => {
         <div className="grid lg:grid-cols-2 gap-0 items-center">
           <div className="px-8 lg:pl-12 lg:pr-8">
             <h1
-              className="text-3xl lg:text-4xl font-bold mb-4 leading-loose text-secondary dark:text-primary"
+              className="text-3xl lg:text-4xl font-bold mb-4 leading-tight  text-secondary dark:text-primary"
               data-aos="fade-up"
               data-aos-duration="1000"
             >
@@ -512,7 +507,7 @@ const Organic = () => {
               </span>
             </h1>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -631,7 +626,7 @@ const Organic = () => {
           </div>
           {/* main large spinning star (top-right) */}
           <h1
-            className="justify-end items-end flex mt-1 absolute right-4 sm:right-8 md:right-12 lg:right-32 top-32 lg:top-20 z-40 pointer-events-none"
+            className="justify-end items-end flex mt-1 absolute right-8 sm:right-10 md:right-12 lg:right-32 top-32 lg:top-20 z-40 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="400"
           >
@@ -640,14 +635,14 @@ const Organic = () => {
 
           {/* smaller pulsing star (bottom-right) */}
           <h1
-            className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none"
+            className="justify-end items-end flex mt-1 absolute right-40 sm:right-32 md:right-24 lg:right-36 bottom-12 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none hidden sm:flex"
             data-aos="zoom-in"
             data-aos-delay="500"
           >
             <PiStarFour className="animate-spin rotate-90 mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-hero dark:text-white" />
           </h1>
           <h1
-            className="justify-start items-center flex mt-1 absolute right-48 sm:right-64 md:right-80 lg:right-[30rem] top-28 sm:top-32 lg:top-40 z-30 pointer-events-none"
+            className="justify-start items-center flex mt-1 absolute right-4 sm:right-8 md:right-80 lg:right-[30rem] top-28 sm:top-32 lg:top-40 z-30 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="300"
           >
@@ -1027,14 +1022,14 @@ const Organic = () => {
           className="absolute right-[30rem] top-12 z-10 pointer-events-none"
           data-aos="zoom-in"
         >
-          <PiStarFour className="animate-spin rotate-90 text-hero/70 dark:text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
+          <PiStarFour className="animate-spin rotate-90  text-hero/70 dark:text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
         </div>
         <div
           className="absolute right-[26rem] top-20 z-10 pointer-events-none"
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <PiStarFour className="animate-spin rotate-90 text-hero/5 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
+          <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
 
         <h2
@@ -1357,7 +1352,7 @@ const Organic = () => {
 
                   <div className="mt-20">
                     <h3
-                      className="text-2xl font-semibold text-center mb-3 text-secondary dark:text-primary"
+                      className=" text-2xl md:text-2xl lg:text-2xl font-semibold text-center mb-3 text-secondary dark:text-primary"
                       data-aos="fade-up"
                     >
                       Learn How to Make {method.title}

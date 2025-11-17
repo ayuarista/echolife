@@ -27,6 +27,7 @@ const Page3R = () => {
   const reduceHeaderRef = useRef(null);
   const recycleHeaderRef = useRef(null);
   const greenInnovationRef = useRef(null);
+  
 
   // Initialize AOS
   useEffect(() => {
@@ -100,7 +101,7 @@ const Page3R = () => {
         <div className="flex justify-center items-center">
           <div className="px-8 lg:px-12 text-center max-w-4xl">
             <h1
-              className="text-3xl lg:text-5xl font-bold mb-6 leading-loose text-secondary dark:text-primary"
+              className="text-3xl lg:text-5xl font-bold mb-6 leading-normal text-secondary dark:text-primary"
               data-aos="fade-up"
               data-aos-duration="1000"
             >
@@ -129,8 +130,9 @@ const Page3R = () => {
                   setActiveHero("learn");
                   whatIsRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "start",
+                    block: "center",
                   });
+                  
                 }}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "learn"
                   ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
@@ -144,7 +146,7 @@ const Page3R = () => {
                   setActiveHero("types");
                   reuseHeaderRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "start",
+                    block: "center",
                   });
                 }}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "types"
@@ -154,53 +156,52 @@ const Page3R = () => {
               >
                 Start 3R Journey →
               </button>
-              {/* <button
-                onClick={() => {
-                  setActiveHero("manage");
-                  manageRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "manage"
-                  ? "bg-primary dark:bg-hero text-white shadow-md"
-                  : "border border-gray-300 dark:border-gray-600 hover:border-primary dark:border-hero hover:bg-hero/5 dark:hover:bg-base-300 dark:text-white"
-                  }`}
-              >
-                Everyday Tips <span>→</span>
-              </button> */}
+
               <button
                 onClick={() => {
                   setActiveHero("green");
                   greenInnovationRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "start",
+                    block: "center",
                   });
                 }}
-                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-gray-300 dark:border-amber-400 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-300 dark:text-white transition-all">
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-300 dark:text-white transition-all">
                 Green Innovation →
               </button>
             </div>
           </div>
 
           {/* Decorative stars */}
+
+          {/* Star Kiri Atas */}
+          <div
+            className="absolute left-4 sm:left-8 md:left-12 lg:left-32 top-32 lg:top-40 z-40 pointer-events-none"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <PiStarFour className="animate-spin rotate-90 text-hero dark:text-hero text-2xl sm:text-3xl md:text-4xl lg:text-5xl" />
+          </div>
+
+          {/* Star Kanan Atas */}
           <div
             className="absolute right-4 sm:right-8 md:right-12 lg:right-32 top-32 lg:top-20 z-40 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="400"
           >
-            <PiStarFour className="animate-spin rotate-90 text-hero dark:text-amber-400 text-4xl sm:text-5xl md:text-6xl lg:text-7xl" />
+            <PiStarFour className="animate-spin rotate-90 text-hero dark:text-white text-2xl sm:text-3xl md:text-4xl lg:text-7xl" />
           </div>
           <div
-            className="absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none"
+            className="absolute right-4 bottom-64 z-30 pointer-events-none sm:hidden"
             data-aos="zoom-in"
             data-aos-delay="500"
           >
-            <PiStarFour className="animate-spin rotate-90 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-hero dark:text-white" />
+            <PiStarFour className="animate-spin rotate-90 text-3xl text-hero dark:text-white" />
           </div>
-        </div>
 
+
+        </div>
         {/* 3R Icons Display */}
+
         <div
           className="flex justify-center gap-4 sm:gap-8 lg:gap-16 mt-16 mb-32 px-4 sm:px-8 flex-wrap"
           data-aos="fade-up"
@@ -211,7 +212,7 @@ const Page3R = () => {
             onClick={() => {
               reuseHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "start",
+                block: "center",
               });
             }}
           >
@@ -233,7 +234,7 @@ const Page3R = () => {
             onClick={() => {
               reduceHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "start",
+                block: "center",
               });
             }}
           >
@@ -255,7 +256,7 @@ const Page3R = () => {
             onClick={() => {
               recycleHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "start",
+                block: "center",
               });
             }}
           >
@@ -279,7 +280,7 @@ const Page3R = () => {
         ref={whatIsRef}
         className="py-12 lg:py-16 lg:mt-12 bg-hero/5 dark:bg-base-200"
       >
-        <div className="flex flex-col-reverse lg:flex-row mx-4 sm:mx-8 lg:mx-12 gap-6 sm:gap-8 lg:gap-16 items-start">
+        <div className="flex flex-col lg:flex-row mx-4 sm:mx-8 lg:mx-10 gap-6 sm:gap-8 lg:gap-16 items-start mx-8">
           {/* Right - Text Content */}
           <div className="flex-1 w-full lg:w-auto">
             <h2
@@ -376,12 +377,12 @@ const Page3R = () => {
           </div>
           {/* Left - Carousel */}
           <div
-            className="flex-1 w-full flex items-center justify-center pb-6 sm:pb-8 lg:pb-10 h-64 sm:h-80 lg:h-auto"
+            className="flex-1 w-full flex items-center justify-center pb-6 sm:pb-8 lg:pb-10 h-[600px] sm:h-[650px] md:h-[680px] lg:h-auto"
             data-aos="fade-left"
             data-aos-delay="200"
           >
             <div
-              className="relative h-80 sm:h-96 lg:h-[700px] w-full flex items-center justify-center"
+              className="relative h-[600px] sm:h-[650px] md:h-[680px] lg:h-[700px] w-full flex items-center justify-center"
               style={{ overflow: "visible" }}
               onMouseEnter={() => setWhatHovered(true)}
               onMouseLeave={() => setWhatHovered(false)}
@@ -453,7 +454,7 @@ const Page3R = () => {
         >
           <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
-        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[35rem]  rounded-lg mb-4" data-aos="fade-up"></div>
+        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[20rem] lg:w-[35rem]  rounded-lg mb-4" data-aos="fade-up"></div>
         <h2
           ref={reuseHeaderRef}
           className="text-2xl  sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6  text-secondary dark:text-primary"
@@ -863,7 +864,7 @@ const Page3R = () => {
         >
           <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
-        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[20rem]  rounded-lg mb-4" data-aos="fade-up"></div>
+        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[20rem] lg:w-[35rem] rounded-lg mb-4" data-aos="fade-up"></div>
         <h2
           ref={reduceHeaderRef}
           className="text-2xl  sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
@@ -1233,7 +1234,7 @@ const Page3R = () => {
           <PiStarFour className="animate-spin rotate-90 text-hero/50 dark:text-hero text-2xl sm:text-3xl md:text-3xl lg:text-4xl" />
         </div>
 
-        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[30rem]  rounded-lg mb-4" data-aos="fade-up"></div>
+        <div className="h-[0.1rem] bg-hero dark:bg-hero w-[20rem] lg:w-[30rem]  rounded-lg mb-4" data-aos="fade-up"></div>
         <h2
           ref={recycleHeaderRef}
           className="text-2xl  sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6 text-secondary dark:text-primary"
@@ -1737,7 +1738,7 @@ const Page3R = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
-                  onClick={() => navigate("/organic")}
+                  onClick={() => navigate("/waste-types/organic")}
                   className="px-8 py-3 rounded-full bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105">
                   Explore Waste Types
                 </button>

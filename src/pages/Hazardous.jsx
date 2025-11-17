@@ -6,6 +6,7 @@ import li3 from "../assets/Organic/li-3.svg";
 import li4 from "../assets/Organic/li-4.svg";
 import li5 from "../assets/Organic/li-5.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 import { PiStarFour } from "react-icons/pi";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -517,7 +518,7 @@ const Hazardous = () => {
               </span>
             </h1>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -647,7 +648,7 @@ const Hazardous = () => {
 
           {/* smaller pulsing star (bottom-right) */}
           <h1
-            className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none"
+            className="justify-end items-end flex mt-1 absolute right-8 sm:right-16 md:right-24 lg:right-36 bottom-16 sm:bottom-20 lg:bottom-24 z-30 pointer-events-none hidden sm:flex"
             data-aos="zoom-in"
             data-aos-delay="500"
           >
@@ -656,7 +657,7 @@ const Hazardous = () => {
 
           {/* left-middle spinning star */}
           <h1
-            className="justify-start items-center flex mt-1 absolute right-48 sm:right-64 md:right-80 lg:right-[30rem] top-28 sm:top-32 lg:top-36 z-30 pointer-events-none"
+            className="justify-start items-center flex mt-1 absolute right-10 sm:right-32 md:right-80 lg:right-[30rem] top-36 sm:top-32 lg:top-36 z-30 pointer-events-none"
             data-aos="zoom-in"
             data-aos-delay="400"
           >
@@ -1021,12 +1022,7 @@ const Hazardous = () => {
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-                      {/* Icon Badge - optional, bisa tambahkan icon jika ada */}
-                      <div className="absolute bottom-4 left-6">
-                        <div className="w-14 h-14 rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
-                          ⚠️
-                        </div>
-                      </div>
+
                     </div>
                   </div>
 
@@ -1085,7 +1081,7 @@ const Hazardous = () => {
         >
           Hazardous waste management isn't just about disposal it's about
           handling dangerous materials responsibly. By managing it properly, we
-          can protect health, prevent pollution, and keep our environment safe.
+          can protect health, prevent pollution, and keep our environment safe. ⚠️
         </p>
 
         <div
@@ -1369,18 +1365,19 @@ const Hazardous = () => {
                       </div>
                     </div>
 
+
                     <div
-                      className="relative h-96 rounded-3xl md:mt-24 overflow-hidden flex items-center justify-center"
+                      className="relative h-96 rounded-3xl md:mt-40  overflow-hidden flex items-center justify-center"
                       data-aos="fade-up"
                       data-aos-delay="400"
                     >
                       <DotLottieReact
-                        src="https://lottie.host/1bc690f4-3ecf-42d8-a4c9-4afcd507677b/n5KVQwAA7R.lottie"
+                        src="https://lottie.host/f50034fa-820d-4c43-b4a0-f87badd99a08/jdAGc0hQQq.lottie"
                         loop
                         autoplay
                         style={{
                           width: "100%",
-                          height: "100%",
+                          height: "150%",
                           objectFit: "contain",
                         }}
                       />
