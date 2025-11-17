@@ -6,7 +6,7 @@ module.exports = {
         keyframes: {
           customPing: {
             '0%': { transform: 'scale(1)', opacity: '1' },
-            '75%': { transform: 'scale(1.1)', opacity: '0' }, // 10% lebih besar
+            '75%': { transform: 'scale(1.1)', opacity: '0' },
             '100%': { transform: 'scale(1.1)', opacity: '0' },
           },
           slowRotate: {
@@ -16,7 +16,7 @@ module.exports = {
         },
         animation: {
           'custom-ping': 'customPing 1.5s cubic-bezier(0, 0, 0.2, 1) infinite',
-          'slow-rotate': 'slowRotate 3s linear infinite', // Rotasi lebih lambat (10 detik)
+          'slow-rotate': 'slowRotate 3s linear infinite',
         },
         
         colors: {

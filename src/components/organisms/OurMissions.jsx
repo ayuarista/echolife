@@ -1,6 +1,7 @@
 import React from "react";
 import { RiGlobalLine } from "react-icons/ri";
 import { HiArrowRight } from "react-icons/hi";
+import { HashLink } from "react-router-hash-link";
 
 const OurMissions = () => {
   const avatars = [
@@ -9,7 +10,7 @@ const OurMissions = () => {
     "https://images.unsplash.com/photo-1674161610452-88bb7b13a931?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
   return (
-    <section className="py-12 lg:py-16">
+    <section className="py-12 lg:py-16" id="our-missions">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
@@ -61,10 +62,12 @@ const OurMissions = () => {
 
             {/* CTA Button */}
             <div>
+              <HashLink smooth to="/3r">
               <button className="group px-6 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
                 <HiArrowRight className="text-lg group-hover:translate-x-1 transition-transform" />
                 Learn more
               </button>
+              </HashLink>
             </div>
           </div>
 
