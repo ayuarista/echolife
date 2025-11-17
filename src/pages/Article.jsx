@@ -17,8 +17,8 @@ const Article = () => {
 
   const article = DataArticle;
   return (
-    <div className="pt-16">
-      <div className="mt-8 max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-5 mx-auto">
+    <div className="pt-12">
+      <div className="mt-8 mx-8 md:mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-5">
         {article.map((DataArticle, index) => (
           <div key={index} data-aos="fade-up" data-aos-delay={index * 50}>
             <Articles

@@ -21,9 +21,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/details-impact/:id" element={<DetailsImpact />} />
         <Route path="/3r" element={<Page3R />} />
-        <Route path="/organic" element={<Organic />} />
-        <Route path="/inorganic" element={<Inorganic />} />
-        <Route path="/hazardous" element={<Hazardous />} />
+        <Route path="/waste-types/organic" element={<Organic />} />
+        <Route path="/waste-types/inorganic" element={<Inorganic />} />
+        <Route path="/waste-types/hazardous" element={<Hazardous />} />
         <Route path="/tracker" element={<Tracker />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/article" element={<Article />} />

@@ -33,6 +33,7 @@ module.exports = {
           Koulen: "Koulen, sans-serif",
           syne: "Syne, sans-serif",
           vollkorn: "Vollkorn, serif",
+          dmsans: "DM Sans, sans-serif",
         },
       },
     },

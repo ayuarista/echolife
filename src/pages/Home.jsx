@@ -7,10 +7,11 @@ import Section3R from "../components/organisms/Section3R";
 import SectionImpact from "../components/organisms/SectionImpact";
 import SectionArticle from "../components/organisms/SectionArticle";
 import BacktoTop from "../components/atoms/BacktoTop";
+import SectionWasteTypes from "../components/organisms/SectionWasteTypes";
 
 const Home = () => {
   return (
-    <div className="pt-12">
+    <div className="pt-12 overflow-x-hidden overflow-y-hidden">
       <Hero />
       <div
         className="w-full md:min-h-[87vh] min-h-[15vh] lg:min-h-[79vh] xl:min-h-[89vh] bg-cover bg-center text-white"
@@ -21,6 +22,7 @@ const Home = () => {
         <div className="mt-14 lg:mx-12 mx-8">
           <OurMissions />
           <Section3R />
+          <SectionWasteTypes/>
           <SectionImpact />
         </div>
         <div className="mx-0">

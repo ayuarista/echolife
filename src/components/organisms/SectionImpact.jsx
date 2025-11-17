@@ -8,6 +8,7 @@ const SectionImpact = () => {
 
   return (
     <div className="mt-16">
+      <div data-aos="fade-down" data-aos-duration="1000">
             <p className="text-hero tracking-widest text-[15px] dark:text-white">
               IMPACT
             </p>
@@ -20,7 +21,8 @@ const SectionImpact = () => {
               long-lasting. Landfills will overflow with waste, leading to
               increased pollution in our air, soil, and water.
             </p>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mx-8 lg:mx-0 place-items-center">
+      </div>
+            <div data-aos="fade-up" data-aos-duration="1000" className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 lg:mx-0">
               {currentData.map((DataImpact, index) => (
                 <Impact
                   key={index}

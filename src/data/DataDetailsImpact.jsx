@@ -3,7 +3,7 @@ const DataDetailsImpact = [
     id: 1,
     title: "Environmental Degradation",
     image:
-      "https://images.unsplash.com/photo-1584921467312-99ff98cc2ebd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1681131451639-b44b309b1125?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     text: "Environmental degradation is a critical issue because it has far-reaching effects on both natural ecosystems and human society. When the environment is damaged, the consequences extend beyond just the loss of natural beauty or habitats. It disrupts the delicate balance that sustains life on Earth, impacting everything from wildlife to human health and economic stability. One of the most significant impacts is the loss of biodiversity. As ecosystems are destroyed or polluted, numerous species face the threat of extinction. This not only reduces the variety of life on the planet but also destabilizes ecosystems that humans rely on for food, clean water, and air. Every species plays a role in maintaining the health of an ecosystem, and the loss of even a few can have cascading effects.",
     descPicture: "",
     gallery1:
@@ -46,7 +46,7 @@ const DataDetailsImpact = [
     id: 3,
     title: "Resource Scarcity",
     image:
-      "https://images.unsplash.com/photo-1495556650867-99590cea3657?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1762369879534-c32c8ae82cbc?q=80&w=1206&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     text: "Resource scarcity poses significant challenges to global sustainability and human well-being. As populations grow and consumption patterns intensify, the demand for finite resources such as water, food, energy, and raw materials continues to rise. This scarcity can lead to increased competition and conflict between nations, communities, and individuals, potentially destabilizing political and social structures. Environmental degradation is a direct consequence of resource scarcity. As easily accessible resources become depleted, more invasive and damaging extraction methods are often employed, leading to habitat destruction, biodiversity loss, and pollution. Climate change exacerbates this issue, altering precipitation patterns and affecting agricultural productivity, further straining already limited resources. Economic impacts of resource scarcity are profound and far-reaching. Prices for essential commodities can skyrocket, leading to inflation and reduced purchasing power for consumers. Industries dependent on scarce resources may face increased operational costs, potentially leading to job losses and economic downturns. Developing nations are often hit hardest, as they may lack the technological and financial means to adapt to resource shortages.",
     descPicture: "",
     gallery1: "https://images.unsplash.com/photo-1605027538782-c1b60ffa6cef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

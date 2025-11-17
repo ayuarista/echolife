@@ -11,7 +11,7 @@ const TextContent = () => {
         }}
       >
         <div className="text-center">
-          <h1 className="text-7xl lg:text-[70px] md:text-8xl xl:text-8xl text-white font-bold mt-0 font-syne">
+          <h1 className="text-6xl md:text-7xl text-white font-bold mt-0 font-syne">
           From Zero to Hero.
           </h1>
           <p className="mt-6 text-sm md:text-[16px] xl:text-[17px] leading-relaxed max-w-3xl mx-auto">
