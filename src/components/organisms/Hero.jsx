@@ -85,7 +85,7 @@ export default function Hero() {
       </div>
       {/* Star Kanan Bawah (mobile only) */}
       <div
-        className="absolute right-4 bottom-64 z-30 pointer-events-none sm:hidden"
+        className="hidden absolute right-4 bottom-64 z-30 pointer-events-none sm:hidden"
         data-aos="zoom-in"
         data-aos-delay="500"
       >

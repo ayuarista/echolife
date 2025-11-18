@@ -57,7 +57,7 @@ const OurMissions = () => {
                     />
                   ))}
                 </div>
-                <span className="text-gray-600 dark:text-gray-300 text-sm">
+                <span className="hidden md:block text-gray-600 dark:text-gray-300 text-sm">
                   1M+ Community
                 </span>
               </div>
@@ -102,7 +102,7 @@ const OurMissions = () => {
 
               {/* Stat Card 2 - Bottom Right */}
               <div
-                className="absolute -bottom-4 -right-4 bg-white dark:bg-base-300 rounded-2xl p-6 shadow-xl"
+                className="hidden md:block absolute -bottom-4 -right-4 bg-white dark:bg-base-300 rounded-2xl p-6 shadow-xl"
                 data-aos="fade-up" data-aos-delay="400"
               >
                 <div className="flex items-baseline gap-2 mb-1">
@@ -130,7 +130,7 @@ const OurMissions = () => {
 
               {/* Description Card 2 - Top Left */}
               <div
-                className="absolute -top-6 -left-6 bg-white/95 dark:bg-base-300/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl max-w-xs"
+                className="hidden md:block absolute -top-6 -left-6 bg-white/95 dark:bg-base-300/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl max-w-xs"
                 data-aos="fade-right" data-aos-delay="600"
               >
                 <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
