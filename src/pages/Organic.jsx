@@ -6,6 +6,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Organic = () => {
+  // Scroll ke atas setiap kali halaman Organic dibuka
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [selectedInfo, setSelectedInfo] = useState(null);
@@ -89,15 +93,7 @@ const Organic = () => {
     co2Frame.current = requestAnimationFrame(animate);
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: "ease-in-out",
-    });
-  }, []);
-
+  // AOS is now initialized globally in App.js
   useEffect(() => {
     const checkDarkMode = () => {
       const isDark = document.documentElement.classList.contains("dark");
@@ -507,7 +503,7 @@ const Organic = () => {
               </span>
             </h1>
             <p
-              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-200 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -668,7 +664,7 @@ const Organic = () => {
               </span>
             </h2>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-4 lg:mb-6 leading-relaxed"
+              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-4 lg:mb-6 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="100"
             >
@@ -677,7 +673,7 @@ const Organic = () => {
               way of recycling itself and we can learn from it. 🌿
             </p>
             <p
-              className="text-justify text-sm lg:text-[15px] text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 leading-relaxed"
+              className="text-justify text-sm lg:text-[15px] text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="200"
             >
@@ -743,7 +739,7 @@ const Organic = () => {
 
                     {isOpen && (
                       <div className="px-3 sm:px-4 pb-4 sm:pb-5 animate-slideDown">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
+                        <p className="text-gray-500 dark:text-gray-200 text-xs sm:text-sm leading-relaxed">
                           {section.content}
                         </p>
                       </div>
@@ -849,7 +845,7 @@ const Organic = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Organic Waste?</span>
         </h2>
         <p
-          className="text-sm lg:text-[15px] text-gray-500 dark:text-gray-400 text-center mb-8 lg:mb-12"
+          className="text-sm lg:text-[15px] text-gray-500 dark:text-gray-200 text-center mb-8 lg:mb-12"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -899,7 +895,7 @@ const Organic = () => {
                     {item.title}
                   </h3>
 
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-500 dark:text-gray-200 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -1041,7 +1037,7 @@ const Organic = () => {
         </h2>
 
         <p
-          className="leading-relaxed text-sm mx-8 lg:mx-12 lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 max-w-2xl"
+          className="leading-relaxed text-sm mx-8 lg:mx-12 lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -1073,7 +1069,7 @@ const Organic = () => {
               <span
                 className={`ml-2 transform transition-transform ${selectedMethod === method.id
                   ? "-rotate-90 text-white dark:text-base-300"
-                  : "rotate-90 text-gray-500 dark:text-gray-400"
+                  : "rotate-90 text-gray-500 dark:text-gray-200"
                   }`}
               >
                 <svg
@@ -1416,7 +1412,7 @@ const Organic = () => {
             </span>
           </h2>
           <p
-            className="text-sm lg:text-[15px] text-center text-gray-500 dark:text-gray-400 mb-4 lg:mb-6"
+            className="text-sm lg:text-[15px] text-center text-gray-500 dark:text-gray-200 mb-4 lg:mb-6"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -1468,7 +1464,7 @@ const Organic = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Calculator</span>
               </h2>
               <p
-                className="text-sm leading-relaxed lg:text-[15px] text-center text-gray-500 dark:text-gray-400"
+                className="text-sm leading-relaxed lg:text-[15px] text-center text-gray-500 dark:text-gray-200"
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
@@ -1543,7 +1539,7 @@ const Organic = () => {
                     >
                       {Number(displayedCo2).toFixed(1)} kg
                     </p>
-                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                    <p className="text-gray-400 dark:text-gray-200 text-xs mt-1">
                       Amazing impact!
                     </p>
                   </div>
@@ -1562,7 +1558,7 @@ const Organic = () => {
                     >
                       {Number(displayedTrees).toFixed(2)}
                     </p>
-                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                    <p className="text-gray-400 dark:text-gray-200 text-xs mt-1">
                       Keep it growing!
                     </p>
                   </div>

@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import imgHazardous2 from "../assets/Hazardous/img-hazardous2.png";
-import li1 from "../assets/Organic/li-1.svg";
-import li2 from "../assets/Organic/li-2.svg";
-import li3 from "../assets/Organic/li-3.svg";
-import li4 from "../assets/Organic/li-4.svg";
-import li5 from "../assets/Organic/li-5.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 import { PiStarFour } from "react-icons/pi";
@@ -94,15 +89,7 @@ const Hazardous = () => {
     co2Frame.current = requestAnimationFrame(animate);
   };
 
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: "ease-in-out",
-    });
-  }, []);
-
+  // AOS is now initialized globally in App.js
   useEffect(() => {
     const checkDarkMode = () => {
       const isDark = document.documentElement.classList.contains("dark");
@@ -518,7 +505,7 @@ const Hazardous = () => {
               </span>
             </h1>
             <p
-              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-400 mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-left text-gray-500 dark:text-gray-200 mb-8 leading-relaxed"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -683,7 +670,7 @@ const Hazardous = () => {
               </span>
             </h2>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-4 lg:mb-6 leading-relaxed"
+              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-4 lg:mb-6 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="100"
             >
@@ -692,7 +679,7 @@ const Hazardous = () => {
               batteries, chemicals, and medical waste.
             </p>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="200"
             >
@@ -758,7 +745,7 @@ const Hazardous = () => {
 
                     {isOpen && (
                       <div className="px-3 sm:px-4 pb-4 sm:pb-5 animate-slideDown">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed">
+                        <p className="text-gray-500 dark:text-gray-200 text-xs sm:text-sm leading-relaxed">
                           {section.content}
                         </p>
                       </div>
@@ -864,7 +851,7 @@ const Hazardous = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Hazardous Waste</span>
         </h2>
         <p
-          className="text-sm lg:text-[15px] text-gray-500 dark:text-gray-400 text-center mb-8 lg:mb-12"
+          className="text-sm lg:text-[15px] text-gray-500 dark:text-gray-200 text-center mb-8 lg:mb-12"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -925,7 +912,7 @@ const Hazardous = () => {
                   >
                     {type.title}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2">
+                  <p className="text-sm text-gray-500 dark:text-gray-200 leading-relaxed line-clamp-2">
                     {type.description}
                   </p>
                 </div>
@@ -1075,7 +1062,7 @@ const Hazardous = () => {
         </h2>
 
         <p
-          className="text-sm mx-8 lg:mx-12 leading-relaxed lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 max-w-2xl"
+          className="text-sm mx-8 lg:mx-12 leading-relaxed lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -1106,7 +1093,7 @@ const Hazardous = () => {
               <span
                 className={`ml-2 transform transition-transform ${selectedMethod === method.id
                   ? "-rotate-90 text-white dark:text-base-300"
-                  : "rotate-90 text-gray-500 dark:text-gray-400"
+                  : "rotate-90 text-gray-500 dark:text-gray-200"
                   }`}
               >
                 <svg
@@ -1367,17 +1354,17 @@ const Hazardous = () => {
 
 
                     <div
-                      className="relative h-96 rounded-3xl md:mt-40  overflow-hidden flex items-center justify-center"
+                      className="relative h-96 rounded-3xl lg:mt-[25%]  overflow-hidden flex items-center justify-center"
                       data-aos="fade-up"
                       data-aos-delay="400"
                     >
                       <DotLottieReact
-                        src="https://lottie.host/f50034fa-820d-4c43-b4a0-f87badd99a08/jdAGc0hQQq.lottie"
+                        src="https://lottie.host/ed78671d-92d0-4feb-8db9-035a2f0c48c0/cvaYad3bpb.lottie"
                         loop
                         autoplay
                         style={{
                           width: "100%",
-                          height: "150%",
+                          height: "300%",
                           objectFit: "contain",
                         }}
                       />
@@ -1451,7 +1438,7 @@ const Hazardous = () => {
             </span>
           </h2>
           <p
-            className="text-sm lg:text-[15px] text-center text-gray-500 dark:text-gray-400 mb-4 lg:mb-6"
+            className="text-sm lg:text-[15px] text-center text-gray-500 dark:text-gray-200 mb-4 lg:mb-6"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -1477,7 +1464,7 @@ const Hazardous = () => {
               title="Nearby Organic Waste Centers"
             ></iframe>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-400">
+            <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-200">
               Map loading…
             </div>
           )}
@@ -1500,7 +1487,7 @@ const Hazardous = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Calculator</span>
               </h2>
               <p
-                className="text-sm leading-relaxed lg:text-[15px] text-gray-500 dark:text-gray-400 text-center"
+                className="text-sm leading-relaxed lg:text-[15px] text-gray-500 dark:text-gray-200 text-center"
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
@@ -1575,7 +1562,7 @@ const Hazardous = () => {
                     >
                       {Number(displayedCo2).toFixed(1)} kg
                     </p>
-                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                    <p className="text-gray-400 dark:text-gray-200 text-xs mt-1">
                       Amazing impact!
                     </p>
                   </div>
@@ -1594,7 +1581,7 @@ const Hazardous = () => {
                     >
                       {Number(displayedTrees).toFixed(2)}
                     </p>
-                    <p className="text-gray-400 dark:text-gray-400 text-xs mt-1">
+                    <p className="text-gray-400 dark:text-gray-200 text-xs mt-1">
                       Keep it growing!
                     </p>
                   </div>

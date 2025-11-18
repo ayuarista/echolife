@@ -48,15 +48,7 @@ export default function Tracker() {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: "ease-in-out",
-    });
-  }, []);
-
+  // AOS is now initialized globally in App.js
 
   const toNum = (s) => {
     const n = parseInt(s, 10);

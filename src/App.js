@@ -11,8 +11,13 @@ import Inorganic from "./pages/Inorganic.jsx";
 import Hazardous from "./pages/Hazardous.jsx";
 import Tracker from "./pages/Tracker.jsx";
 import Quiz from "./pages/Quiz.jsx";
+import { useEffect } from "react";
+import { initAOS } from "./aos-global-init";
 
 function App() {
+  useEffect(() => {
+    initAOS();
+  }, []);
   return (
     <Router>
       <ScrollToTop />

@@ -43,15 +43,8 @@ const Quiz = () => {
   const total = quizData.length;
   const progress = Math.round(((current) / total) * 100);
 
+  // AOS is now initialized globally in App.js
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: "ease-in-out",
-    });
-
-    // Add pulse animation styles
     if (!document.querySelector('style[data-pulse]')) {
       const style = document.createElement('style');
       style.setAttribute('data-pulse', 'true');

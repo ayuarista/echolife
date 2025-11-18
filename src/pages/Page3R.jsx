@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import reuses from "../assets/3R/reuse.png";
 import reduce from "../assets/3R/reduce.png";
 import recycle from "../assets/3R/recycle.png";
-import shoes from "../assets/3R/shoes.png";
+
 import { IoLeafOutline } from "react-icons/io5";
 import { PiStarFour } from "react-icons/pi";
 import { MdSmartToy, MdEco, MdBolt, MdRecycling, MdWaterDrop, MdOutlineShowChart } from "react-icons/md";
@@ -27,18 +27,9 @@ const Page3R = () => {
   const reduceHeaderRef = useRef(null);
   const recycleHeaderRef = useRef(null);
   const greenInnovationRef = useRef(null);
-  
 
-  // Initialize AOS
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: "ease-in-out",
-    });
-  }, []);
 
+  // AOS is now initialized globally in App.js
 
   const whatImages = [
     "https://images.unsplash.com/photo-1569163139599-0f4517e36f51?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -130,9 +121,9 @@ const Page3R = () => {
                   setActiveHero("learn");
                   whatIsRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "center",
+                    block: "start",
                   });
-                  
+
                 }}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-2 ${activeHero === "learn"
                   ? "bg-primary dark:bg-hero text-white dark:text-base-300 font-semibold border-primary dark:border-hero"
@@ -146,7 +137,7 @@ const Page3R = () => {
                   setActiveHero("types");
                   reuseHeaderRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "center",
+                    block: "start",
                   });
                 }}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${activeHero === "types"
@@ -162,7 +153,7 @@ const Page3R = () => {
                   setActiveHero("green");
                   greenInnovationRef.current?.scrollIntoView({
                     behavior: "smooth",
-                    block: "center",
+                    block: "start",
                   });
                 }}
                 className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium border border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-hero hover:bg-hero/5 dark:hover:bg-base-300 dark:text-white transition-all">
@@ -204,15 +195,16 @@ const Page3R = () => {
 
         <div
           className="flex justify-center gap-4 sm:gap-8 lg:gap-16 mt-16 mb-32 px-4 sm:px-8 flex-wrap"
-          data-aos="fade-up"
-          data-aos-delay="400"
         >
           <div
             className="flex flex-col items-center cursor-pointer group"
+            data-aos="fade-up"
+            data-aos-delay="0"
+            data-aos-duration="800"
             onClick={() => {
               reuseHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
+                block: "start",
               });
             }}
           >
@@ -231,10 +223,13 @@ const Page3R = () => {
           </div>
           <div
             className="flex flex-col items-center cursor-pointer group"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="800"
             onClick={() => {
               reduceHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
+                block: "start",
               });
             }}
           >
@@ -253,10 +248,13 @@ const Page3R = () => {
           </div>
           <div
             className="flex flex-col items-center cursor-pointer group"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            data-aos-duration="800"
             onClick={() => {
               recycleHeaderRef.current?.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
+                block: "start",
               });
             }}
           >
@@ -290,7 +288,7 @@ const Page3R = () => {
               What Is <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">3R?</span>
             </h2>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-4 lg:mb-6 leading-relaxed"
+              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-4 lg:mb-6 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="100"
             >
@@ -300,7 +298,7 @@ const Page3R = () => {
               sustainability.
             </p>
             <p
-              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 leading-relaxed"
+              className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 leading-relaxed"
               data-aos="fade-right"
               data-aos-delay="200"
             >
@@ -365,7 +363,7 @@ const Page3R = () => {
 
                     {isOpen && (
                       <div className="px-3 sm:px-4 pb-4 sm:pb-5 animate-slideDown">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                        <p className="text-gray-500 dark:text-gray-200 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
                           {section.content}
                         </p>
                       </div>
@@ -464,7 +462,7 @@ const Page3R = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Protecting Tomorrow</span>
         </h2>
         <p
-          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
+          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -510,13 +508,7 @@ const Page3R = () => {
       <section id="reuse">
         <div className="mt-10 mx-2 sm:mx-4 dark:bg-base-200 bg-hero/5 p-6 sm:p-8 lg:p-12">
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 mt-8">
-            <img
-              src={shoes}
-              alt="Reuse shoes"
-              className="w-80 md:w-64 lg:w-[30rem] mb-0 lg:mb-10"
-              data-aos="fade-right"
-              data-aos-delay="100"
-            />
+
 
             <div className="flex flex-col items-start justify-center gap-4 max-w-lg text-left">
               {/* Today’s Relevance */}
@@ -702,7 +694,7 @@ const Page3R = () => {
                     >
                       {item.title}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                    <p className="text-sm text-gray-500 dark:text-gray-200 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -822,11 +814,7 @@ const Page3R = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
                           {/* Icon Badge */}
-                          <div className="absolute bottom-4 left-6">
-                            <div className="w-14 h-14 rounded-xl bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
-                              {item.icon}
-                            </div>
-                          </div>
+                     
                         </div>
                       </div>
 
@@ -874,7 +862,7 @@ const Page3R = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">Saving More</span>
         </h2>
         <p
-          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
+          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -1080,7 +1068,7 @@ const Page3R = () => {
                   >
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-500 dark:text-gray-200 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -1244,7 +1232,7 @@ const Page3R = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-hero">New Possibilities</span>
         </h2>
         <p
-          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-400 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
+          className="text-sm lg:text-[15px] text-justify text-gray-500 dark:text-gray-200 mb-6 lg:mb-8 max-w-2xl leading-relaxed"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -1441,7 +1429,7 @@ const Page3R = () => {
                     {item.title}
                   </h3>
 
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-500 dark:text-gray-200 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -1701,7 +1689,7 @@ const Page3R = () => {
                     <h3 className="text-lg lg:text-xl font-bold text-secondary dark:text-white mb-3 group-hover:text-primary dark:group-hover:text-hero transition-colors duration-300">
                       {innovation.title}
                     </h3>
-                    <p className="text-sm lg:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="text-sm lg:text-base text-gray-600 dark:text-gray-200 leading-relaxed">
                       {innovation.description}
                     </p>
                   </div>

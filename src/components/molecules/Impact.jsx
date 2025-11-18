@@ -22,7 +22,7 @@ const Impact = (props) => {
         "border border-slate-200/70 dark:border-slate-800",
         "bg-white/70 dark:bg-base-200 backdrop-blur-sm",
         "shadow-sm hover:shadow-xl transition-all duration-300",
-        "focus-within:ring-2 focus-within:ring-green-400/60 dark:focus-within:ring-green-300/40",
+        "focus-within:ring-2 focus-within:ring-primary/50 dark:focus-within:ring-green-300/40",
         className,
       ].join(" ")}
     >
@@ -61,10 +61,10 @@ const Impact = (props) => {
 
           <Wrapper
             {...wrapperProps}
-            className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-base-300 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60 dark:focus-visible:ring-green-300/40"
+            className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-slate-300/70 dark:border-slate-700 bg-white dark:bg-base-300 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60 dark:focus-visible:ring-green-300/40 group-hover:bg-primary dark:group-hover:bg-primary"
           >
-            <span className="absolute inset-0 scale-0 rounded-full bg-green-100 dark:bg-green-900/40 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
-            <MdOutlineArrowOutward className="relative z-10 text-[1.25rem] text-slate-800 dark:text-slate-100 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            {/* Remove green hover span, use only group-hover:bg-primary/10 on Wrapper */}
+            <MdOutlineArrowOutward className="relative z-10 text-[1.25rem] text-slate-800 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-black dark:text-white group-hover:text-white" />
           </Wrapper>
         </div>
       </div>

@@ -10,7 +10,7 @@
 
 html {
   scroll-padding-bottom: 18rem;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {

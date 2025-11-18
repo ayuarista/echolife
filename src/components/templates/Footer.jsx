@@ -12,7 +12,7 @@ const Footer = () => {
     "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition";
 
   return (
-    <footer className="mt-16 bg-slate-50 dark:bg-base-200 text-slate-800 dark:text-slate-100">
+    <footer className="mt-16 bg-primary/5 dark:bg-base-200 text-slate-800 dark:text-slate-100">
 
       <div className="mt-10 border-t border-slate-200 dark:border-slate-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
