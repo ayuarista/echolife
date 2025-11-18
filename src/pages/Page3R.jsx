@@ -1,3 +1,4 @@
+import shoes from "../assets/3R/shoes.png";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import reuses from "../assets/3R/reuse.png";
@@ -507,7 +508,14 @@ const Page3R = () => {
       {/* Reuse Section */}
       <section id="reuse">
         <div className="mt-10 mx-2 sm:mx-4 dark:bg-base-200 bg-hero/5 p-6 sm:p-8 lg:p-12">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 mt-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 mt-8">
+            <img
+              src={shoes}
+              alt="Reuse shoes"
+              className="w-80 md:w-64 lg:w-[30rem] mb-0 lg:mb-10"
+              data-aos="fade-right"
+              data-aos-delay="100"
+            />
 
 
             <div className="flex flex-col items-start justify-center gap-4 max-w-lg text-left">
