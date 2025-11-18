@@ -145,7 +145,7 @@ export default function Tracker() {
   return (
     <div className="pt-24 min-h-screen w-full bg-white text-slate-900 dark:bg-base dark:text-slate-100">
 
-      <section className="tracker-title-section mx-auto max-w-6xl px-4 pt-8 md:pt-12">
+      <section className="tracker-title-section mx-auto max-w-6xl px-4 pt-2 md:pt-4">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 md:p-6 bg-gradient-to-br from-slate-50 to-white dark:from-base-300 dark:to-base-300" data-aos="fade-up">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>

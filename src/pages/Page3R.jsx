@@ -182,13 +182,7 @@ const Page3R = () => {
           >
             <PiStarFour className="animate-spin rotate-90 text-hero dark:text-white text-2xl sm:text-3xl md:text-4xl lg:text-7xl" />
           </div>
-          <div
-            className="absolute right-4 bottom-64 z-30 pointer-events-none sm:hidden"
-            data-aos="zoom-in"
-            data-aos-delay="500"
-          >
-            <PiStarFour className="animate-spin rotate-90 text-3xl text-hero dark:text-white" />
-          </div>
+       
 
 
         </div>
@@ -924,7 +918,7 @@ const Page3R = () => {
               </div>
             </div>
 
-            {/* Benefits of Reuse */}
+       
             <div className="flex items-start gap-3 mb-12 -ml-0 lg:-ml-10">
               <span
                 className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1"
@@ -939,7 +933,7 @@ const Page3R = () => {
                   data-aos="fade-up"
                   data-aos-delay="100"
                 >
-                  Benefits of Recycle
+                  Benefits of Reduce
                 </h2>
                 <ul
                   className="space-y-0.5"
@@ -985,8 +979,6 @@ const Page3R = () => {
         </div>
       </div>
 
-
-      {/* How to Reduce Section */}
       <div className="py-12 lg:py-16 mx-4 sm:mx-8 lg:mx-12 rounded-3xl mt-8">
         <div className="text-center mb-8">
           <h2
@@ -1292,8 +1284,6 @@ const Page3R = () => {
                 </p>
               </div>
             </div>
-
-            {/* Benefits of Reuse */}
             <div className="flex items-start gap-3 mb-12 -ml-0 lg:-ml-10">
               <span
                 className="bg-hero p-2 rounded-lg text-black flex-shrink-0 mt-1"
